@@ -1,11 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query } from "@/lib/cloudflare";
 
 export async function GET(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-    const { searchParams } = await Promise.resolve(new URL(request.url));
+    const { searchParams } = new URL(request.url);
     const estado = searchParams.get("estado");
 
     let query = "SELECT * FROM publicaciones";
@@ -16,7 +14,7 @@ export async function GET(request: NextRequest) {
     }
     query += " ORDER BY creado_en DESC";
 
-    const result = await db.prepare(query).bind(...params).all();
+    const result = await d1Query(query, params);
     return NextResponse.json(result.results);
   } catch (error) {
     console.error(error);
@@ -26,8 +24,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
     const body = await request.json();
     const { titulo, resumen, contenido, imagen_portada, slug, estado, autor } = body;
 
@@ -37,9 +33,10 @@ export async function POST(request: NextRequest) {
 
     const slugFinal = slug || titulo.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 
-    const result = await db.prepare(
-      "INSERT INTO publicaciones (titulo, resumen, contenido, imagen_portada, slug, estado, autor) VALUES (?, ?, ?, ?, ?, ?, ?)"
-    ).bind(titulo, resumen ?? null, contenido, imagen_portada ?? null, slugFinal, estado ?? "borrador", autor ?? null).run();
+    const result = await d1Query(
+      "INSERT INTO publicaciones (titulo, resumen, contenido, imagen_portada, slug, estado, autor) VALUES (?, ?, ?, ?, ?, ?, ?)",
+      [titulo, resumen ?? null, contenido, imagen_portada ?? null, slugFinal, estado ?? "borrador", autor ?? null]
+    );
 
     return NextResponse.json({ id: result.meta.last_row_id }, { status: 201 });
   } catch (error) {

@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query } from "@/lib/cloudflare";
 
 export async function GET(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const url = new URL(request.url);
     const area = url.searchParams.get("area");
     const anio = url.searchParams.get("anio");
@@ -29,9 +26,7 @@ export async function GET(request: NextRequest) {
 
     query += " ORDER BY anio DESC, mes DESC, creado_en DESC";
 
-    const stmt = db.prepare(query);
-    const result = await stmt.bind(...bindings).all();
-
+    const result = await d1Query(query, bindings);
     return NextResponse.json(result.results);
   } catch (error) {
     console.error("GET /api/informes error:", error);
@@ -41,18 +36,12 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { titulo, descripcion, archivo_url, area, mes, anio } = body;
 
     if (!titulo || !archivo_url || !mes || !anio) {
       return NextResponse.json(
-        {
-          error:
-            "Los campos 'titulo', 'archivo_url', 'mes' y 'anio' son requeridos",
-        },
+        { error: "Los campos 'titulo', 'archivo_url', 'mes' y 'anio' son requeridos" },
         { status: 400 }
       );
     }
@@ -64,26 +53,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await db
-      .prepare(
-        `INSERT INTO informes (titulo, descripcion, archivo_url, area, mes, anio, activo, creado_en, actualizado_en)
-         VALUES (?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`
-      )
-      .bind(
-        titulo,
-        descripcion ?? null,
-        archivo_url,
-        area ?? null,
-        Number(mes),
-        Number(anio)
-      )
-      .run();
+    const result = await d1Query(
+      `INSERT INTO informes (titulo, descripcion, archivo_url, area, mes, anio, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [titulo, descripcion ?? null, archivo_url, area ?? null, Number(mes), Number(anio)]
+    );
 
     return NextResponse.json(
-      {
-        id: result.meta.last_row_id,
-        message: "Informe creado exitosamente",
-      },
+      { id: result.meta.last_row_id, message: "Informe creado exitosamente" },
       { status: 201 }
     );
   } catch (error) {

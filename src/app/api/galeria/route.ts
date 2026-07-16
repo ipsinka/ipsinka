@@ -1,18 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query } from "@/lib/cloudflare";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare(
-        "SELECT * FROM galeria WHERE activo = 1 ORDER BY creado_en DESC"
-      )
-      .all();
-
-    return NextResponse.json(result.results);
+    const data = await d1Query(
+      "SELECT * FROM galeria WHERE activo = 1 ORDER BY creado_en DESC"
+    );
+    return NextResponse.json(data.results);
   } catch (error) {
     console.error("GET /api/galeria error:", error);
     return NextResponse.json({ error: "Error interno" }, { status: 500 });
@@ -21,9 +15,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { titulo, descripcion, imagen_url, categoria } = body;
 
@@ -34,19 +25,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await db
-      .prepare(
-        `INSERT INTO galeria (titulo, descripcion, imagen_url, categoria, activo, creado_en, actualizado_en)
-         VALUES (?, ?, ?, ?, 1, datetime('now'), datetime('now'))`
-      )
-      .bind(titulo, descripcion ?? null, imagen_url, categoria ?? null)
-      .run();
+    const data = await d1Query(
+      `INSERT INTO galeria (titulo, descripcion, imagen_url, categoria, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [titulo, descripcion ?? null, imagen_url, categoria ?? null]
+    );
 
     return NextResponse.json(
-      {
-        id: result.meta.last_row_id,
-        message: "Imagen de galería creada exitosamente",
-      },
+      { id: data.meta.last_row_id, message: "Imagen de galería creada exitosamente" },
       { status: 201 }
     );
   } catch (error) {

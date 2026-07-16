@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query, d1First } from "@/lib/cloudflare";
 
 const ROLES_VALIDOS = ["admin", "editor", "visualizador"];
 
@@ -9,21 +9,13 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare(
-        "SELECT id, nombre, email, rol, activo, creado_en, ultimo_acceso FROM usuarios WHERE id = ? AND activo = 1"
-      )
-      .bind(id)
-      .first();
+    const result = await d1First(
+      "SELECT id, nombre, email, rol, activo, creado_en, ultimo_acceso FROM usuarios WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!result) {
-      return NextResponse.json(
-        { error: "Usuario no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Usuario no encontrado" }, { status: 404 });
     }
 
     return NextResponse.json(result);
@@ -39,22 +31,16 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { nombre, email, rol } = body;
 
-    const existing = await db
-      .prepare("SELECT id FROM usuarios WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM usuarios WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
-      return NextResponse.json(
-        { error: "Usuario no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Usuario no encontrado" }, { status: 404 });
     }
 
     if (rol && !ROLES_VALIDOS.includes(rol)) {
@@ -64,12 +50,10 @@ export async function PUT(
       );
     }
 
-    await db
-      .prepare(
-        `UPDATE usuarios SET nombre = ?, email = ?, rol = ? WHERE id = ?`
-      )
-      .bind(nombre ?? null, email ?? null, rol ?? "editor", id)
-      .run();
+    await d1Query(
+      "UPDATE usuarios SET nombre = ?, email = ?, rol = ? WHERE id = ?",
+      [nombre ?? null, email ?? null, rol ?? "editor", id]
+    );
 
     return NextResponse.json({ message: "Usuario actualizado exitosamente" });
   } catch (error) {
@@ -84,25 +68,17 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
 
-    const existing = await db
-      .prepare("SELECT id FROM usuarios WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM usuarios WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
-      return NextResponse.json(
-        { error: "Usuario no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Usuario no encontrado" }, { status: 404 });
     }
 
-    await db
-      .prepare("UPDATE usuarios SET activo = 0 WHERE id = ?")
-      .bind(id)
-      .run();
+    await d1Query("UPDATE usuarios SET activo = 0 WHERE id = ?", [id]);
 
     return NextResponse.json({ message: "Usuario eliminado exitosamente" });
   } catch (error) {

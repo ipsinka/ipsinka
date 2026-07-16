@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query, d1First } from "@/lib/cloudflare";
 
 export async function GET(
   request: NextRequest,
@@ -7,19 +7,13 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare("SELECT * FROM eventos WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const result = await d1First(
+      "SELECT * FROM eventos WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!result) {
-      return NextResponse.json(
-        { error: "Evento no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Evento no encontrado" }, { status: 404 });
     }
 
     return NextResponse.json(result);
@@ -35,41 +29,24 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
-    const { titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url } =
-      body;
+    const { titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url } = body;
 
-    const existing = await db
-      .prepare("SELECT id FROM eventos WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM eventos WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
-      return NextResponse.json(
-        { error: "Evento no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Evento no encontrado" }, { status: 404 });
     }
 
-    await db
-      .prepare(
-        `UPDATE eventos
-         SET titulo = ?, descripcion = ?, lugar = ?, fecha_inicio = ?, fecha_fin = ?, imagen_url = ?, actualizado_en = datetime('now')
-         WHERE id = ?`
-      )
-      .bind(
-        titulo ?? null,
-        descripcion ?? null,
-        lugar ?? null,
-        fecha_inicio ?? null,
-        fecha_fin ?? null,
-        imagen_url ?? null,
-        id
-      )
-      .run();
+    await d1Query(
+      `UPDATE eventos
+       SET titulo = ?, descripcion = ?, lugar = ?, fecha_inicio = ?, fecha_fin = ?, imagen_url = ?, actualizado_en = datetime('now')
+       WHERE id = ?`,
+      [titulo ?? null, descripcion ?? null, lugar ?? null, fecha_inicio ?? null, fecha_fin ?? null, imagen_url ?? null, id]
+    );
 
     return NextResponse.json({ message: "Evento actualizado exitosamente" });
   } catch (error) {
@@ -84,27 +61,20 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
 
-    const existing = await db
-      .prepare("SELECT id FROM eventos WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM eventos WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
-      return NextResponse.json(
-        { error: "Evento no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Evento no encontrado" }, { status: 404 });
     }
 
-    await db
-      .prepare(
-        "UPDATE eventos SET activo = 0, actualizado_en = datetime('now') WHERE id = ?"
-      )
-      .bind(id)
-      .run();
+    await d1Query(
+      "UPDATE eventos SET activo = 0, actualizado_en = datetime('now') WHERE id = ?",
+      [id]
+    );
 
     return NextResponse.json({ message: "Evento eliminado exitosamente" });
   } catch (error) {

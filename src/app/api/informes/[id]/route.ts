@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query, d1First } from "@/lib/cloudflare";
 
 export async function GET(
   request: NextRequest,
@@ -7,19 +7,13 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare("SELECT * FROM informes WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const result = await d1First(
+      "SELECT * FROM informes WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!result) {
-      return NextResponse.json(
-        { error: "Informe no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Informe no encontrado" }, { status: 404 });
     }
 
     return NextResponse.json(result);
@@ -35,22 +29,16 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { titulo, descripcion, archivo_url, area, mes, anio } = body;
 
-    const existing = await db
-      .prepare("SELECT id FROM informes WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM informes WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
-      return NextResponse.json(
-        { error: "Informe no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Informe no encontrado" }, { status: 404 });
     }
 
     if (mes != null && (Number(mes) < 1 || Number(mes) > 12)) {
@@ -60,22 +48,12 @@ export async function PUT(
       );
     }
 
-    await db
-      .prepare(
-        `UPDATE informes
-         SET titulo = ?, descripcion = ?, archivo_url = ?, area = ?, mes = ?, anio = ?, actualizado_en = datetime('now')
-         WHERE id = ?`
-      )
-      .bind(
-        titulo ?? null,
-        descripcion ?? null,
-        archivo_url ?? null,
-        area ?? null,
-        mes != null ? Number(mes) : null,
-        anio != null ? Number(anio) : null,
-        id
-      )
-      .run();
+    await d1Query(
+      `UPDATE informes
+       SET titulo = ?, descripcion = ?, archivo_url = ?, area = ?, mes = ?, anio = ?, actualizado_en = datetime('now')
+       WHERE id = ?`,
+      [titulo ?? null, descripcion ?? null, archivo_url ?? null, area ?? null, mes != null ? Number(mes) : null, anio != null ? Number(anio) : null, id]
+    );
 
     return NextResponse.json({ message: "Informe actualizado exitosamente" });
   } catch (error) {
@@ -90,27 +68,20 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
 
-    const existing = await db
-      .prepare("SELECT id FROM informes WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM informes WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
-      return NextResponse.json(
-        { error: "Informe no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Informe no encontrado" }, { status: 404 });
     }
 
-    await db
-      .prepare(
-        "UPDATE informes SET activo = 0, actualizado_en = datetime('now') WHERE id = ?"
-      )
-      .bind(id)
-      .run();
+    await d1Query(
+      "UPDATE informes SET activo = 0, actualizado_en = datetime('now') WHERE id = ?",
+      [id]
+    );
 
     return NextResponse.json({ message: "Informe eliminado exitosamente" });
   } catch (error) {

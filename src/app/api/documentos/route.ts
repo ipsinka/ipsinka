@@ -1,15 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query } from "@/lib/cloudflare";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<Record<string, string>> }
-) {
+export async function GET(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    // searchParams se obtiene desde la URL de la request en Route Handlers
     const url = new URL(request.url);
     const categoria = url.searchParams.get("categoria");
     const anio = url.searchParams.get("anio");
@@ -21,7 +14,6 @@ export async function GET(
       query += " AND categoria = ?";
       bindings.push(categoria);
     }
-
     if (anio) {
       query += " AND anio = ?";
       bindings.push(Number(anio));
@@ -29,9 +21,7 @@ export async function GET(
 
     query += " ORDER BY creado_en DESC";
 
-    const stmt = db.prepare(query);
-    const result = await stmt.bind(...bindings).all();
-
+    const result = await d1Query(query, bindings);
     return NextResponse.json(result.results);
   } catch (error) {
     console.error("GET /api/documentos error:", error);
@@ -41,9 +31,6 @@ export async function GET(
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { nombre, descripcion, archivo_url, categoria, anio } = body;
 
@@ -54,25 +41,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await db
-      .prepare(
-        `INSERT INTO documentos (nombre, descripcion, archivo_url, categoria, anio, activo, creado_en, actualizado_en)
-         VALUES (?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`
-      )
-      .bind(
-        nombre,
-        descripcion ?? null,
-        archivo_url,
-        categoria ?? null,
-        anio ?? null
-      )
-      .run();
+    const result = await d1Query(
+      `INSERT INTO documentos (nombre, descripcion, archivo_url, categoria, anio, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [nombre, descripcion ?? null, archivo_url, categoria ?? null, anio ?? null]
+    );
 
     return NextResponse.json(
-      {
-        id: result.meta.last_row_id,
-        message: "Documento creado exitosamente",
-      },
+      { id: result.meta.last_row_id, message: "Documento creado exitosamente" },
       { status: 201 }
     );
   } catch (error) {

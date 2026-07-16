@@ -1,17 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query } from "@/lib/cloudflare";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare(
-        "SELECT * FROM servicios WHERE activo = 1 ORDER BY orden ASC"
-      )
-      .all();
-
+    const result = await d1Query(
+      "SELECT * FROM servicios WHERE activo = 1 ORDER BY orden ASC"
+    );
     return NextResponse.json(result.results);
   } catch (error) {
     console.error("GET /api/servicios error:", error);
@@ -21,9 +15,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { nombre, descripcion, imagen_url, icono, orden } = body;
 
@@ -34,25 +25,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await db
-      .prepare(
-        `INSERT INTO servicios (nombre, descripcion, imagen_url, icono, orden, activo, creado_en, actualizado_en)
-         VALUES (?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`
-      )
-      .bind(
-        nombre,
-        descripcion ?? null,
-        imagen_url ?? null,
-        icono ?? null,
-        orden ?? 0
-      )
-      .run();
+    const result = await d1Query(
+      `INSERT INTO servicios (nombre, descripcion, imagen_url, icono, orden, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [nombre, descripcion ?? null, imagen_url ?? null, icono ?? null, orden ?? 0]
+    );
 
     return NextResponse.json(
-      {
-        id: result.meta.last_row_id,
-        message: "Servicio creado exitosamente",
-      },
+      { id: result.meta.last_row_id, message: "Servicio creado exitosamente" },
       { status: 201 }
     );
   } catch (error) {

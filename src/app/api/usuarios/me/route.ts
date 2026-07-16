@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1First } from "@/lib/cloudflare";
 
 export async function GET(request: NextRequest) {
   const email = request.nextUrl.searchParams.get("email");
@@ -8,12 +8,10 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const { env } = await getCloudflareContext();
-    const row = await env.DB.prepare(
-      "SELECT rol FROM usuarios WHERE email = ? AND activo = 1 LIMIT 1"
-    )
-      .bind(email)
-      .first<{ rol: string }>();
+    const row = await d1First<{ rol: string }>(
+      "SELECT rol FROM usuarios WHERE email = ? AND activo = 1 LIMIT 1",
+      [email]
+    );
 
     if (!row) {
       return NextResponse.json({ rol: null }, { status: 404 });

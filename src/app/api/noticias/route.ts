@@ -1,17 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query, d1First } from "@/lib/cloudflare";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare(
-        "SELECT * FROM noticias WHERE activo = 1 ORDER BY creado_en DESC"
-      )
-      .all();
-
+    const result = await d1Query(
+      "SELECT * FROM noticias WHERE activo = 1 ORDER BY creado_en DESC"
+    );
     return NextResponse.json(result.results);
   } catch (error) {
     console.error("GET /api/noticias error:", error);
@@ -21,12 +15,8 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
-    const { titulo, descripcion, contenido, imagen_url, tipo, fecha_evento } =
-      body;
+    const { titulo, descripcion, contenido, imagen_url, tipo, fecha_evento } = body;
 
     if (!titulo) {
       return NextResponse.json(
@@ -35,20 +25,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await db
-      .prepare(
-        `INSERT INTO noticias (titulo, descripcion, contenido, imagen_url, tipo, fecha_evento, activo, creado_en, actualizado_en)
-         VALUES (?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`
-      )
-      .bind(
-        titulo,
-        descripcion ?? null,
-        contenido ?? null,
-        imagen_url ?? null,
-        tipo ?? null,
-        fecha_evento ?? null
-      )
-      .run();
+    const result = await d1Query(
+      `INSERT INTO noticias (titulo, descripcion, contenido, imagen_url, tipo, fecha_evento, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [titulo, descripcion ?? null, contenido ?? null, imagen_url ?? null, tipo ?? null, fecha_evento ?? null]
+    );
 
     return NextResponse.json(
       { id: result.meta.last_row_id, message: "Noticia creada exitosamente" },

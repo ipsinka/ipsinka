@@ -1,19 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query, d1First } from "@/lib/cloudflare";
 
 const ROLES_VALIDOS = ["admin", "editor", "visualizador"];
 
 export async function GET() {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare(
-        "SELECT id, nombre, email, rol, activo, creado_en, ultimo_acceso FROM usuarios WHERE activo = 1 ORDER BY creado_en DESC"
-      )
-      .all();
-
+    const result = await d1Query(
+      "SELECT id, nombre, email, rol, activo, creado_en, ultimo_acceso FROM usuarios WHERE activo = 1 ORDER BY creado_en DESC"
+    );
     return NextResponse.json(result.results);
   } catch (error) {
     console.error("GET /api/usuarios error:", error);
@@ -23,9 +17,6 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { nombre, email, rol } = body;
 
@@ -43,10 +34,10 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const existing = await db
-      .prepare("SELECT id FROM usuarios WHERE email = ?")
-      .bind(email)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM usuarios WHERE email = ?",
+      [email]
+    );
 
     if (existing) {
       return NextResponse.json(
@@ -55,19 +46,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await db
-      .prepare(
-        `INSERT INTO usuarios (nombre, email, rol, activo, creado_en)
-         VALUES (?, ?, ?, 1, datetime('now'))`
-      )
-      .bind(nombre, email, rol ?? "editor")
-      .run();
+    const result = await d1Query(
+      `INSERT INTO usuarios (nombre, email, rol, activo, creado_en)
+       VALUES (?, ?, ?, 1, datetime('now'))`,
+      [nombre, email, rol ?? "editor"]
+    );
 
     return NextResponse.json(
-      {
-        id: result.meta.last_row_id,
-        message: "Usuario creado exitosamente",
-      },
+      { id: result.meta.last_row_id, message: "Usuario creado exitosamente" },
       { status: 201 }
     );
   } catch (error) {

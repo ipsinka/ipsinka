@@ -1,11 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query } from "@/lib/cloudflare";
 
 export async function GET(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const url = new URL(request.url);
     const desde = url.searchParams.get("desde");
     const hasta = url.searchParams.get("hasta");
@@ -24,9 +21,7 @@ export async function GET(request: NextRequest) {
 
     query += " ORDER BY fecha_inicio ASC";
 
-    const stmt = db.prepare(query);
-    const result = await stmt.bind(...bindings).all();
-
+    const result = await d1Query(query, bindings);
     return NextResponse.json(result.results);
   } catch (error) {
     console.error("GET /api/eventos error:", error);
@@ -36,12 +31,8 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
-    const { titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url } =
-      body;
+    const { titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url } = body;
 
     if (!titulo || !fecha_inicio) {
       return NextResponse.json(
@@ -50,26 +41,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await db
-      .prepare(
-        `INSERT INTO eventos (titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url, activo, creado_en, actualizado_en)
-         VALUES (?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`
-      )
-      .bind(
-        titulo,
-        descripcion ?? null,
-        lugar ?? null,
-        fecha_inicio,
-        fecha_fin ?? null,
-        imagen_url ?? null
-      )
-      .run();
+    const result = await d1Query(
+      `INSERT INTO eventos (titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [titulo, descripcion ?? null, lugar ?? null, fecha_inicio, fecha_fin ?? null, imagen_url ?? null]
+    );
 
     return NextResponse.json(
-      {
-        id: result.meta.last_row_id,
-        message: "Evento creado exitosamente",
-      },
+      { id: result.meta.last_row_id, message: "Evento creado exitosamente" },
       { status: 201 }
     );
   } catch (error) {

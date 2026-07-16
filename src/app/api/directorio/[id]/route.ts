@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query, d1First } from "@/lib/cloudflare";
 
 export async function GET(
   request: NextRequest,
@@ -7,13 +7,10 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare("SELECT * FROM directorio WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const result = await d1First(
+      "SELECT * FROM directorio WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!result) {
       return NextResponse.json(
@@ -35,16 +32,13 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { nombre, cargo, area, telefono, email, foto_url, orden } = body;
 
-    const existing = await db
-      .prepare("SELECT id FROM directorio WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM directorio WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
       return NextResponse.json(
@@ -53,27 +47,14 @@ export async function PUT(
       );
     }
 
-    await db
-      .prepare(
-        `UPDATE directorio
-         SET nombre = ?, cargo = ?, area = ?, telefono = ?, email = ?, foto_url = ?, orden = ?, actualizado_en = datetime('now')
-         WHERE id = ?`
-      )
-      .bind(
-        nombre ?? null,
-        cargo ?? null,
-        area ?? null,
-        telefono ?? null,
-        email ?? null,
-        foto_url ?? null,
-        orden ?? null,
-        id
-      )
-      .run();
+    await d1Query(
+      `UPDATE directorio
+       SET nombre = ?, cargo = ?, area = ?, telefono = ?, email = ?, foto_url = ?, orden = ?, actualizado_en = datetime('now')
+       WHERE id = ?`,
+      [nombre ?? null, cargo ?? null, area ?? null, telefono ?? null, email ?? null, foto_url ?? null, orden ?? null, id]
+    );
 
-    return NextResponse.json({
-      message: "Entrada de directorio actualizada exitosamente",
-    });
+    return NextResponse.json({ message: "Entrada de directorio actualizada exitosamente" });
   } catch (error) {
     console.error("PUT /api/directorio/[id] error:", error);
     return NextResponse.json({ error: "Error interno" }, { status: 500 });
@@ -86,13 +67,11 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
 
-    const existing = await db
-      .prepare("SELECT id FROM directorio WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM directorio WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
       return NextResponse.json(
@@ -101,16 +80,12 @@ export async function DELETE(
       );
     }
 
-    await db
-      .prepare(
-        "UPDATE directorio SET activo = 0, actualizado_en = datetime('now') WHERE id = ?"
-      )
-      .bind(id)
-      .run();
+    await d1Query(
+      "UPDATE directorio SET activo = 0, actualizado_en = datetime('now') WHERE id = ?",
+      [id]
+    );
 
-    return NextResponse.json({
-      message: "Entrada de directorio eliminada exitosamente",
-    });
+    return NextResponse.json({ message: "Entrada de directorio eliminada exitosamente" });
   } catch (error) {
     console.error("DELETE /api/directorio/[id] error:", error);
     return NextResponse.json({ error: "Error interno" }, { status: 500 });

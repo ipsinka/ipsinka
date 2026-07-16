@@ -1,17 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query } from "@/lib/cloudflare";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare(
-        "SELECT * FROM directorio WHERE activo = 1 ORDER BY orden ASC"
-      )
-      .all();
-
+    const result = await d1Query(
+      "SELECT * FROM directorio WHERE activo = 1 ORDER BY orden ASC"
+    );
     return NextResponse.json(result.results);
   } catch (error) {
     console.error("GET /api/directorio error:", error);
@@ -21,9 +15,6 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { nombre, cargo, area, telefono, email, foto_url, orden } = body;
 
@@ -34,27 +25,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await db
-      .prepare(
-        `INSERT INTO directorio (nombre, cargo, area, telefono, email, foto_url, orden, activo, creado_en, actualizado_en)
-         VALUES (?, ?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`
-      )
-      .bind(
-        nombre,
-        cargo ?? null,
-        area ?? null,
-        telefono ?? null,
-        email ?? null,
-        foto_url ?? null,
-        orden ?? 0
-      )
-      .run();
+    const result = await d1Query(
+      `INSERT INTO directorio (nombre, cargo, area, telefono, email, foto_url, orden, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [nombre, cargo ?? null, area ?? null, telefono ?? null, email ?? null, foto_url ?? null, orden ?? 0]
+    );
 
     return NextResponse.json(
-      {
-        id: result.meta.last_row_id,
-        message: "Entrada de directorio creada exitosamente",
-      },
+      { id: result.meta.last_row_id, message: "Entrada de directorio creada exitosamente" },
       { status: 201 }
     );
   } catch (error) {

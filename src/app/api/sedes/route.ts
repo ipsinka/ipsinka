@@ -1,15 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query } from "@/lib/cloudflare";
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare("SELECT * FROM sedes WHERE activo = 1 ORDER BY nombre ASC")
-      .all();
-
+    const result = await d1Query(
+      "SELECT * FROM sedes WHERE activo = 1 ORDER BY nombre ASC"
+    );
     return NextResponse.json(result.results);
   } catch (error) {
     console.error("GET /api/sedes error:", error);
@@ -19,22 +15,8 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
-    const {
-      nombre,
-      direccion,
-      municipio,
-      departamento,
-      telefono,
-      email,
-      horario,
-      latitud,
-      longitud,
-      imagen_url,
-    } = body;
+    const { nombre, direccion, municipio, departamento, telefono, email, horario, latitud, longitud, imagen_url } = body;
 
     if (!nombre || !direccion) {
       return NextResponse.json(
@@ -43,30 +25,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const result = await db
-      .prepare(
-        `INSERT INTO sedes (nombre, direccion, municipio, departamento, telefono, email, horario, latitud, longitud, imagen_url, activo, creado_en, actualizado_en)
-         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`
-      )
-      .bind(
-        nombre,
-        direccion,
-        municipio ?? null,
-        departamento ?? null,
-        telefono ?? null,
-        email ?? null,
-        horario ?? null,
-        latitud ?? null,
-        longitud ?? null,
-        imagen_url ?? null
-      )
-      .run();
+    const result = await d1Query(
+      `INSERT INTO sedes (nombre, direccion, municipio, departamento, telefono, email, horario, latitud, longitud, imagen_url, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [nombre, direccion, municipio ?? null, departamento ?? null, telefono ?? null, email ?? null, horario ?? null, latitud ?? null, longitud ?? null, imagen_url ?? null]
+    );
 
     return NextResponse.json(
-      {
-        id: result.meta.last_row_id,
-        message: "Sede creada exitosamente",
-      },
+      { id: result.meta.last_row_id, message: "Sede creada exitosamente" },
       { status: 201 }
     );
   } catch (error) {

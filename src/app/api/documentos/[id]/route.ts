@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
+import { d1Query, d1First } from "@/lib/cloudflare";
 
 export async function GET(
   request: NextRequest,
@@ -7,19 +7,13 @@ export async function GET(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
-    const result = await db
-      .prepare("SELECT * FROM documentos WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const result = await d1First(
+      "SELECT * FROM documentos WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!result) {
-      return NextResponse.json(
-        { error: "Documento no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Documento no encontrado" }, { status: 404 });
     }
 
     return NextResponse.json(result);
@@ -35,39 +29,24 @@ export async function PUT(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
-
     const body = await request.json();
     const { nombre, descripcion, archivo_url, categoria, anio } = body;
 
-    const existing = await db
-      .prepare("SELECT id FROM documentos WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM documentos WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
-      return NextResponse.json(
-        { error: "Documento no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Documento no encontrado" }, { status: 404 });
     }
 
-    await db
-      .prepare(
-        `UPDATE documentos
-         SET nombre = ?, descripcion = ?, archivo_url = ?, categoria = ?, anio = ?, actualizado_en = datetime('now')
-         WHERE id = ?`
-      )
-      .bind(
-        nombre ?? null,
-        descripcion ?? null,
-        archivo_url ?? null,
-        categoria ?? null,
-        anio ?? null,
-        id
-      )
-      .run();
+    await d1Query(
+      `UPDATE documentos
+       SET nombre = ?, descripcion = ?, archivo_url = ?, categoria = ?, anio = ?, actualizado_en = datetime('now')
+       WHERE id = ?`,
+      [nombre ?? null, descripcion ?? null, archivo_url ?? null, categoria ?? null, anio ?? null, id]
+    );
 
     return NextResponse.json({ message: "Documento actualizado exitosamente" });
   } catch (error) {
@@ -82,27 +61,20 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    const { env } = await getCloudflareContext();
-    const db = env.DB;
 
-    const existing = await db
-      .prepare("SELECT id FROM documentos WHERE id = ? AND activo = 1")
-      .bind(id)
-      .first();
+    const existing = await d1First(
+      "SELECT id FROM documentos WHERE id = ? AND activo = 1",
+      [id]
+    );
 
     if (!existing) {
-      return NextResponse.json(
-        { error: "Documento no encontrado" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Documento no encontrado" }, { status: 404 });
     }
 
-    await db
-      .prepare(
-        "UPDATE documentos SET activo = 0, actualizado_en = datetime('now') WHERE id = ?"
-      )
-      .bind(id)
-      .run();
+    await d1Query(
+      "UPDATE documentos SET activo = 0, actualizado_en = datetime('now') WHERE id = ?",
+      [id]
+    );
 
     return NextResponse.json({ message: "Documento eliminado exitosamente" });
   } catch (error) {
