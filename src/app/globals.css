@@ -1,0 +1,447 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Ocultar banner de desarrollo de Clerk */
+[data-clerk-development-banner],
+.__clerk_development_banner {
+  display: none !important;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* background-color: #f9fafb; */
+  background-color: transparent;
+}
+
+html,
+body {
+  /* margin: 32px 0 0 0; */
+  padding: 0;
+  overflow-x: hidden;
+  font-family: "Lato", sans-serif;
+}
+
+body {
+  background-color: transparent !important;
+}
+
+.dark html {
+  background-color: #111827;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 142.1 76.2% 36.3%; /* Verde para modo claro */
+    --primary-foreground: 355.7 100% 97.3%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 142.1 76.2% 36.3%;
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 0 0% 95%;
+
+    --card: 24 9.8% 10%;
+    --card-foreground: 0 0% 95%;
+
+    --popover: 0 0% 9%;
+    --popover-foreground: 0 0% 95%;
+
+    --primary: 142.1 70.6% 45.3%; /* Verde más brillante para modo oscuro */
+    --primary-foreground: 144.9 80.4% 10%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 0 0% 15%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 142.4 71.8% 29.2%;
+  }
+}
+
+@layer base {
+  /* Estilos base para el modo oscuro */
+  .dark {
+    color-scheme: dark;
+  }
+
+  .dark body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  /* Transiciones suaves para cambios de tema */
+  body * {
+    @apply transition-colors duration-200;
+  }
+
+  /* Estilos específicos para componentes en modo oscuro */
+  .dark .card,
+  .dark .navbar,
+  .dark .footer {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border-color: hsl(var(--border));
+  }
+
+  /* Ajustes para elementos interactivos en modo oscuro */
+  .dark button:not(.primary),
+  .dark .button:not(.primary) {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+  }
+
+  .dark .primary-button,
+  .dark .primary-link {
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+  }
+
+  /* Ajustes para texto y bordes en modo oscuro */
+  .dark h1,
+  .dark h2,
+  .dark h3,
+  .dark h4 {
+    color: hsl(var(--foreground));
+  }
+
+  .dark .border,
+  .dark .divider {
+    border-color: hsl(var(--border));
+  }
+
+  /* Ajustes para inputs y formularios en modo oscuro.
+     Solo aplica a inputs "sin estilar" (sin clases de Tailwind que
+     controlen su color). Los formularios que gestionan su propio tema
+     con variantes dark:* (p. ej. el panel admin) quedan excluidos para
+     evitar que esta regla los pinte de negro de forma inconsistente. */
+  .dark input:not([class*="bg-"]):not([class*="dark:bg-"]),
+  .dark textarea:not([class*="bg-"]):not([class*="dark:bg-"]),
+  .dark select:not([class*="bg-"]):not([class*="dark:bg-"]) {
+    background-color: hsl(var(--input));
+    color: hsl(var(--foreground));
+    border-color: hsl(var(--border));
+  }
+}
+
+/* Hacer fondos semi-transparentes para ver la marca de agua - SOLO EN MODO CLARO */
+@layer components {
+  /* Aplicar transparencia solo cuando NO está en modo oscuro */
+  :not(.dark) .bg-white {
+    /* background-color: rgba(255, 255, 255, 0.7) !important; */
+  }
+
+  /* Fondos grises con transparencia */
+  :not(.dark) .bg-gray-50 {
+    /* background-color: rgba(249, 250, 251, 0.7) !important; */
+  }
+
+  :not(.dark) .bg-gray-100 {
+    /* background-color: rgba(243, 244, 246, 0.7) !important; */
+  }
+
+  :not(.dark) .bg-gray-200 {
+    /* background-color: rgba(229, 231, 235, 0.7) !important; */
+  }
+
+  /* Fondos de colores con transparencia */
+  :not(.dark) .bg-blue-50 {
+    /* background-color: rgba(239, 246, 255, 0.7) !important; */
+  }
+
+  :not(.dark) .bg-green-50 {
+    /* background-color: rgba(240, 253, 244, 0.7) !important; */
+  }
+
+  :not(.dark) .bg-yellow-50 {
+    /* background-color: rgba(254, 252, 232, 0.7) !important; */
+  }
+
+  :not(.dark) .bg-purple-50 {
+    /* background-color: rgba(250, 245, 255, 0.7) !important; */
+  }
+
+  :not(.dark) .bg-red-50 {
+    /* background-color: rgba(254, 242, 242, 0.7) !important; */
+  }
+
+  /* Fondos de colores 100 */
+  :not(.dark) .bg-blue-100 {
+    /* background-color: rgba(219, 234, 254, 0.7) !important; */
+  }
+
+  :not(.dark) .bg-green-100 {
+    /* background-color: rgba(220, 252, 231, 0.7) !important; */
+  }
+
+  :not(.dark) .bg-purple-100 {
+    /* background-color: rgba(243, 232, 255, 0.7) !important; */
+  }
+
+  /* Fondos específicos de gradientes de colores */
+  :not(.dark) .from-blue-50 {
+    --tw-gradient-from: rgba(239, 246, 255, 0.7) !important;
+  }
+
+  :not(.dark) .to-blue-100 {
+    --tw-gradient-to: rgba(219, 234, 254, 0.7) !important;
+  }
+
+  :not(.dark) .from-green-50 {
+    --tw-gradient-from: rgba(240, 253, 244, 0.7) !important;
+  }
+
+  :not(.dark) .to-green-100 {
+    --tw-gradient-to: rgba(220, 252, 231, 0.7) !important;
+  }
+
+  :not(.dark) .from-purple-50 {
+    --tw-gradient-from: rgba(250, 245, 255, 0.7) !important;
+  }
+
+  :not(.dark) .to-purple-100 {
+    --tw-gradient-to: rgba(243, 232, 255, 0.7) !important;
+  }
+
+  /* Hacer los gradientes semi-transparentes SOLO EN MODO CLARO */
+  :not(.dark) section[class*="bg-gradient"] {
+    position: relative;
+  }
+
+  :not(.dark) section[class*="bg-gradient"]::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    opacity: 0.8;
+    z-index: -1;
+  }
+
+  /* Elementos con gradientes específicos */
+  :not(.dark) .bg-gradient-to-r {
+    position: relative;
+  }
+
+  :not(.dark) .bg-gradient-to-br {
+    position: relative;
+  }
+}
+
+/* Estilos de accesibilidad */
+/* Mejorar el focus visible para navegación por teclado */
+*:focus-visible {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+/* Asegurar que los links tengan buen contraste */
+a:focus-visible {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+/* Mejorar visibilidad de elementos interactivos */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #4a90e2;
+  outline-offset: 2px;
+}
+
+/* Asegurar que el texto sea legible para lectores de pantalla */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Marca de agua - patrón repetitivo */
+.watermark-pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+}
+
+.watermark {
+  width: 280px;
+  height: 280px;
+  opacity: 0.35;
+  transform: rotate(-45deg);
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Tablets y Desktop - horizontal */
+@media (min-width: 768px) {
+  .watermark-pattern {
+    flex-direction: row;
+    gap: 150px;
+  }
+
+  .watermark {
+    width: 350px;
+    height: 350px;
+    opacity: 0.4;
+  }
+}
+
+/* Desktop grande - más visible y más grande */
+@media (min-width: 1024px) {
+  .watermark-pattern {
+    gap: 200px;
+  }
+
+  .watermark {
+    width: 400px;
+    height: 400px;
+    opacity: 0.45;
+  }
+}
+
+/* Asegurar que el contenido esté por encima de la marca de agua */
+.watermark-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ocultar marca de agua en modo oscuro */
+.dark .watermark-pattern {
+  display: none;
+}
+
+/* ============================================
+   Hover-zoom en imágenes del área pública.
+   Solo en pantallas >1024px. Se excluyen el navbar,
+   el footer, los indicadores/controles y las imágenes
+   de presentación marcadas con .no-hover-zoom.
+   El área pública vive dentro de .watermark-container,
+   así que el panel admin (fuera de ese contenedor)
+   queda automáticamente excluido.
+   ============================================ */
+@media (min-width: 1025px) {
+  .watermark-container img:not(nav img):not(footer img):not(.no-hover-zoom):not(.no-hover-zoom img) {
+    transition: transform 0.35s ease;
+  }
+
+  .watermark-container
+    img:not(nav img):not(footer img):not(.no-hover-zoom):not(.no-hover-zoom img):hover {
+    transform: scale(1.08);
+  }
+}
+
+/* ============================================
+   Día del calendario con eventos: borde verde
+   principal con animación de pulsaciones
+   ============================================ */
+.dia-con-eventos {
+  border-color: #2f8132 !important;
+  animation: pulso-eventos 1.6s ease-in-out infinite;
+}
+
+@keyframes pulso-eventos {
+  0% {
+    box-shadow: 0 0 0 0 rgba(47, 129, 50, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(47, 129, 50, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(47, 129, 50, 0);
+  }
+}
+
+/* Respetar la preferencia de menos movimiento: mantener el
+   borde verde pero sin la animación de pulso */
+@media (prefers-reduced-motion: reduce) {
+  .dia-con-eventos {
+    animation: none;
+  }
+}
+
+/* ============================================
+   Botón de maximizar (galería): pulsaciones para
+   indicar al usuario que puede tocarlo.
+   ============================================ */
+.boton-maximizar-pulso {
+  animation: pulso-maximizar 1.8s ease-in-out infinite;
+}
+
+@keyframes pulso-maximizar {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.6);
+    transform: translate(-50%, -50%) scale(1);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgba(255, 255, 255, 0);
+    transform: translate(-50%, -50%) scale(1.06);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boton-maximizar-pulso {
+    animation: none;
+  }
+}

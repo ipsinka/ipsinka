@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "inga",
+  "compatibility_date": "2026-04-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": ".open-next/worker.js",
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  "observability": {
+    "enabled": true
+  },
+  "vars": {
+    "NEXT_PUBLIC_ADMIN_EMAIL": "ipsingakamentsa@gmail.com",
+    "NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY": "pk_test_am9pbnQtYWlyZWRhbGUtMTEuY2xlcmsuYWNjb3VudHMuZGV2JA",
+    "NEXT_PUBLIC_CLERK_SIGN_IN_URL": "/admin/sign-in",
+    "NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL": "/admin"
+  },
+  "r2_buckets": [
+    {
+      "binding": "STORAGE",
+      "bucket_name": "inga-storage"
+    }
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "inga-db",
+      "database_id": "d0958fa9-4236-4957-8783-91fb4540631c"
+    }
+  ]
+}

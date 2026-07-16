@@ -1,0 +1,31 @@
+# robots.txt para IPS Inga Kamentsá
+# https://ipsinka.com
+
+User-agent: *
+Allow: /
+
+# Archivos y directorios específicos
+Disallow: /api/
+Disallow: /_next/
+Disallow: /private/
+
+# Archivos estáticos
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+Allow: /*.ico
+
+# Sitemap
+Sitemap: https://ipsinka.com/sitemap.xml
+
+# Crawl-delay para bots específicos
+User-agent: Googlebot
+Crawl-delay: 0
+
+User-agent: Bingbot
+Crawl-delay: 1

@@ -1,0 +1,101 @@
+// .navbar {
+//     background-color: #0F172A;
+//     backdrop-filter: blur(1px);
+// }
+.navbar {
+  position: fixed;
+  top: 0;
+  z-index: 50;
+
+  width: 100%;
+
+  /* Blur notorio y un poco de saturación para efecto "glass" */
+  -webkit-backdrop-filter: saturate(140%) blur(8px);
+  backdrop-filter: saturate(140%) blur(8px);
+
+  border-bottom: 1px solid rgba(64, 151, 44, 0.9);
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
+
+  /* Estilos para dark mode */
+  :global(.dark) & {
+    border-bottom: 1px solid rgba(142, 198, 132, 0.5);
+    background-color: rgba(15, 23, 42, 0.7);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Fallback si el navegador no soporta backdrop-filter (Firefox sin flag) */
+@supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  .navbar {
+    background-color: rgba(255, 255, 255, 0.95);
+
+    :global(.dark) & {
+      background-color: rgba(15, 23, 42, 0.95);
+    }
+  } /* sólido sin blur */
+}
+
+.links {
+  @media (width > 320px) {
+    & a {
+      color: #fff;
+    }
+  }
+
+  @media (width > 768px) {
+    & a {
+      font-size: 1.07rem;
+    }
+  }
+
+  @media (width > 1024px) {
+    & a {
+      transition: 0.25s ease-in all;
+
+      &:hover {
+        text-decoration: underline;
+        transition: 0.25s ease-in all;
+      }
+    }
+  }
+}
+
+/* Menú móvil con el mismo efecto glass que el navbar */
+.mobileMenu {
+  /* Fondo semi-transparente para que se vea el blur */
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: 1rem;
+  transition: all 0.3s ease-in-out;
+
+  /* Estilos para dark mode */
+  :global(.dark) & {
+    background-color: rgba(30, 41, 59, 0.95);
+  }
+}
+
+.mobileLink {
+  :global(.dark) & {
+    color: #e2e8f0;
+
+    &:hover {
+      color: #8ec684;
+    }
+  }
+}
+
+.themeSwitcher {
+  @media screen and (min-width: 320px) and (max-width: 767px) {
+    position: absolute;
+
+    top: 70px;
+  }
+
+  @media screen and (min-width: 768px) {
+    left: 300px;
+  }
+
+  display: flex;
+  align-items: center;
+}

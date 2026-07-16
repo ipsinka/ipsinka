@@ -1,0 +1,142 @@
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flex-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin dark_button {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+@mixin celeste_button {
+  background-color: rgba(48, 100, 204, 0.9);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+@mixin fondo_claro {
+  padding: 10px;
+
+  width: auto;
+
+  border: 1px solid #fff;
+
+  background-color: #fff;
+  color: #000;
+}
+
+@mixin fondo_dark {
+  padding: 5px;
+
+  width: calc(100% - 10px);
+  // height: auto;
+
+  border: 1px solid #000;
+  border-radius: 10px;
+
+  background-color: #000;
+  color: #fff;
+}
+
+@mixin shadow_light {
+  // border: 1px solid #818080;
+  background-color: #bababa;
+  box-shadow: 5px 5px 10px #baba;
+}
+
+@mixin shadowRight {
+  border-bottom-right-radius: 20px;
+  border: 1px solid #baba;
+  box-shadow: 5px 5px 10px #baba;
+  border-top: none;
+  border-left: none;
+}
+@mixin shadowLeft {
+  border-bottom-left-radius: 50px;
+  border: 1px solid #baba;
+  box-shadow: -5px 5px 10px #baba;
+  border-top: none;
+}
+
+@mixin border {
+  border: 1px solid #bababa;
+  border-radius: 20px;
+}
+
+@mixin border_dark {
+  border: 1px solid #000;
+  border-radius: 20px;
+}
+
+@mixin border_gray {
+  border: 1px solid #bababa;
+  border-radius: 20px;
+}
+
+@mixin border_white {
+  // padding: 10px;
+  border: 1px solid #bababa;
+  border-radius: 20px;
+  // background-color: #fff;
+}
+
+@mixin header_h1 {
+  @include border_dark();
+
+  margin: 0 auto;
+
+  text-align: center;
+  font-size: 1.3rem;
+
+  background-color: #000;
+
+  color: #fff;
+}
+
+@mixin header_h2 {
+  @include border_dark();
+
+  margin: 0 auto;
+
+  text-align: center;
+  font-size: 1.1rem;
+
+  background-color: #000;
+
+  color: #fff;
+}
+
+@mixin contraer {
+  transition: 0.3s ease-out all;
+
+  &:hover {
+    transition: 0.3s ease-out all;
+    transform: scale(0.95);
+  }
+}
+
+@mixin expandir {
+  transition: 0.3s ease-out all;
+
+  &:hover {
+    transition: 0.3s ease-out all;
+    transform: scale(1.25);
+  }
+}
+
+// @mixin

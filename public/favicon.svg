@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <defs>
+    <style>
+      .bg { fill: #ffffff; }
+      .circle { fill: none; stroke: #0b3d2e; stroke-width: 8; }
+      .text { fill: #0b3d2e; font-family: Arial, sans-serif; font-weight: bold; font-size: 36px; }
+    </style>
+  </defs>
+  <circle class="bg" cx="256" cy="256" r="250"/>
+  <circle class="circle" cx="256" cy="256" r="230"/>
+  <g transform="translate(256, 256)">
+    <!-- Rombo amarillo -->
+    <polygon fill="#FFD700" points="0,-60 20,-40 0,-20 -20,-40"/>
+    <!-- Rombo verde -->
+    <polygon fill="#00AA00" points="0,-20 20,0 0,20 -20,0"/>
+    <!-- Rombo rojo -->
+    <polygon fill="#DD0000" points="0,20 20,40 0,60 -20,40"/>
+    <!-- Rombo blanco -->
+    <polygon fill="#FFFFFF" stroke="#333333" stroke-width="2" points="0,60 20,80 0,100 -20,80"/>
+  </g>
+  <path class="circle" d="M 100,200 Q 256,100 412,200" stroke-width="4"/>
+  <text class="text" x="256" y="130" text-anchor="middle">IPS INGA</text>
+  <text class="text" x="256" y="410" text-anchor="middle" font-size="28">KAMENTSA</text>
+</svg>

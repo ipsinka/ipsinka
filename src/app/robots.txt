@@ -1,0 +1,33 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://ipsinka.com/sitemap.xml
+
+# Crawl-delay para evitar sobrecarga
+Crawl-delay: 1
+
+# Permitir acceso a recursos importantes
+Allow: /servicios
+Allow: /sedes
+Allow: /institucional
+Allow: /contacto
+Allow: /directorio
+Allow: /eventos
+Allow: /atencion-usuario
+
+# Bloquear páginas administrativas o innecesarias
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /private/
+
+# Específico para Googlebot
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Específico para Bingbot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
