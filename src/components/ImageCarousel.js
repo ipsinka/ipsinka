@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 
 export default function ImageCarousel({ images, title, description }) {
@@ -18,27 +19,17 @@ export default function ImageCarousel({ images, title, description }) {
     return () => clearInterval(intervalRef.current);
   }, [isPaused, images.length]);
 
-  const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % images.length);
-  };
+  useEffect(() => {
+    document.body.style.overflow = isModalOpen ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [isModalOpen]);
 
-  const prevImage = () => {
-    setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
-  };
+  const nextImage = () => setCurrentImage((prev) => (prev + 1) % images.length);
+  const prevImage = () => setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
+  const goToImage = (index) => setCurrentImage(index);
 
-  const goToImage = (index) => {
-    setCurrentImage(index);
-  };
-
-  const openModal = () => {
-    setIsPaused(true);
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setIsPaused(false);
-  };
+  const openModal = () => { setIsPaused(true); setIsModalOpen(true); };
+  const closeModal = () => { setIsModalOpen(false); setIsPaused(false); };
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-colors duration-200">
@@ -132,77 +123,77 @@ export default function ImageCarousel({ images, title, description }) {
         )}
       </div>
 
-      {/* Modal imagen expandida */}
-      {isModalOpen && (
+      {/* Modal — montado en document.body para evitar scroll y z-index del DOM padre */}
+      {isModalOpen && createPortal(
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-2 pt-20 bg-black/30 backdrop-blur-sm"
+          className="fixed inset-x-0 bottom-0 top-16 z-40 flex items-center justify-center bg-black/80 backdrop-blur-sm"
           onClick={closeModal}
         >
+          {/* Flecha anterior */}
+          <button
+            onClick={(e) => { e.stopPropagation(); prevImage(); }}
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
           <div
-            className="relative bg-white rounded-xl shadow-2xl max-w-[95vw] lg:max-w-4xl max-h-[80vh] lg:max-h-[75vh] w-full overflow-auto"
+            className="relative flex flex-col items-center px-16 w-full"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Botón cerrar */}
             <button
               onClick={closeModal}
-              className="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 transition-colors z-20 shadow-lg"
+              className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 z-20 shadow-lg transition-colors"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
 
-            <div className="flex flex-col">
-              <div className="relative p-4">
-                <Image
-                  width={800}
-                  height={600}
-                  src={images[currentImage].url}
-                  alt={images[currentImage].alt}
-                  className="w-full h-auto object-contain rounded-lg"
-                />
-              </div>
-              {images[currentImage].description && (
-                <div className="bg-gray-50 px-6 py-4 border-t">
-                  <p className="text-gray-800 text-center font-medium">
-                    {images[currentImage].description}
-                  </p>
-                </div>
-              )}
-            </div>
-          </div>
+            {/* Imagen adaptada a su tamaño real */}
+            <img
+              src={images[currentImage].url}
+              alt={images[currentImage].alt}
+              className="rounded-xl shadow-2xl object-contain max-h-[80vh] w-auto max-w-full"
+            />
 
-          {images.length > 1 && (
-            <>
-              <button
-                onClick={(e) => { e.stopPropagation(); prevImage(); }}
-                className="fixed left-14 top-1/2 -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors shadow-xl z-50"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={(e) => { e.stopPropagation(); nextImage(); }}
-                className="fixed right-14 top-1/2 -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full transition-colors shadow-xl z-50"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-              <div className="fixed bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-50">
+            {/* Descripción debajo */}
+            {images[currentImage].description && (
+              <p className="mt-3 text-white font-semibold text-center drop-shadow">
+                {images[currentImage].description}
+              </p>
+            )}
+
+            {/* Indicadores */}
+            {images.length > 1 && (
+              <div className="flex gap-2 mt-3">
                 {images.map((_, index) => (
                   <button
                     key={index}
-                    onClick={(e) => { e.stopPropagation(); goToImage(index); }}
-                    className={`w-4 h-4 rounded-full transition-colors duration-200 shadow-lg ${
-                      index === currentImage ? "bg-blue-500" : "bg-white bg-opacity-70 hover:bg-opacity-90"
+                    onClick={() => goToImage(index)}
+                    className={`w-3 h-3 rounded-full transition-colors duration-200 shadow-lg ${
+                      index === currentImage ? "bg-blue-500" : "bg-white/60 hover:bg-white/90"
                     }`}
                   />
                 ))}
               </div>
-            </>
-          )}
-        </div>
+            )}
+          </div>
+
+          {/* Flecha siguiente */}
+          <button
+            onClick={(e) => { e.stopPropagation(); nextImage(); }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>,
+        document.body
       )}
     </div>
   );

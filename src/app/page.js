@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
 import PresentacionCarousel from "@/components/PresentacionCarousel";
@@ -62,8 +63,13 @@ function AutoSlider({ slides, title }) {
     return () => clearInterval(t);
   }, [paused, modal, slides.length]);
 
+  useEffect(() => {
+    document.body.style.overflow = modal !== null ? "hidden" : "";
+    return () => { document.body.style.overflow = ""; };
+  }, [modal]);
+
   return (
-    <section className="flex flex-col justify-center items-center transition-colors duration-200 pb-8 bg-gray-100 dark:bg-gray-800">
+    <section className="flex flex-col justify-center items-center transition-colors duration-200 pb-8 h-full">
       <h1 className="text-3xl font-bold my-4 dark:text-white" data-aos="fade-down">
         {title}
       </h1>
@@ -135,30 +141,69 @@ function AutoSlider({ slides, title }) {
         </div>
       </div>
 
-      {/* Modal */}
-      {modal !== null && (
+      {/* Modal — montado en document.body para evitar que el scroll del DOM padre lo afecte */}
+      {modal !== null && createPortal(
         <div
-          className="fixed inset-0 z-40 flex items-center justify-center pt-16 bg-black/40 backdrop-blur-sm"
+          className="fixed inset-x-0 bottom-0 top-16 z-40 flex items-center justify-center bg-black/80 backdrop-blur-sm"
           onClick={() => { setModal(null); setPaused(false); }}
         >
+          {/* Flecha anterior */}
+          <button
+            onClick={(e) => { e.stopPropagation(); setModal((p) => (p - 1 + slides.length) % slides.length); }}
+            className="absolute left-3 top-1/2 -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
           <div
-            className="relative bg-white rounded-xl shadow-2xl max-w-3xl w-[90vw] overflow-hidden"
+            className="relative flex flex-col items-center px-16 w-full"
             onClick={(e) => e.stopPropagation()}
           >
+            {/* Botón cerrar */}
             <button
               onClick={() => { setModal(null); setPaused(false); }}
-              className="absolute top-3 right-3 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 z-20"
+              className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 z-20 shadow-lg"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
-            <div className="relative w-full h-[60vh]">
-              <Image src={slides[modal].url} alt={slides[modal].alt} fill sizes="90vw" className="object-contain" />
+
+            <img
+              src={slides[modal].url}
+              alt={slides[modal].alt}
+              className="rounded-xl shadow-2xl object-contain max-h-[80vh] w-auto max-w-full"
+            />
+
+            <p className="mt-3 text-white font-semibold text-center drop-shadow">
+              {slides[modal].label}
+            </p>
+
+            {/* Indicadores */}
+            <div className="flex gap-2 mt-3">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setModal(i)}
+                  className={`w-3 h-3 rounded-full transition-colors shadow ${i === modal ? "bg-blue-500" : "bg-white/60 hover:bg-white/90"}`}
+                />
+              ))}
             </div>
-            <div className="p-4 text-center font-medium text-gray-800">{slides[modal].label}</div>
           </div>
-        </div>
+
+          {/* Flecha siguiente */}
+          <button
+            onClick={(e) => { e.stopPropagation(); setModal((p) => (p + 1) % slides.length); }}
+            className="absolute right-3 top-1/2 -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>,
+        document.body
       )}
     </section>
   );
@@ -203,8 +248,14 @@ export default function Home() {
       {/* Noticias publicadas por la IPS (después de las imágenes de presentación) */}
       <NoticiasDestacadas />
 
-      <AutoSlider slides={sedesSlides} title="Servicios" />
-      <AutoSlider slides={consultasSlides} title="Consulta médica" />
+      <div className="flex flex-col md:flex-row bg-gray-100 dark:bg-gray-800">
+        <div className="w-full md:w-1/2">
+          <AutoSlider slides={sedesSlides} title="Servicios" />
+        </div>
+        <div className="w-full md:w-1/2">
+          <AutoSlider slides={consultasSlides} title="Consulta médica" />
+        </div>
+      </div>
 
       <HealthInfoSection />
 
@@ -245,13 +296,6 @@ export default function Home() {
               >
                 Ver Nuestras Sedes
               </Link>
-
-              {/* <Link
-                href="/contacto"
-                className="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors inline-block"
-              >
-                Agendar Cita
-              </Link> */}
             </div>
           </div>
         </div>
@@ -261,7 +305,7 @@ export default function Home() {
       </section>
 
       {/* Sección del Calendario de Consultas */}
-      <section className="py-16  dark:bg-gray-900">
+      <section className="py-16 dark:bg-gray-900">
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">
@@ -289,43 +333,47 @@ export default function Home() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             <div
-              className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-200"
+              className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-200 flex flex-col items-center text-center md:flex-row md:items-start md:text-left gap-4"
               data-aos="fade-right"
               data-aos-delay="100"
             >
-              <div className="text-4xl mb-4">👩‍⚕️</div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
-                Medicina General
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
-                Atención médica integral para toda la familia
-              </p>
-              <Link
-                href="/servicios"
-                className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 font-semibold"
-              >
-                Ver más
-              </Link>
+              <div className="text-4xl shrink-0">👩‍⚕️</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
+                  Medicina General
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Atención médica integral para toda la familia
+                </p>
+                <Link
+                  href="/servicios"
+                  className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 font-semibold"
+                >
+                  Ver más
+                </Link>
+              </div>
             </div>
 
             <div
-              className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 text-center hover:shadow-xl transition-all duration-200"
+              className="bg-white dark:bg-gray-700 rounded-lg shadow-lg p-6 hover:shadow-xl transition-all duration-200 flex flex-col items-center text-center md:flex-row md:items-start md:text-left gap-4"
               data-aos="fade-left"
               data-aos-delay="200"
             >
-              <div className="text-4xl mb-4">🦷</div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
-                Odontología
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
-                Servicios dentales especializados y preventivos
-              </p>
-              <Link
-                href="/servicios"
-                className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 font-semibold"
-              >
-                Ver más
-              </Link>
+              <div className="text-4xl shrink-0">🦷</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
+                  Odontología
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300 mb-4">
+                  Servicios dentales especializados y preventivos
+                </p>
+                <Link
+                  href="/servicios"
+                  className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 font-semibold"
+                >
+                  Ver más
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -343,63 +391,67 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <div
-              className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6"
+              className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center md:flex-row md:items-start md:text-left gap-4"
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              <div className="text-4xl mb-4 text-center">👨‍⚕️</div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 text-center">
-                Personal Calificado
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-center">
-                Médicos y odontólogos con experiencia comprometidos con tu salud
-                y bienestar.
-              </p>
+              <div className="text-4xl shrink-0">👨‍⚕️</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                  Personal Calificado
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Médicos y odontólogos con experiencia comprometidos con tu salud y bienestar.
+                </p>
+              </div>
             </div>
 
             <div
-              className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6"
+              className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center md:flex-row md:items-start md:text-left gap-4"
               data-aos="fade-up"
               data-aos-delay="300"
             >
-              <div className="text-4xl mb-4 text-center">📍</div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 text-center">
-                Múltiples Sedes
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-center">
-                Presencia en Sibundoy, Colón, Santiago y San Andrés para estar
-                cerca de ti.
-              </p>
+              <div className="text-4xl shrink-0">📍</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                  Múltiples Sedes
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Presencia en Sibundoy, Colón, Santiago y San Andrés para estar cerca de ti.
+                </p>
+              </div>
             </div>
 
             <div
-              className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6"
+              className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center md:flex-row md:items-start md:text-left gap-4"
               data-aos="fade-up"
               data-aos-delay="200"
             >
-              <div className="text-4xl mb-4 text-center">🏥</div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 text-center">
-                Atención Integral
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-center">
-                Desde consulta general hasta tratamientos odontológicos
-                especializados.
-              </p>
+              <div className="text-4xl shrink-0">🏥</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                  Atención Integral
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Desde consulta general hasta tratamientos odontológicos especializados.
+                </p>
+              </div>
             </div>
 
             <div
-              className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6"
+              className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 flex flex-col items-center text-center md:flex-row md:items-start md:text-left gap-4"
               data-aos="fade-up"
               data-aos-delay="300"
             >
-              <div className="text-4xl mb-4 text-center">📋</div>
-              <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3 text-center">
-                Fácil Acceso
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 text-center">
-                Proceso de agendamiento sencillo y atención oportuna para todos
-                nuestros pacientes.
-              </p>
+              <div className="text-4xl shrink-0">📋</div>
+              <div>
+                <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-3">
+                  Fácil Acceso
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Proceso de agendamiento sencillo y atención oportuna para todos nuestros pacientes.
+                </p>
+              </div>
             </div>
           </div>
         </div>
