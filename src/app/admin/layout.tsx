@@ -39,7 +39,7 @@ const navItems = [
   { href: "/admin/usuarios", label: "Usuarios", icon: UserCog },
 ];
 
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL ?? "";
+const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "").split(",").map(e => e.trim()).filter(Boolean);
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -63,7 +63,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     const email = user.primaryEmailAddress?.emailAddress ?? "";
 
     // El email del env var siempre tiene acceso (admin por defecto)
-    if (ADMIN_EMAIL && email === ADMIN_EMAIL) {
+    if (ADMIN_EMAILS.includes(email)) {
       setAutorizado(true);
       return;
     }

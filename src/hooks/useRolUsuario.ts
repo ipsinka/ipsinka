@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 type Rol = "admin" | "editor" | "visualizador" | null;
 
-const ADMIN_EMAIL = process.env.NEXT_PUBLIC_ADMIN_EMAIL ?? "";
+const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "").split(",").map(e => e.trim()).filter(Boolean);
 
 export function useRolUsuario() {
   const { user, isLoaded } = useUser();
@@ -21,7 +21,7 @@ export function useRolUsuario() {
     }
 
     // El email del env var siempre es admin
-    if (ADMIN_EMAIL && email === ADMIN_EMAIL) {
+    if (ADMIN_EMAILS.includes(email)) {
       setRol("admin");
       setCargando(false);
       return;

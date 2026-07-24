@@ -126,43 +126,36 @@ export default function ImageCarousel({ images, title, description }) {
       {/* Modal — montado en document.body para evitar scroll y z-index del DOM padre */}
       {isModalOpen && createPortal(
         <div
-          className="fixed inset-x-0 bottom-0 top-16 z-40 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          className="fixed inset-x-0 bottom-0 top-16 z-40 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm"
           onClick={closeModal}
         >
-          {/* Flecha anterior */}
-          <button
-            onClick={(e) => { e.stopPropagation(); prevImage(); }}
-            className="absolute left-3 top-1/2 -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-
+          {/* Imagen + botón cerrar + indicadores */}
           <div
-            className="relative flex flex-col items-center px-16 w-full"
+            className="relative flex flex-col items-center w-full px-2"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Botón cerrar */}
-            <button
-              onClick={closeModal}
-              className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-2 z-20 shadow-lg transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            {/* Botón cerrar sobre la imagen con animación ping */}
+            <div className="absolute top-2 right-2 z-20">
+              <span className="absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75 animate-ping" />
+              <button
+                onClick={closeModal}
+                className="relative bg-red-500 hover:bg-red-600 text-white rounded-full p-2 shadow-lg transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
 
-            {/* Imagen adaptada a su tamaño real */}
             <img
               src={images[currentImage].url}
               alt={images[currentImage].alt}
-              className="rounded-xl shadow-2xl object-contain max-h-[80vh] w-auto max-w-full"
+              className="rounded-xl shadow-2xl object-contain w-full max-h-[75vh]"
             />
 
-            {/* Descripción debajo */}
+            {/* Descripción: oculta en móvil, visible en sm+ */}
             {images[currentImage].description && (
-              <p className="mt-3 text-white font-semibold text-center drop-shadow">
+              <p className="hidden sm:block mt-3 text-white font-semibold text-center drop-shadow text-sm px-4">
                 {images[currentImage].description}
               </p>
             )}
@@ -183,10 +176,20 @@ export default function ImageCarousel({ images, title, description }) {
             )}
           </div>
 
-          {/* Flecha siguiente */}
+          {/* Flecha anterior — esquina inferior izquierda */}
+          <button
+            onClick={(e) => { e.stopPropagation(); prevImage(); }}
+            className="absolute bottom-6 left-4 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Flecha siguiente — esquina inferior derecha */}
           <button
             onClick={(e) => { e.stopPropagation(); nextImage(); }}
-            className="absolute right-3 top-1/2 -translate-y-1/2 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
+            className="absolute bottom-6 right-4 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
