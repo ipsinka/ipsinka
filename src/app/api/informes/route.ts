@@ -39,9 +39,9 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { titulo, descripcion, archivo_url, area, mes, anio } = body;
 
-    if (!titulo || !archivo_url || !mes || !anio) {
+    if (!titulo || !mes || !anio) {
       return NextResponse.json(
-        { error: "Los campos 'titulo', 'archivo_url', 'mes' y 'anio' son requeridos" },
+        { error: "Los campos 'titulo', 'mes' y 'anio' son requeridos" },
         { status: 400 }
       );
     }

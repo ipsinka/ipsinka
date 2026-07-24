@@ -30,7 +30,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { titulo, descripcion, imagen_url, categoria } = body;
+    const { titulo, descripcion, imagen_url, categoria, tipo, seccion } = body;
 
     const existing = await d1First(
       "SELECT id FROM galeria WHERE id = ? AND activo = 1",
@@ -38,17 +38,17 @@ export async function PUT(
     );
 
     if (!existing) {
-      return NextResponse.json({ error: "Imagen no encontrada" }, { status: 404 });
+      return NextResponse.json({ error: "Elemento no encontrado" }, { status: 404 });
     }
 
     await d1Query(
       `UPDATE galeria
-       SET titulo = ?, descripcion = ?, imagen_url = ?, categoria = ?, actualizado_en = datetime('now')
+       SET titulo = ?, descripcion = ?, imagen_url = ?, categoria = ?, tipo = ?, seccion = ?, actualizado_en = datetime('now')
        WHERE id = ?`,
-      [titulo ?? null, descripcion ?? null, imagen_url ?? null, categoria ?? null, id]
+      [titulo ?? null, descripcion ?? null, imagen_url ?? null, categoria ?? null, tipo ?? "imagen", seccion ?? null, id]
     );
 
-    return NextResponse.json({ message: "Imagen actualizada exitosamente" });
+    return NextResponse.json({ message: "Elemento actualizado exitosamente" });
   } catch (error) {
     console.error("PUT /api/galeria/[id] error:", error);
     return NextResponse.json({ error: "Error interno" }, { status: 500 });

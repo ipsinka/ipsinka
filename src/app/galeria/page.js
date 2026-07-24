@@ -123,44 +123,45 @@ function tituloDeCategoria(categoria) {
 }
 
 export default function Galeria() {
-  const [galerias, setGalerias] = useState(galeriasFallback);
+  const [galeriasDB, setGaleriasDB] = useState([]);
+  const [videosDB, setVideosDB] = useState([]);
 
   useEffect(() => {
     let activo = true;
     const cargarGaleria = async () => {
       try {
         const res = await fetch("/api/galeria");
-        if (!res.ok) throw new Error("Error al cargar galería");
+        if (!res.ok) throw new Error();
         const data = await res.json();
         const lista = Array.isArray(data) ? data : (data.results ?? []);
-        if (!activo || lista.length === 0) return; // Conserva el respaldo si la BD está vacía
+        if (!activo || lista.length === 0) return;
 
-        // Agrupar las imágenes de la BD por categoría
+        // Separar imágenes y videos
+        const imagenes = lista.filter((i) => (i.tipo ?? "imagen") === "imagen");
+        const videos = lista.filter((i) => i.tipo === "video");
+
+        // Agrupar imágenes por sección/categoría
         const grupos = new Map();
-        for (const item of lista) {
-          const cat = item.categoria || "general";
+        for (const item of imagenes) {
+          const cat = item.seccion || item.categoria || "general";
           if (!grupos.has(cat)) grupos.set(cat, []);
-          grupos.get(cat).push({
-            url: item.imagen_url,
-            alt: item.titulo,
-            title: item.titulo,
-          });
+          grupos.get(cat).push({ url: item.imagen_url, alt: item.titulo, title: item.titulo });
         }
-        const mapeadas = Array.from(grupos.entries()).map(([categoria, images]) => ({
-          categoria,
-          titulo: tituloDeCategoria(categoria),
-          aos: "fade-up",
-          images,
-        }));
-        setGalerias(mapeadas);
+        setGaleriasDB(
+          Array.from(grupos.entries()).map(([categoria, images]) => ({
+            categoria,
+            titulo: tituloDeCategoria(categoria),
+            aos: "fade-up",
+            images,
+          }))
+        );
+        setVideosDB(videos);
       } catch {
         // Se conserva el respaldo estático
       }
     };
     cargarGaleria();
-    return () => {
-      activo = false;
-    };
+    return () => { activo = false; };
   }, []);
 
   return (
@@ -189,11 +190,60 @@ export default function Galeria() {
         <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-slate-300/75 dark:from-gray-900 to-transparent"></div>
       </section>
 
-      {/* Grid de galerías */}
+      {/* Videos publicados desde el panel */}
+      {videosDB.length > 0 && (
+        <section className="py-10 px-4 md:px-8 bg-gray-900">
+          <div className="container mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-8 text-white" data-aos="fade-up">
+              Videos
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {videosDB.map((v) => (
+                <div key={v.id} className="rounded-xl overflow-hidden shadow-lg bg-black" data-aos="zoom-in">
+                  <video
+                    src={v.imagen_url}
+                    controls
+                    className="w-full aspect-video object-cover"
+                    preload="metadata"
+                  />
+                  <div className="px-4 py-3">
+                    <p className="text-white font-semibold text-sm">{v.titulo}</p>
+                    {v.descripcion && (
+                      <p className="text-gray-400 text-xs mt-1">{v.descripcion}</p>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Imágenes publicadas desde el panel */}
+      {galeriasDB.length > 0 && (
+        <section className="py-8 px-4 md:px-8">
+          <div className="container mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {galeriasDB.map((galeria) => (
+                <div key={`db-${galeria.categoria}`} className="py-8">
+                  <h2 className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white" data-aos={galeria.aos}>
+                    {galeria.titulo}
+                  </h2>
+                  <div data-aos="zoom-in" data-aos-delay="200">
+                    <RotatingCarousel images={galeria.images} interval={5000} height="500px" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Galería estática de respaldo — siempre visible */}
       <section className="py-8 px-4 md:px-8">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {galerias.map((galeria) => (
+            {galeriasFallback.map((galeria) => (
               <div key={galeria.categoria} className="py-8">
                 <h2
                   className="text-3xl font-bold text-center mb-6 text-gray-800 dark:text-white"

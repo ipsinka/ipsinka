@@ -16,7 +16,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { titulo, descripcion, imagen_url, categoria } = body;
+    const { titulo, descripcion, imagen_url, categoria, tipo, seccion } = body;
 
     if (!titulo || !imagen_url) {
       return NextResponse.json(
@@ -26,13 +26,13 @@ export async function POST(request: NextRequest) {
     }
 
     const data = await d1Query(
-      `INSERT INTO galeria (titulo, descripcion, imagen_url, categoria, activo, creado_en, actualizado_en)
-       VALUES (?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
-      [titulo, descripcion ?? null, imagen_url, categoria ?? null]
+      `INSERT INTO galeria (titulo, descripcion, imagen_url, categoria, tipo, seccion, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [titulo, descripcion ?? null, imagen_url, categoria ?? null, tipo ?? "imagen", seccion ?? null]
     );
 
     return NextResponse.json(
-      { id: data.meta.last_row_id, message: "Imagen de galería creada exitosamente" },
+      { id: data.meta.last_row_id, message: "Elemento de galería creado exitosamente" },
       { status: 201 }
     );
   } catch (error) {

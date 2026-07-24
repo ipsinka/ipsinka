@@ -120,10 +120,10 @@ export default function PublicacionesPage() {
                         {p.estado === "publicado" ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
                       <button onClick={() => openEdit(p)} className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
-                        <Pencil className="h-4 w-4" />
+                        <Pencil className="h-5 w-5" />
                       </button>
                       <button onClick={() => handleDelete(p.id)} className="p-1.5 text-slate-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
-                        <Trash2 className="h-4 w-4" />
+                        <Trash2 className="h-5 w-5" />
                       </button>
                     </div>
                   </td>

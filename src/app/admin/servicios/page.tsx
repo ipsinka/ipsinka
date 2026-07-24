@@ -193,17 +193,17 @@ export default function AdminServicios() {
                       <div className="flex items-center gap-2 justify-end">
                         <button
                           onClick={() => openEdit(item)}
-                          className="text-slate-400 hover:text-blue-600 transition-colors"
+                          className="text-slate-400 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-blue-50"
                           title="Editar"
                         >
-                          <Pencil className="h-4 w-4" />
+                          <Pencil className="h-5 w-5" />
                         </button>
                         <button
                           onClick={() => handleDelete(item)}
-                          className="text-slate-400 hover:text-red-600 transition-colors"
+                          className="text-slate-400 hover:text-red-600 transition-colors p-2 rounded-lg hover:bg-red-50"
                           title="Eliminar"
                         >
-                          <Trash2 className="h-4 w-4" />
+                          <Trash2 className="h-5 w-5" />
                         </button>
                       </div>
                     </td>

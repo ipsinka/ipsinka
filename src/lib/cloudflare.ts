@@ -50,7 +50,8 @@ export async function r2Put(
   body: ArrayBuffer,
   contentType: string
 ): Promise<string> {
-  const res = await fetch(`${R2_URL}/${encodeURIComponent(key)}`, {
+  const encodedKey = key.split("/").map(encodeURIComponent).join("/");
+  const res = await fetch(`${R2_URL}/${encodedKey}`, {
     method: "PUT",
     headers: {
       Authorization: `Bearer ${API_TOKEN}`,

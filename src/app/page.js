@@ -214,6 +214,91 @@ function AutoSlider({ slides, title }) {
   );
 }
 
+const MESES_NOMBRE = ["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+
+function InformesMensuales() {
+  const [informes, setInformes] = useState([]);
+  const [cargando, setCargando] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/informes")
+      .then((r) => r.ok ? r.json() : [])
+      .then((data) => setInformes(Array.isArray(data) ? data : (data.results ?? [])))
+      .catch(() => {})
+      .finally(() => setCargando(false));
+  }, []);
+
+  if (!cargando && informes.length === 0) return null;
+
+  return (
+    <section className="py-16 bg-white dark:bg-gray-900">
+      <div className="container mx-auto px-4">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8" data-aos="fade-up">
+            <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-2">
+              Informes Mensuales
+            </h2>
+            <p className="text-gray-500 dark:text-gray-400 text-sm">
+              Reportes de gestión publicados por la IPS. Toca un informe para abrirlo.
+            </p>
+          </div>
+
+          {cargando ? (
+            <div className="flex justify-center py-10">
+              <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-aos="fade-up" data-aos-delay="100">
+              {informes.map((inf) => (
+                <Link
+                  key={inf.id}
+                  href={`/transparencia?informe=${inf.id}`}
+                  className="group flex flex-col gap-2 bg-gray-50 dark:bg-gray-800 hover:bg-emerald-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 rounded-xl p-4 transition-all duration-200 shadow-sm hover:shadow-md"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-200 dark:group-hover:bg-emerald-800/60 transition-colors">
+                      <svg className="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors line-clamp-2">
+                        {inf.titulo}
+                      </p>
+                      <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
+                        {MESES_NOMBRE[inf.mes]} {inf.anio}
+                        {inf.area ? ` · ${inf.area}` : ""}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-1 group-hover:translate-x-1 transition-transform duration-200">
+                    Ver informe
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+
+          <div className="text-center mt-8" data-aos="fade-up">
+            <Link
+              href="/transparencia"
+              className="inline-flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 font-medium transition-colors"
+            >
+              Ver todos los documentos e informes
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export default function Home() {
   const [consultas, setConsultas] = useState([]);
   const [eventos, setEventos] = useState([]);
@@ -326,6 +411,9 @@ export default function Home() {
       </section>
 
       <GlobalSearch />
+
+      {/* Informes Mensuales */}
+      <InformesMensuales />
 
       {/* Services Preview */}
       <section className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-200">

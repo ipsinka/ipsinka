@@ -42,6 +42,10 @@ const nextConfig = {
       },
       {
         protocol: "https",
+        hostname: "pub-1180f62273e4461daa58e3267d5d7b32.r2.dev",
+      },
+      {
+        protocol: "https",
         hostname: "cdn-icons-png.flaticon.com",
       },
       {

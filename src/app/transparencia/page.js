@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { useRolUsuario } from "@/hooks/useRolUsuario";
 import { Plus, Loader2, X } from "lucide-react";
 import FileUpload from "@/components/admin/FileUpload";
@@ -812,7 +813,7 @@ function ResultadosBusqueda({ query }) {
 
 const MESES_NOMBRE = ["","Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 
-function InformesArea({ label, informes }) {
+function InformesArea({ label, informes, onSeleccionar }) {
   const [abierto, setAbierto] = useState(false);
   // Agrupar por año desc
   const porAnio = informes.reduce((acc, inf) => {
@@ -844,31 +845,36 @@ function InformesArea({ label, informes }) {
                 {porAnio[anio]
                   .sort((a, b) => Number(b.mes) - Number(a.mes))
                   .map((inf) => (
-                    <div key={inf.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3 px-4 rounded-lg bg-white dark:bg-gray-700 border border-gray-100 dark:border-gray-600">
-                      <div className="flex items-center gap-3 min-w-0">
+                    <div key={inf.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3 px-4 rounded-lg bg-white dark:bg-gray-700 border border-gray-100 dark:border-gray-600 hover:border-emerald-400 hover:bg-emerald-50 dark:hover:bg-gray-600 transition-colors">
+                      <button
+                        onClick={() => onSeleccionar?.(inf)}
+                        className="flex items-center gap-3 min-w-0 text-left flex-1"
+                      >
                         <IconoPDF />
                         <div className="min-w-0">
-                          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 truncate">{inf.titulo}</p>
+                          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 truncate hover:text-emerald-700 dark:hover:text-emerald-400">{inf.titulo}</p>
                           <p className="text-xs text-gray-400 dark:text-gray-400">{MESES_NOMBRE[inf.mes]} {inf.anio}{inf.descripcion ? ` · ${inf.descripcion}` : ""}</p>
                         </div>
-                      </div>
-                      <div className="flex items-center gap-2 flex-shrink-0">
-                        <Link href={inf.archivo_url} target="_blank"
-                          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors shadow-sm">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
-                          </svg>
-                          Ver
-                        </Link>
-                        <a href={inf.archivo_url} download
-                          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors shadow-sm">
-                          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
-                          </svg>
-                          Descargar
-                        </a>
-                      </div>
+                      </button>
+                      {inf.archivo_url && (
+                        <div className="flex items-center gap-2 flex-shrink-0">
+                          <Link href={inf.archivo_url} target="_blank"
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors shadow-sm">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                            Ver
+                          </Link>
+                          <a href={inf.archivo_url} download
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors shadow-sm">
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                            </svg>
+                            Descargar
+                          </a>
+                        </div>
+                      )}
                     </div>
                   ))}
               </div>
@@ -886,8 +892,12 @@ const emptyInforme = { titulo:"", descripcion:"", archivo_url:"", area:"administ
 
 // ─── PÁGINA ───────────────────────────────────────────────────────────────────
 
-export default function Transparencia() {
+function TransparenciaContent() {
   const { esAdmin } = useRolUsuario();
+  const searchParams = useSearchParams();
+  const informeDestacadoId = searchParams.get("informe");
+  const seccionInformesRef = useRef(null);
+
   const [busqueda, setBusqueda] = useState("");
   const buscando = busqueda.trim().length > 1;
 
@@ -896,6 +906,7 @@ export default function Transparencia() {
 
   // Informes mensuales de la BD (/api/informes)
   const [informes, setInformes] = useState([]);
+  const [informeAbierto, setInformeAbierto] = useState(null);
 
   // Modal para agregar informe
   const [modalOpen, setModalOpen] = useState(false);
@@ -930,7 +941,17 @@ export default function Transparencia() {
   const cargarInformes = () => {
     fetch("/api/informes")
       .then((r) => r.ok ? r.json() : [])
-      .then((data) => setInformes(Array.isArray(data) ? data : (data.results ?? [])))
+      .then((data) => {
+        const lista = Array.isArray(data) ? data : (data.results ?? []);
+        setInformes(lista);
+        if (informeDestacadoId) {
+          const encontrado = lista.find((i) => String(i.id) === informeDestacadoId);
+          if (encontrado) {
+            setInformeAbierto(encontrado);
+            setTimeout(() => seccionInformesRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 300);
+          }
+        }
+      })
       .catch(() => {});
   };
 
@@ -1041,7 +1062,7 @@ export default function Transparencia() {
       </section>
 
       {/* Sección de Informes Mensuales */}
-      <section className="py-14 bg-gray-50 dark:bg-gray-900 transition-colors duration-200">
+      <section ref={seccionInformesRef} className="py-14 bg-gray-50 dark:bg-gray-900 transition-colors duration-200 scroll-mt-4">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <div className="flex items-center justify-between mb-8" data-aos="fade-up">
@@ -1064,23 +1085,53 @@ export default function Transparencia() {
               )}
             </div>
 
+            {/* Visor del informe destacado (llegado desde la página de inicio) */}
+            {informeAbierto && (
+              <div className="mb-10 rounded-xl overflow-hidden border border-emerald-300 dark:border-emerald-700 shadow-lg" data-aos="fade-up">
+                <div className="flex items-center justify-between px-4 py-3 bg-emerald-600 dark:bg-emerald-800 text-white">
+                  <div className="min-w-0">
+                    <p className="font-semibold text-sm truncate">{informeAbierto.titulo}</p>
+                    <p className="text-xs text-white/70">{MESES_NOMBRE[informeAbierto.mes]} {informeAbierto.anio}</p>
+                  </div>
+                  <button onClick={() => setInformeAbierto(null)} className="ml-3 flex-shrink-0 text-white/80 hover:text-white">
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                {informeAbierto.archivo_url ? (
+                  <iframe
+                    src={informeAbierto.archivo_url}
+                    className="w-full h-[70vh] bg-white"
+                    title={informeAbierto.titulo}
+                  />
+                ) : (
+                  <div className="bg-white dark:bg-gray-800 px-6 py-10 text-center text-gray-400 text-sm">
+                    Este informe aún no tiene archivo adjunto.
+                  </div>
+                )}
+              </div>
+            )}
+
             {informes.length === 0 ? (
               <p className="text-center text-gray-400 dark:text-gray-500 py-10 text-sm">
                 No hay informes publicados aún.
               </p>
             ) : (
               <div className="space-y-4" data-aos="fade-up" data-aos-delay="100">
-                {AREAS.filter((a) => informesAgrupados[a]?.length > 0).map((area) => (
+                {/* Resto de informes (excluye el que ya se muestra en el visor) */}
+                {AREAS.filter((a) => {
+                  const lista = informesAgrupados[a]?.filter((i) => i.id !== informeAbierto?.id);
+                  return lista?.length > 0;
+                }).map((area) => (
                   <InformesArea
                     key={area}
                     area={area}
                     label={AREA_LABEL[area]}
-                    informes={informesAgrupados[area]}
+                    informes={informesAgrupados[area].filter((i) => i.id !== informeAbierto?.id)}
+                    onSeleccionar={setInformeAbierto}
                   />
                 ))}
-                {/* Áreas no reconocidas */}
-                {informesAgrupados["otros"]?.length > 0 && !AREAS.includes("otros") && (
-                  <InformesArea area="otros" label="Otros" informes={informesAgrupados["otros"]} />
+                {informesAgrupados["otros"]?.filter((i) => i.id !== informeAbierto?.id).length > 0 && !AREAS.includes("otros") && (
+                  <InformesArea area="otros" label="Otros" informes={informesAgrupados["otros"].filter((i) => i.id !== informeAbierto?.id)} onSeleccionar={setInformeAbierto} />
                 )}
               </div>
             )}
@@ -1159,5 +1210,17 @@ export default function Transparencia() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function Transparencia() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-gray-900">
+        <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+      </div>
+    }>
+      <TransparenciaContent />
+    </Suspense>
   );
 }
