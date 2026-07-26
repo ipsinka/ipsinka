@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import AOSInit from "@/components/AOSInit";
 import AdminLayoutGuard from "@/components/admin/AdminLayoutGuard";
 import { ClerkProvider } from "@clerk/nextjs";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -343,25 +344,26 @@ export default function RootLayout({ children }) {
 
   return (
     <ClerkProvider>
-    <html lang="es" suppressHydrationWarning>
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      </head>
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <AOSInit />
-          <AdminLayoutGuard>{children}</AdminLayoutGuard>
-        </ThemeProvider>
-      </body>
-    </html>
+      <html lang="es" suppressHydrationWarning>
+        <head>
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+          />
+        </head>
+        <body>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <AOSInit />
+            <AdminLayoutGuard>{children}</AdminLayoutGuard>
+            <Analytics />
+          </ThemeProvider>
+        </body>
+      </html>
     </ClerkProvider>
   );
 }
