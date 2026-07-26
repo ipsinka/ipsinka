@@ -124,9 +124,9 @@ const CATEGORIAS: CategoriaConfig[] = [
     descripcion: "Documentos institucionales que no encajan en las categorías anteriores.",
     ejemplos: ["Escritura pública", "Estatutos", "Documentos varios"],
     carpeta: "documentos/otros",
-    color: "text-slate-700",
+    color: "text-slate-700 dark:text-slate-200",
     bgColor: "bg-slate-50",
-    borderColor: "border-slate-200",
+    borderColor: "border-slate-200 dark:border-slate-700",
     icon: UploadCloud,
   },
 ];
@@ -256,8 +256,8 @@ export default function AdminDocumentos() {
       {/* Encabezado */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Documentos Institucionales</h2>
-          <p className="text-slate-500 text-sm mt-1">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Documentos Institucionales</h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
             Selecciona una categoría para ver o agregar documentos.
           </p>
         </div>
@@ -301,19 +301,19 @@ export default function AdminDocumentos() {
                         {cat.docs.length}
                       </span>
                     </div>
-                    <p className="text-xs text-slate-500 mt-0.5 line-clamp-2">{cat.descripcion}</p>
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{cat.descripcion}</p>
                   </div>
                 </button>
 
                 {/* Ejemplos y documentos (expandible) */}
                 {abierta && (
-                  <div className="bg-white rounded-b-xl divide-y divide-slate-100">
+                  <div className="bg-white dark:bg-slate-800 rounded-b-xl divide-y divide-slate-100">
                     {/* Ejemplos de qué subir */}
                     <div className="px-4 py-3">
                       <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Qué incluye</p>
                       <ul className="space-y-1">
                         {cat.ejemplos.map((ej) => (
-                          <li key={ej} className="flex items-center gap-2 text-xs text-slate-500">
+                          <li key={ej} className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
                             <span className={`w-1.5 h-1.5 rounded-full flex-shrink-0 ${cat.color.replace("text-", "bg-")}`} />
                             {ej}
                           </li>
@@ -327,9 +327,9 @@ export default function AdminDocumentos() {
                         <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Publicados</p>
                         <div className="space-y-1.5">
                           {cat.docs.map((doc) => (
-                            <div key={doc.id} className="flex items-center justify-between gap-2 py-1.5 px-2 rounded-lg hover:bg-slate-50">
+                            <div key={doc.id} className="flex items-center justify-between gap-2 py-1.5 px-2 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50">
                               <div className="min-w-0">
-                                <p className="text-xs font-medium text-slate-700 truncate">{doc.nombre}</p>
+                                <p className="text-xs font-medium text-slate-700 dark:text-slate-200 truncate">{doc.nombre}</p>
                                 {doc.anio && <p className="text-xs text-slate-400">{doc.anio}</p>}
                               </div>
                               {esAdmin && (
@@ -379,12 +379,12 @@ export default function AdminDocumentos() {
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-              <h3 className="text-lg font-semibold text-slate-800">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-white">
                 {editing ? "Editar Documento" : "Nuevo Documento"}
               </h3>
-              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600">
+              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600 dark:text-slate-300">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -398,14 +398,14 @@ export default function AdminDocumentos() {
 
               {/* Categoría — selector visual */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   Categoría <span className="text-red-500">*</span>
                 </label>
                 <select
                   name="categoria"
                   value={form.categoria}
                   onChange={handleChange}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   {CATEGORIAS.map((c) => (
                     <option key={c.value} value={c.value}>{c.label}</option>
@@ -422,7 +422,7 @@ export default function AdminDocumentos() {
 
               {/* Nombre */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Nombre del documento <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -432,13 +432,13 @@ export default function AdminDocumentos() {
                   onChange={handleChange}
                   required
                   placeholder={catActualConfig?.ejemplos[0] ?? "Nombre del documento"}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               {/* Año */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Año</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Año</label>
                 <input
                   type="number"
                   name="anio"
@@ -446,25 +446,25 @@ export default function AdminDocumentos() {
                   onChange={handleChange}
                   min={2000}
                   max={2100}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               {/* Descripción */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Descripción</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Descripción</label>
                 <textarea
                   name="descripcion"
                   value={form.descripcion}
                   onChange={handleChange}
                   rows={2}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
                 />
               </div>
 
               {/* Archivo */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Archivo PDF</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">Archivo PDF</label>
                 <FileUpload
                   key={form.categoria}
                   accept=".pdf,application/pdf"
@@ -481,7 +481,7 @@ export default function AdminDocumentos() {
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-4 py-2 text-sm text-slate-600 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+                  className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                 >
                   Cancelar
                 </button>

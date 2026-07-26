@@ -7,8 +7,10 @@ export async function GET(request: NextRequest) {
     const desde = url.searchParams.get("desde");
     const hasta = url.searchParams.get("hasta");
 
+    const sede = url.searchParams.get("sede");
+
     let query = "SELECT * FROM eventos WHERE activo = 1";
-    const bindings: string[] = [];
+    const bindings: (string | number)[] = [];
 
     if (desde) {
       query += " AND fecha_inicio >= ?";
@@ -17,6 +19,10 @@ export async function GET(request: NextRequest) {
     if (hasta) {
       query += " AND fecha_inicio <= ?";
       bindings.push(hasta);
+    }
+    if (sede) {
+      query += " AND (sede_id = ? OR sede_id IS NULL)";
+      bindings.push(Number(sede));
     }
 
     query += " ORDER BY fecha_inicio ASC";
@@ -32,7 +38,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url } = body;
+    const { titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url, sede_id } = body;
 
     if (!titulo || !fecha_inicio) {
       return NextResponse.json(
@@ -42,9 +48,9 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await d1Query(
-      `INSERT INTO eventos (titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url, activo, creado_en, actualizado_en)
-       VALUES (?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
-      [titulo, descripcion ?? null, lugar ?? null, fecha_inicio, fecha_fin ?? null, imagen_url ?? null]
+      `INSERT INTO eventos (titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url, sede_id, activo, creado_en, actualizado_en)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      [titulo, descripcion ?? null, lugar ?? null, fecha_inicio, fecha_fin ?? null, imagen_url ?? null, sede_id ?? null]
     );
 
     return NextResponse.json(

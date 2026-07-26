@@ -30,7 +30,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { titulo, descripcion, contenido, imagen_url, tipo, fecha_evento } = body;
+    const { titulo, descripcion, contenido, imagen_url, tipo, fecha_evento, sede_id } = body;
 
     const existing = await d1First(
       "SELECT id FROM noticias WHERE id = ? AND activo = 1",
@@ -43,9 +43,9 @@ export async function PUT(
 
     await d1Query(
       `UPDATE noticias
-       SET titulo = ?, descripcion = ?, contenido = ?, imagen_url = ?, tipo = ?, fecha_evento = ?, actualizado_en = datetime('now')
+       SET titulo = ?, descripcion = ?, contenido = ?, imagen_url = ?, tipo = ?, fecha_evento = ?, sede_id = ?, actualizado_en = datetime('now')
        WHERE id = ?`,
-      [titulo ?? null, descripcion ?? null, contenido ?? null, imagen_url ?? null, tipo ?? null, fecha_evento ?? null, id]
+      [titulo ?? null, descripcion ?? null, contenido ?? null, imagen_url ?? null, tipo ?? null, fecha_evento ?? null, sede_id ?? null, id]
     );
 
     return NextResponse.json({ message: "Noticia actualizada exitosamente" });

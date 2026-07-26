@@ -32,7 +32,7 @@ const rolLabel: Record<string, string> = {
 const rolStyle: Record<string, string> = {
   admin: "bg-emerald-50 text-emerald-700",
   editor: "bg-blue-50 text-blue-700",
-  visualizador: "bg-slate-100 text-slate-600",
+  visualizador: "bg-slate-100 text-slate-600 dark:text-slate-300",
 };
 
 const emptyForm: FormData = {
@@ -147,8 +147,8 @@ export default function AdminUsuarios() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Usuarios</h2>
-          <p className="text-slate-500 text-sm mt-1">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Usuarios</h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
             Gestiona los accesos y roles del personal autorizado.
           </p>
         </div>
@@ -172,7 +172,7 @@ export default function AdminUsuarios() {
       </div>
 
       {/* Tabla */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
@@ -184,18 +184,18 @@ export default function AdminUsuarios() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700">
                 <tr>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
                     Nombre
                   </th>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
                     Email
                   </th>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
                     Rol
                   </th>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
                     Último acceso
                   </th>
                   <th className="px-4 py-3" />
@@ -203,21 +203,21 @@ export default function AdminUsuarios() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {items.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-800 font-medium">
+                  <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                    <td className="px-4 py-3 text-slate-800 dark:text-white font-medium">
                       {item.nombre}
                     </td>
-                    <td className="px-4 py-3 text-slate-500">{item.email}</td>
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{item.email}</td>
                     <td className="px-4 py-3">
                       <span
                         className={`inline-block px-2 py-1 rounded text-xs font-medium ${
-                          rolStyle[item.rol] ?? "bg-slate-100 text-slate-600"
+                          rolStyle[item.rol] ?? "bg-slate-100 text-slate-600 dark:text-slate-300"
                         }`}
                       >
                         {rolLabel[item.rol] ?? item.rol}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-500">
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400">
                       {item.ultimo_acceso
                         ? new Date(item.ultimo_acceso).toLocaleString("es-CO")
                         : "—"}
@@ -251,14 +251,14 @@ export default function AdminUsuarios() {
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-md">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-              <h3 className="text-lg font-semibold text-slate-800">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-xl w-full max-w-md">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-white">
                 {editing ? "Editar Usuario" : "Nuevo Usuario"}
               </h3>
               <button
                 onClick={closeModal}
-                className="text-slate-400 hover:text-slate-600"
+                className="text-slate-400 hover:text-slate-600 dark:text-slate-300"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -272,7 +272,7 @@ export default function AdminUsuarios() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Nombre <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -281,12 +281,12 @@ export default function AdminUsuarios() {
                   value={form.nombre}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Email <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -296,19 +296,19 @@ export default function AdminUsuarios() {
                   onChange={handleChange}
                   required
                   placeholder="correo@ejemplo.com"
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Rol
                 </label>
                 <select
                   name="rol"
                   value={form.rol}
                   onChange={handleChange}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   {ROLES.map((r) => (
                     <option key={r} value={r}>
@@ -326,7 +326,7 @@ export default function AdminUsuarios() {
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-4 py-2 text-sm text-slate-600 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+                  className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                 >
                   Cancelar
                 </button>

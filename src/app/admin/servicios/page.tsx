@@ -140,7 +140,7 @@ export default function AdminServicios() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-slate-800">Servicios</h2>
+        <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Servicios</h2>
         {esAdmin && (
           <button
             onClick={openCreate}
@@ -153,7 +153,7 @@ export default function AdminServicios() {
       </div>
 
       {/* Tabla */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
@@ -163,21 +163,21 @@ export default function AdminServicios() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700">
                 <tr>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">Nombre</th>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">Ícono</th>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">Orden</th>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">Estado</th>
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Nombre</th>
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Ícono</th>
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Orden</th>
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Estado</th>
                   <th className="px-4 py-3" />
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {items.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-800 font-medium">{item.nombre}</td>
-                    <td className="px-4 py-3 text-slate-500">{item.icono ?? "—"}</td>
-                    <td className="px-4 py-3 text-slate-500">{item.orden ?? "—"}</td>
+                  <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                    <td className="px-4 py-3 text-slate-800 dark:text-white font-medium">{item.nombre}</td>
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{item.icono ?? "—"}</td>
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{item.orden ?? "—"}</td>
                     <td className="px-4 py-3">
                       <span
                         className={`inline-flex items-center px-2 py-0.5 rounded-full text-xs font-medium ${
@@ -218,12 +218,12 @@ export default function AdminServicios() {
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-              <h3 className="text-lg font-semibold text-slate-800">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-white">
                 {editing ? "Editar Servicio" : "Nuevo Servicio"}
               </h3>
-              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600">
+              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600 dark:text-slate-300">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -236,7 +236,7 @@ export default function AdminServicios() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Nombre <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -245,12 +245,12 @@ export default function AdminServicios() {
                   value={form.nombre}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Descripción
                 </label>
                 <textarea
@@ -258,12 +258,12 @@ export default function AdminServicios() {
                   value={form.descripcion}
                   onChange={handleChange}
                   rows={4}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   URL de imagen
                 </label>
                 <input
@@ -272,13 +272,13 @@ export default function AdminServicios() {
                   value={form.imagen_url}
                   onChange={handleChange}
                   placeholder="https://... o clave de R2"
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Ícono
                   </label>
                   <input
@@ -287,11 +287,11 @@ export default function AdminServicios() {
                     value={form.icono}
                     onChange={handleChange}
                     placeholder="ej: heart, stethoscope"
-                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Orden
                   </label>
                   <input
@@ -300,7 +300,7 @@ export default function AdminServicios() {
                     value={form.orden}
                     onChange={handleChange}
                     min={0}
-                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
               </div>
@@ -309,7 +309,7 @@ export default function AdminServicios() {
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-4 py-2 text-sm text-slate-600 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+                  className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                 >
                   Cancelar
                 </button>

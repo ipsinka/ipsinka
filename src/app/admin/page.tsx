@@ -6,9 +6,6 @@ import {
   Newspaper,
   Image,
   FileText,
-  Heart,
-  Users,
-  MapPin,
   ArrowRight,
   ClipboardList,
   CalendarDays,
@@ -66,34 +63,10 @@ const statCards: StatCard[] = [
     endpoint: "/api/documentos",
   },
   {
-    label: "Servicios",
-    href: "/admin/servicios",
-    icon: Heart,
-    color: "text-emerald-600",
-    bgColor: "bg-emerald-50",
-    endpoint: "/api/servicios",
-  },
-  {
-    label: "Directorio",
-    href: "/admin/directorio",
-    icon: Users,
-    color: "text-rose-600",
-    bgColor: "bg-rose-50",
-    endpoint: "/api/directorio",
-  },
-  {
-    label: "Sedes",
-    href: "/admin/sedes",
-    icon: MapPin,
-    color: "text-teal-600",
-    bgColor: "bg-teal-50",
-    endpoint: "/api/sedes",
-  },
-  {
     label: "Usuarios",
     href: "/admin/usuarios",
     icon: UserCog,
-    color: "text-slate-600",
+    color: "text-slate-600 dark:text-slate-300",
     bgColor: "bg-slate-100",
     endpoint: "/api/usuarios",
   },
@@ -101,13 +74,13 @@ const statCards: StatCard[] = [
 
 function SkeletonCard() {
   return (
-    <div className="bg-white rounded-xl p-6 shadow-sm border border-slate-200 animate-pulse">
+    <div className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700 animate-pulse">
       <div className="flex items-center justify-between mb-4">
-        <div className="h-10 w-10 rounded-lg bg-slate-200" />
-        <div className="h-8 w-12 rounded bg-slate-200" />
+        <div className="h-10 w-10 rounded-lg bg-slate-200 dark:bg-slate-700" />
+        <div className="h-8 w-12 rounded bg-slate-200 dark:bg-slate-700" />
       </div>
-      <div className="h-4 w-24 rounded bg-slate-200 mb-3" />
-      <div className="h-8 w-28 rounded bg-slate-200" />
+      <div className="h-4 w-24 rounded bg-slate-200 dark:bg-slate-700 mb-3" />
+      <div className="h-8 w-28 rounded bg-slate-200 dark:bg-slate-700" />
     </div>
   );
 }
@@ -142,16 +115,6 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      {/* Bienvenida */}
-      <div>
-        <h2 className="text-2xl font-bold text-slate-800">
-          Bienvenido al panel
-        </h2>
-        <p className="text-slate-500 mt-1">
-          Administra el contenido del sitio web de IPS Inga Kamentsa.
-        </p>
-      </div>
-
       {/* Tarjetas de estadísticas */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {loading
@@ -162,19 +125,19 @@ export default function AdminDashboard() {
               return (
                 <div
                   key={card.endpoint}
-                  className="bg-white rounded-xl p-6 shadow-sm border border-slate-200"
+                  className="bg-white dark:bg-slate-800 rounded-xl p-6 shadow-sm border border-slate-200 dark:border-slate-700"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div
-                      className={`h-10 w-10 rounded-lg ${card.bgColor} flex items-center justify-center`}
+                      className={`h-10 w-10 rounded-lg ${card.bgColor} dark:bg-slate-700 flex items-center justify-center`}
                     >
                       <Icon className={`h-5 w-5 ${card.color}`} />
                     </div>
-                    <span className="text-3xl font-bold text-slate-800">
+                    <span className="text-3xl font-bold text-slate-800 dark:text-white">
                       {count ?? "—"}
                     </span>
                   </div>
-                  <p className="text-slate-500 text-sm font-medium mb-3">
+                  <p className="text-slate-500 dark:text-slate-400 text-sm font-medium mb-3">
                     {card.label}
                   </p>
                   <Link

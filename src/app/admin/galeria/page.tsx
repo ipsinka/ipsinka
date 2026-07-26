@@ -194,8 +194,8 @@ export default function AdminGaleria() {
       {/* Encabezado */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">Galería</h2>
-          <p className="text-slate-500 text-sm mt-1">Imágenes y videos organizados por sección.</p>
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Galería</h2>
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Imágenes y videos organizados por sección.</p>
         </div>
         {esAdmin && (
           <button
@@ -209,7 +209,7 @@ export default function AdminGaleria() {
       </div>
 
       {/* Filtros */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-wrap gap-3">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 flex flex-wrap gap-3">
         <div className="flex gap-2">
           {(["todos", "imagen", "video"] as const).map((t) => (
             <button
@@ -218,7 +218,7 @@ export default function AdminGaleria() {
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 filtroTipo === t
                   ? "bg-emerald-600 text-white"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  : "bg-slate-100 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
               }`}
             >
               {t === "imagen" && <ImageIcon className="h-4 w-4" />}
@@ -230,7 +230,7 @@ export default function AdminGaleria() {
         <select
           value={filtroSeccion}
           onChange={(e) => setFiltroSeccion(e.target.value)}
-          className="border border-slate-300 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value="">Todas las secciones</option>
           {SECCIONES.map((s) => (
@@ -240,7 +240,7 @@ export default function AdminGaleria() {
         {(filtroTipo !== "todos" || filtroSeccion) && (
           <button
             onClick={() => { setFiltroTipo("todos"); setFiltroSeccion(""); }}
-            className="text-sm text-slate-500 hover:text-slate-700 px-2"
+            className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 px-2"
           >
             Limpiar
           </button>
@@ -256,13 +256,13 @@ export default function AdminGaleria() {
           <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
         </div>
       ) : itemsFiltrados.length === 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-slate-200">
+        <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700">
           <p className="text-center text-slate-400 py-16">No hay contenido registrado.</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {itemsFiltrados.map((item) => (
-            <div key={item.id} className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden group">
+            <div key={item.id} className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden group">
               <div className="aspect-video bg-slate-100 relative overflow-hidden">
                 <MediaPreview item={item} />
                 {/* Badge tipo */}
@@ -275,7 +275,7 @@ export default function AdminGaleria() {
                 </span>
               </div>
               <div className="p-3">
-                <p className="font-medium text-slate-800 text-sm truncate">{item.titulo}</p>
+                <p className="font-medium text-slate-800 dark:text-white text-sm truncate">{item.titulo}</p>
                 <div className="flex items-center gap-2 mt-0.5">
                   {item.seccion && (
                     <span className="text-xs text-slate-400 capitalize">
@@ -308,12 +308,12 @@ export default function AdminGaleria() {
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-              <h3 className="text-lg font-semibold text-slate-800">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-white">
                 {editing ? "Editar elemento" : "Nuevo elemento"}
               </h3>
-              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600">
+              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600 dark:text-slate-300">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -327,7 +327,7 @@ export default function AdminGaleria() {
 
               {/* Tipo de contenido */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   Tipo de contenido <span className="text-red-500">*</span>
                 </label>
                 <div className="flex gap-3">
@@ -337,7 +337,7 @@ export default function AdminGaleria() {
                       className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg border-2 cursor-pointer transition-colors ${
                         form.tipo === t
                           ? "border-emerald-500 bg-emerald-50 text-emerald-700"
-                          : "border-slate-200 text-slate-500 hover:border-slate-300"
+                          : "border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300"
                       }`}
                     >
                       <input
@@ -357,14 +357,14 @@ export default function AdminGaleria() {
 
               {/* Sección destino */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Sección / Destino <span className="text-red-500">*</span>
                 </label>
                 <select
                   name="seccion"
                   value={form.seccion}
                   onChange={handleChange}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 >
                   {SECCIONES.map((s) => (
                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -377,7 +377,7 @@ export default function AdminGaleria() {
 
               {/* Título */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Título <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -386,25 +386,25 @@ export default function AdminGaleria() {
                   value={form.titulo}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               {/* Descripción */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Descripción</label>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Descripción</label>
                 <textarea
                   name="descripcion"
                   value={form.descripcion}
                   onChange={handleChange}
                   rows={2}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
                 />
               </div>
 
               {/* Subida de archivo */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   {form.tipo === "video" ? "Video" : "Imagen"} <span className="text-red-500">*</span>
                 </label>
                 <FileUpload
@@ -420,14 +420,14 @@ export default function AdminGaleria() {
                       <video
                         src={form.imagen_url}
                         controls
-                        className="h-32 w-auto rounded-lg border border-slate-200"
+                        className="h-32 w-auto rounded-lg border border-slate-200 dark:border-slate-700"
                       />
                     ) : (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={form.imagen_url}
                         alt="Preview"
-                        className="h-32 w-auto rounded-lg object-cover border border-slate-200"
+                        className="h-32 w-auto rounded-lg object-cover border border-slate-200 dark:border-slate-700"
                       />
                     )}
                   </div>
@@ -438,7 +438,7 @@ export default function AdminGaleria() {
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-4 py-2 text-sm text-slate-600 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+                  className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                 >
                   Cancelar
                 </button>

@@ -12,9 +12,6 @@ import {
   Newspaper,
   Image,
   FileText,
-  Heart,
-  Users,
-  MapPin,
   Menu,
   X,
   LogOut,
@@ -26,16 +23,13 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/admin", label: "Tablero de control", icon: LayoutDashboard },
   { href: "/admin/informes", label: "Informes Mensuales", icon: ClipboardList },
   { href: "/admin/eventos", label: "Calendario", icon: CalendarDays },
   { href: "/admin/publicaciones", label: "Publicaciones", icon: BookOpen },
   { href: "/admin/noticias", label: "Noticias", icon: Newspaper },
   { href: "/admin/galeria", label: "Galería", icon: Image },
   { href: "/admin/documentos", label: "Documentos", icon: FileText },
-  { href: "/admin/servicios", label: "Servicios", icon: Heart },
-  { href: "/admin/directorio", label: "Directorio", icon: Users },
-  { href: "/admin/sedes", label: "Sedes", icon: MapPin },
   { href: "/admin/usuarios", label: "Usuarios", icon: UserCog },
 ];
 
@@ -166,14 +160,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       {/* Contenido principal */}
       <div className="flex-1 flex flex-col min-w-0 lg:ml-0">
         {/* Header */}
-        <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 px-4 py-3 flex items-center gap-4 sticky top-0 z-10">
+        <header className="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 px-4 py-3 flex items-center gap-4 sticky top-0 z-10">
           <button
             onClick={() => setSidebarOpen(true)}
             className="lg:hidden text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
           >
             <Menu className="h-6 w-6" />
           </button>
-          <h1 className="text-slate-800 dark:text-slate-100 font-semibold text-base sm:text-lg truncate">
+          <h1 className="text-slate-800 dark:text-white font-semibold text-base sm:text-lg truncate">
             Panel Admin — IPS Inga Kamentsa
           </h1>
           <div className="ml-auto">

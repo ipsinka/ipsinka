@@ -14,8 +14,15 @@ interface Noticia {
   imagen_url: string | null;
   tipo: string | null;
   fecha_evento: string | null;
+  sede_id: number | null;
   activo: number;
   creado_en: string;
+}
+
+interface Sede {
+  id: number;
+  nombre: string;
+  municipio: string | null;
 }
 
 interface FormData {
@@ -25,6 +32,7 @@ interface FormData {
   imagen_url: string;
   tipo: string;
   fecha_evento: string;
+  sede_id: string;
 }
 
 const emptyForm: FormData = {
@@ -34,11 +42,13 @@ const emptyForm: FormData = {
   imagen_url: "",
   tipo: "noticia",
   fecha_evento: "",
+  sede_id: "",
 };
 
 export default function AdminNoticias() {
   const { esAdmin } = useRolUsuario();
   const [items, setItems] = useState<Noticia[]>([]);
+  const [sedes, setSedes] = useState<Sede[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<Noticia | null>(null);
@@ -49,9 +59,14 @@ export default function AdminNoticias() {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/noticias");
-      const data = await res.json();
-      setItems(Array.isArray(data) ? data : []);
+      const [noticiasRes, sedesRes] = await Promise.all([
+        fetch("/api/noticias"),
+        fetch("/api/sedes"),
+      ]);
+      const noticiasData = await noticiasRes.json();
+      const sedesData = await sedesRes.json();
+      setItems(Array.isArray(noticiasData) ? noticiasData : []);
+      setSedes(Array.isArray(sedesData) ? sedesData : []);
     } catch {
       setItems([]);
     } finally {
@@ -79,6 +94,7 @@ export default function AdminNoticias() {
       imagen_url: item.imagen_url ?? "",
       tipo: item.tipo ?? "noticia",
       fecha_evento: item.fecha_evento ?? "",
+      sede_id: item.sede_id !== null && item.sede_id !== undefined ? String(item.sede_id) : "",
     });
     setError(null);
     setModalOpen(true);
@@ -109,6 +125,7 @@ export default function AdminNoticias() {
       imagen_url: form.imagen_url || null,
       tipo: form.tipo || null,
       fecha_evento: form.fecha_evento || null,
+      sede_id: form.sede_id !== "" ? Number(form.sede_id) : null,
     };
 
     try {
@@ -147,7 +164,7 @@ export default function AdminNoticias() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-slate-800 dark:text-slate-100">Noticias</h2>
+        <h2 className="text-2xl font-bold text-slate-800 dark:text-white">Noticias</h2>
         {esAdmin && (
           <button
             onClick={openCreate}
@@ -160,17 +177,17 @@ export default function AdminNoticias() {
       </div>
 
       {/* Tabla */}
-      <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
           </div>
         ) : items.length === 0 ? (
-          <p className="text-center text-slate-400 dark:text-slate-500 py-16">No hay noticias registradas.</p>
+          <p className="text-center text-slate-400 dark:text-slate-500 dark:text-slate-400 py-16">No hay noticias registradas.</p>
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-800">
+              <thead className="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200 dark:border-slate-700">
                 <tr>
                   <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Título</th>
                   <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">Tipo</th>
@@ -181,8 +198,8 @@ export default function AdminNoticias() {
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800">
                 {items.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-800/40">
-                    <td className="px-4 py-3 text-slate-800 dark:text-slate-100 font-medium max-w-xs truncate">
+                  <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                    <td className="px-4 py-3 text-slate-800 dark:text-white font-medium max-w-xs truncate">
                       {item.titulo}
                     </td>
                     <td className="px-4 py-3 text-slate-500 dark:text-slate-400 capitalize">{item.tipo ?? "—"}</td>
@@ -227,12 +244,12 @@ export default function AdminNoticias() {
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-slate-900 rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-800">
-              <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-100">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-white">
                 {editing ? "Editar Noticia" : "Nueva Noticia"}
               </h3>
-              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+              <button onClick={closeModal} className="text-slate-400 hover:text-slate-600 dark:text-slate-300 dark:hover:text-slate-200">
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -245,7 +262,7 @@ export default function AdminNoticias() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300 mb-1">
                   Título <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -259,7 +276,7 @@ export default function AdminNoticias() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300 mb-1">
                   Descripción
                 </label>
                 <input
@@ -272,7 +289,7 @@ export default function AdminNoticias() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300 mb-1">
                   Contenido
                 </label>
                 <textarea
@@ -285,7 +302,7 @@ export default function AdminNoticias() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300 mb-1">
                   Imagen
                 </label>
                 <FileUpload
@@ -321,7 +338,7 @@ export default function AdminNoticias() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300 mb-1">
                     Tipo
                   </label>
                   <select
@@ -332,10 +349,11 @@ export default function AdminNoticias() {
                   >
                     <option value="noticia">Noticia</option>
                     <option value="evento">Evento</option>
+                    <option value="anuncio">Anuncio</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300 mb-1">
                     Fecha del evento
                   </label>
                   <input
@@ -348,11 +366,33 @@ export default function AdminNoticias() {
                 </div>
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 dark:text-slate-300 mb-1">
+                  Sede
+                </label>
+                <select
+                  name="sede_id"
+                  value={form.sede_id}
+                  onChange={handleChange}
+                  className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 [color-scheme:light] dark:[color-scheme:dark]"
+                >
+                  <option value="">Todas las sedes (global)</option>
+                  {sedes.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.nombre}{s.municipio ? ` — ${s.municipio}` : ""}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-xs text-slate-400 dark:text-slate-500 dark:text-slate-400 mt-1">
+                  Sin sede asignada, la publicación aparece en todas las sedes y en el inicio.
+                </p>
+              </div>
+
               <div className="flex justify-end gap-3 pt-2">
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors"
+                  className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-700 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 dark:hover:bg-slate-800 transition-colors"
                 >
                   Cancelar
                 </button>

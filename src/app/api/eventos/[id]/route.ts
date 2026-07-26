@@ -30,7 +30,7 @@ export async function PUT(
   try {
     const { id } = await params;
     const body = await request.json();
-    const { titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url } = body;
+    const { titulo, descripcion, lugar, fecha_inicio, fecha_fin, imagen_url, sede_id } = body;
 
     const existing = await d1First(
       "SELECT id FROM eventos WHERE id = ? AND activo = 1",
@@ -43,9 +43,9 @@ export async function PUT(
 
     await d1Query(
       `UPDATE eventos
-       SET titulo = ?, descripcion = ?, lugar = ?, fecha_inicio = ?, fecha_fin = ?, imagen_url = ?, actualizado_en = datetime('now')
+       SET titulo = ?, descripcion = ?, lugar = ?, fecha_inicio = ?, fecha_fin = ?, imagen_url = ?, sede_id = ?, actualizado_en = datetime('now')
        WHERE id = ?`,
-      [titulo ?? null, descripcion ?? null, lugar ?? null, fecha_inicio ?? null, fecha_fin ?? null, imagen_url ?? null, id]
+      [titulo ?? null, descripcion ?? null, lugar ?? null, fecha_inicio ?? null, fecha_fin ?? null, imagen_url ?? null, sede_id ?? null, id]
     );
 
     return NextResponse.json({ message: "Evento actualizado exitosamente" });

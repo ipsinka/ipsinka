@@ -14,8 +14,15 @@ interface Evento {
   fecha_inicio: string;
   fecha_fin: string | null;
   imagen_url: string | null;
+  sede_id: number | null;
   activo: number;
   creado_en: string;
+}
+
+interface Sede {
+  id: number;
+  nombre: string;
+  municipio: string | null;
 }
 
 interface FormData {
@@ -25,6 +32,7 @@ interface FormData {
   fecha_inicio: string;
   fecha_fin: string;
   imagen_url: string;
+  sede_id: string;
 }
 
 const emptyForm: FormData = {
@@ -34,6 +42,7 @@ const emptyForm: FormData = {
   fecha_inicio: "",
   fecha_fin: "",
   imagen_url: "",
+  sede_id: "",
 };
 
 function formatFecha(value: string | null): string {
@@ -52,6 +61,7 @@ function formatFecha(value: string | null): string {
 export default function AdminEventos() {
   const { esAdmin } = useRolUsuario();
   const [items, setItems] = useState<Evento[]>([]);
+  const [sedes, setSedes] = useState<Sede[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [editing, setEditing] = useState<Evento | null>(null);
@@ -62,9 +72,14 @@ export default function AdminEventos() {
   const fetchItems = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/eventos");
-      const data = await res.json();
-      setItems(Array.isArray(data) ? data : (data.results ?? []));
+      const [eventosRes, sedesRes] = await Promise.all([
+        fetch("/api/eventos"),
+        fetch("/api/sedes"),
+      ]);
+      const eventosData = await eventosRes.json();
+      const sedesData = await sedesRes.json();
+      setItems(Array.isArray(eventosData) ? eventosData : (eventosData.results ?? []));
+      setSedes(Array.isArray(sedesData) ? sedesData : []);
     } catch {
       setItems([]);
     } finally {
@@ -93,6 +108,7 @@ export default function AdminEventos() {
       fecha_inicio: (item.fecha_inicio ?? "").slice(0, 16),
       fecha_fin: (item.fecha_fin ?? "").slice(0, 16),
       imagen_url: item.imagen_url ?? "",
+      sede_id: item.sede_id !== null && item.sede_id !== undefined ? String(item.sede_id) : "",
     });
     setError(null);
     setModalOpen(true);
@@ -125,6 +141,7 @@ export default function AdminEventos() {
       fecha_inicio: form.fecha_inicio,
       fecha_fin: form.fecha_fin || null,
       imagen_url: form.imagen_url || null,
+      sede_id: form.sede_id !== "" ? Number(form.sede_id) : null,
     };
 
     try {
@@ -164,10 +181,10 @@ export default function AdminEventos() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
             Calendario de Eventos
           </h2>
-          <p className="text-slate-500 text-sm mt-1">
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
             Publica eventos institucionales que aparecerán en el calendario.
           </p>
         </div>
@@ -184,11 +201,11 @@ export default function AdminEventos() {
 
       {/* Lista de eventos */}
       {loading ? (
-        <div className="flex items-center justify-center py-16 bg-white rounded-xl border border-slate-200">
+        <div className="flex items-center justify-center py-16 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
           <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
         </div>
       ) : items.length === 0 ? (
-        <div className="bg-white rounded-xl border border-slate-200">
+        <div className="bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700">
           <p className="text-center text-slate-400 py-16">
             No hay eventos publicados.
           </p>
@@ -198,7 +215,7 @@ export default function AdminEventos() {
           {items.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden flex flex-col"
+              className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col"
             >
               {item.imagen_url && (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -209,10 +226,10 @@ export default function AdminEventos() {
                 />
               )}
               <div className="p-4 flex flex-col flex-1">
-                <h3 className="font-semibold text-slate-800 mb-2">
+                <h3 className="font-semibold text-slate-800 dark:text-white mb-2">
                   {item.titulo}
                 </h3>
-                <div className="flex items-center gap-2 text-sm text-slate-500 mb-1">
+                <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-1">
                   <Calendar className="h-4 w-4 flex-shrink-0 text-emerald-600" />
                   <span>
                     {formatFecha(item.fecha_inicio)}
@@ -220,13 +237,25 @@ export default function AdminEventos() {
                   </span>
                 </div>
                 {item.lugar && (
-                  <div className="flex items-center gap-2 text-sm text-slate-500 mb-2">
+                  <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-2">
                     <MapPin className="h-4 w-4 flex-shrink-0 text-emerald-600" />
                     <span>{item.lugar}</span>
                   </div>
                 )}
+                <div className="flex items-center gap-2 text-sm mb-2">
+                  <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${
+                    item.sede_id
+                      ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
+                      : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
+                  }`}>
+                    <MapPin className="h-3 w-3" />
+                    {item.sede_id
+                      ? (sedes.find((s) => s.id === item.sede_id)?.nombre ?? `Sede #${item.sede_id}`)
+                      : "Todas las sedes"}
+                  </span>
+                </div>
                 {item.descripcion && (
-                  <p className="text-sm text-slate-500 line-clamp-3 mb-3">
+                  <p className="text-sm text-slate-500 dark:text-slate-400 line-clamp-3 mb-3">
                     {item.descripcion}
                   </p>
                 )}
@@ -255,14 +284,14 @@ export default function AdminEventos() {
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-              <h3 className="text-lg font-semibold text-slate-800">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-white">
                 {editing ? "Editar Evento" : "Nuevo Evento"}
               </h3>
               <button
                 onClick={closeModal}
-                className="text-slate-400 hover:text-slate-600"
+                className="text-slate-400 hover:text-slate-600 dark:text-slate-300"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -276,7 +305,7 @@ export default function AdminEventos() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Título <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -285,12 +314,12 @@ export default function AdminEventos() {
                   value={form.titulo}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Descripción
                 </label>
                 <textarea
@@ -298,13 +327,13 @@ export default function AdminEventos() {
                   value={form.descripcion}
                   onChange={handleChange}
                   rows={3}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Fecha inicio <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -313,11 +342,11 @@ export default function AdminEventos() {
                     value={form.fecha_inicio}
                     onChange={handleChange}
                     required
-                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Fecha fin
                   </label>
                   <input
@@ -325,13 +354,13 @@ export default function AdminEventos() {
                     name="fecha_fin"
                     value={form.fecha_fin}
                     onChange={handleChange}
-                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Lugar
                 </label>
                 <input
@@ -340,12 +369,12 @@ export default function AdminEventos() {
                   value={form.lugar}
                   onChange={handleChange}
                   placeholder="Sede principal, auditorio, etc."
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   Imagen (opcional)
                 </label>
                 <FileUpload
@@ -363,11 +392,33 @@ export default function AdminEventos() {
                 )}
               </div>
 
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
+                  Sede
+                </label>
+                <select
+                  name="sede_id"
+                  value={form.sede_id}
+                  onChange={handleChange}
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                >
+                  <option value="">Todas las sedes (global)</option>
+                  {sedes.map((s) => (
+                    <option key={s.id} value={s.id}>
+                      {s.nombre}{s.municipio ? ` — ${s.municipio}` : ""}
+                    </option>
+                  ))}
+                </select>
+                <p className="text-xs text-slate-400 mt-1">
+                  Sin sede asignada, el evento aparece en todas las sedes y en el inicio.
+                </p>
+              </div>
+
               <div className="flex justify-end gap-3 pt-2">
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-4 py-2 text-sm text-slate-600 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+                  className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                 >
                   Cancelar
                 </button>

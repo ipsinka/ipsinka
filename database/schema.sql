@@ -11,6 +11,7 @@ CREATE TABLE IF NOT EXISTS noticias (
   imagen_url TEXT,
   tipo TEXT NOT NULL DEFAULT 'noticia', -- 'noticia' | 'evento'
   fecha_evento TEXT,
+  sede_id INTEGER REFERENCES sedes(id), -- NULL = aplica a todas las sedes
   activo INTEGER NOT NULL DEFAULT 1,
   creado_en TEXT NOT NULL DEFAULT (datetime('now')),
   actualizado_en TEXT NOT NULL DEFAULT (datetime('now'))
@@ -123,6 +124,7 @@ CREATE TABLE IF NOT EXISTS eventos (
   fecha_inicio TEXT NOT NULL, -- ISO 'YYYY-MM-DD' o 'YYYY-MM-DDTHH:MM'
   fecha_fin TEXT,
   imagen_url TEXT,
+  sede_id INTEGER REFERENCES sedes(id), -- NULL = aplica a todas las sedes
   activo INTEGER NOT NULL DEFAULT 1,
   creado_en TEXT NOT NULL DEFAULT (datetime('now')),
   actualizado_en TEXT NOT NULL DEFAULT (datetime('now'))

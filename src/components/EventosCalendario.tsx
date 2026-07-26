@@ -11,34 +11,17 @@ interface Evento {
   fecha_inicio: string;
   fecha_fin: string | null;
   imagen_url: string | null;
+  sede_id: number | null;
 }
 
-const anuncios = [
-  {
-    id: "1",
-    titulo: "Nuevos Horarios de Atención",
-    fecha: "2025-01-08",
-    contenido:
-      "A partir del 15 de enero, la sede Colón ampliará su horario de atención hasta las 6:00 PM.",
-    tipo: "info",
-  },
-  {
-    id: "2",
-    titulo: "Mantenimiento Sistema de Citas",
-    fecha: "2025-01-12",
-    contenido:
-      "El sistema de citas en línea estará en mantenimiento el 20 de enero de 6:00 AM a 12:00 PM.",
-    tipo: "alerta",
-  },
-  {
-    id: "3",
-    titulo: "Nueva Especialidad Disponible",
-    fecha: "2025-01-10",
-    contenido:
-      "Ya está disponible el servicio de psicología en la sede principal de Sibundoy.",
-    tipo: "novedad",
-  },
-];
+interface Anuncio {
+  id: number;
+  titulo: string;
+  descripcion: string | null;
+  contenido: string | null;
+  creado_en: string;
+  tipo: string;
+}
 
 function formatFecha(value: string): string {
   const d = new Date(value);
@@ -71,43 +54,40 @@ export default function EventosCalendario() {
   );
   const [emailSuscripcion, setEmailSuscripcion] = useState<string>("");
   const [eventos, setEventos] = useState<Evento[]>([]);
+  const [anuncios, setAnuncios] = useState<Anuncio[]>([]);
+  const [sedes, setSedes] = useState<Record<number, string>>({});
   const [cargando, setCargando] = useState<boolean>(true);
+  const [cargandoAnuncios, setCargandoAnuncios] = useState<boolean>(true);
 
   useEffect(() => {
     let activo = true;
-    const cargarEventos = async () => {
+    const hoy = new Date().toISOString().slice(0, 10);
+    const cargarDatos = async () => {
       try {
-        // Solo eventos desde hoy en adelante (próximos)
-        const hoy = new Date().toISOString().slice(0, 10);
-        const res = await fetch(`/api/eventos?desde=${hoy}`);
-        if (!res.ok) throw new Error("Error al cargar eventos");
-        const data = await res.json();
-        const lista: Evento[] = Array.isArray(data) ? data : (data.results ?? []);
-        if (activo) setEventos(lista);
+        const [resEventos, resAnuncios, resSedes] = await Promise.all([
+          fetch(`/api/eventos?desde=${hoy}`),
+          fetch(`/api/noticias?tipo=anuncio`),
+          fetch(`/api/sedes`),
+        ]);
+        const dataEventos = await resEventos.json();
+        const dataAnuncios = await resAnuncios.json();
+        const dataSedes = await resSedes.json();
+        if (activo) {
+          setEventos(Array.isArray(dataEventos) ? dataEventos : (dataEventos.results ?? []));
+          setAnuncios(Array.isArray(dataAnuncios) ? dataAnuncios : (dataAnuncios.results ?? []));
+          const mapaS: Record<number, string> = {};
+          (Array.isArray(dataSedes) ? dataSedes : []).forEach((s: { id: number; nombre: string }) => { mapaS[s.id] = s.nombre; });
+          setSedes(mapaS);
+        }
       } catch {
-        if (activo) setEventos([]);
+        if (activo) { setEventos([]); setAnuncios([]); }
       } finally {
-        if (activo) setCargando(false);
+        if (activo) { setCargando(false); setCargandoAnuncios(false); }
       }
     };
-    cargarEventos();
-    return () => {
-      activo = false;
-    };
+    cargarDatos();
+    return () => { activo = false; };
   }, []);
-
-  const getAnuncioColor = (tipo: string) => {
-    switch (tipo) {
-      case "info":
-        return "border-l-blue-500 bg-blue-50";
-      case "alerta":
-        return "border-l-yellow-500 bg-yellow-50";
-      case "novedad":
-        return "border-l-green-500 bg-green-50";
-      default:
-        return "border-l-gray-500 bg-gray-50";
-    }
-  };
 
   const handleSuscripcion = (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,13 +133,13 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
       <div className="container mx-auto px-4">
         {/* Selector de vista */}
         <div className="flex justify-center mb-8">
-          <div className="bg-white rounded-lg shadow-md p-1 flex">
+          <div className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-md p-1 flex">
             <button
               onClick={() => setVistaActiva("eventos")}
               className={`px-6 py-3 rounded-lg transition-colors ${
                 vistaActiva === "eventos"
                   ? "bg-green-600 text-white"
-                  : "text-gray-600 hover:text-green-600"
+                  : "text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400"
               }`}
             >
               📅 Eventos Programados
@@ -169,7 +149,7 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
               className={`px-6 py-3 rounded-lg transition-colors ${
                 vistaActiva === "anuncios"
                   ? "bg-green-600 text-white"
-                  : "text-gray-600 hover:text-green-600"
+                  : "text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400"
               }`}
             >
               📢 Anuncios
@@ -279,6 +259,16 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
                         )}
                       </div>
 
+                      <div className="mb-4">
+                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
+                          evento.sede_id
+                            ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
+                            : "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+                        }`}>
+                          📍 {evento.sede_id ? (sedes[evento.sede_id] ?? `Sede #${evento.sede_id}`) : "Todas las sedes"}
+                        </span>
+                      </div>
+
                       {evento.descripcion && (
                         <p className="text-gray-600 mb-4 dark:text-white">
                           {evento.descripcion}
@@ -294,40 +284,53 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
 
         {vistaActiva === "anuncios" && (
           <div className="max-w-4xl mx-auto">
+            {cargandoAnuncios ? (
+              <div className="text-center py-12 text-gray-500 dark:text-gray-300">
+                Cargando anuncios...
+              </div>
+            ) : anuncios.length === 0 ? (
+              <div className="text-center py-12">
+                <div className="text-5xl mb-4">📢</div>
+                <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+                  No hay anuncios publicados
+                </h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Los anuncios institucionales aparecerán aquí cuando sean publicados.
+                </p>
+              </div>
+            ) : (
             <div className="space-y-6">
               {anuncios.map((anuncio) => (
                 <div
                   key={anuncio.id}
-                  className={`rounded-lg p-6 border-l-4 ${getAnuncioColor(
-                    anuncio.tipo
-                  )}`}
+                  className="rounded-lg p-6 border-l-4 border-green-500 bg-green-50 dark:bg-green-900/20"
                 >
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">
+                      <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
                         {anuncio.titulo}
                       </h3>
-                      <p className="text-gray-700 mb-3">{anuncio.contenido}</p>
-                      <p className="text-sm text-gray-500">
+                      {anuncio.descripcion && (
+                        <p className="text-gray-700 dark:text-gray-300 mb-2">{anuncio.descripcion}</p>
+                      )}
+                      {anuncio.contenido && (
+                        <p className="text-gray-600 dark:text-gray-400 text-sm mb-3">{anuncio.contenido}</p>
+                      )}
+                      <p className="text-sm text-gray-500 dark:text-gray-400">
                         Publicado el{" "}
-                        {new Date(anuncio.fecha).toLocaleDateString("es-CO", {
+                        {new Date(anuncio.creado_en).toLocaleDateString("es-CO", {
                           year: "numeric",
                           month: "long",
                           day: "numeric",
                         })}
                       </p>
                     </div>
-                    <div className="ml-4">
-                      <span className="text-2xl">
-                        {anuncio.tipo === "info" && "📝"}
-                        {anuncio.tipo === "alerta" && "⚠️"}
-                        {anuncio.tipo === "novedad" && "🆕"}
-                      </span>
-                    </div>
+                    <div className="ml-4 text-2xl">📢</div>
                   </div>
                 </div>
               ))}
             </div>
+            )}
 
             {/* Suscripción a notificaciones */}
             <div className="mt-12 bg-white rounded-lg shadow-lg p-8 text-center">

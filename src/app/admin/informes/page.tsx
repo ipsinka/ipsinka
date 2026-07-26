@@ -202,10 +202,10 @@ export default function AdminInformes() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold text-slate-800">
+          <h2 className="text-2xl font-bold text-slate-800 dark:text-white">
             Informes Mensuales
           </h2>
-          <p className="text-slate-500 text-sm mt-1">
+          <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
             Reportes de entrega de documentación clasificados por mes, año y
             área.
           </p>
@@ -222,11 +222,11 @@ export default function AdminInformes() {
       </div>
 
       {/* Filtros */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4 flex flex-wrap gap-3">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 p-4 flex flex-wrap gap-3">
         <select
           value={filtroAnio}
           onChange={(e) => setFiltroAnio(e.target.value)}
-          className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value="">Todos los años</option>
           {aniosDisponibles.map((a) => (
@@ -238,7 +238,7 @@ export default function AdminInformes() {
         <select
           value={filtroMes}
           onChange={(e) => setFiltroMes(e.target.value)}
-          className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value="">Todos los meses</option>
           {MESES.map((m, i) => (
@@ -250,7 +250,7 @@ export default function AdminInformes() {
         <select
           value={filtroArea}
           onChange={(e) => setFiltroArea(e.target.value)}
-          className="border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
         >
           <option value="">Todas las áreas</option>
           {AREAS.map((a) => (
@@ -266,7 +266,7 @@ export default function AdminInformes() {
               setFiltroMes("");
               setFiltroArea("");
             }}
-            className="text-sm text-slate-500 hover:text-slate-700 px-2"
+            className="text-sm text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 px-2"
           >
             Limpiar filtros
           </button>
@@ -274,7 +274,7 @@ export default function AdminInformes() {
       </div>
 
       {/* Tabla / historial */}
-      <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-slate-200 dark:border-slate-700 overflow-hidden">
         {loading ? (
           <div className="flex items-center justify-center py-16">
             <Loader2 className="h-6 w-6 animate-spin text-slate-400" />
@@ -286,18 +286,18 @@ export default function AdminInformes() {
         ) : (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200">
+              <thead className="bg-slate-50 dark:bg-slate-700 border-b border-slate-200 dark:border-slate-700">
                 <tr>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
                     Título
                   </th>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
                     Período
                   </th>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
                     Área
                   </th>
-                  <th className="text-left px-4 py-3 font-medium text-slate-600">
+                  <th className="text-left px-4 py-3 font-medium text-slate-600 dark:text-slate-300">
                     Descarga
                   </th>
                   <th className="px-4 py-3" />
@@ -305,14 +305,14 @@ export default function AdminInformes() {
               </thead>
               <tbody className="divide-y divide-slate-100">
                 {itemsFiltrados.map((item) => (
-                  <tr key={item.id} className="hover:bg-slate-50">
-                    <td className="px-4 py-3 text-slate-800 font-medium max-w-xs truncate">
+                  <tr key={item.id} className="hover:bg-slate-50 dark:hover:bg-slate-700/50">
+                    <td className="px-4 py-3 text-slate-800 dark:text-white font-medium max-w-xs truncate">
                       {item.titulo}
                     </td>
-                    <td className="px-4 py-3 text-slate-500 whitespace-nowrap">
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400 whitespace-nowrap">
                       {MESES[item.mes - 1]} {item.anio}
                     </td>
-                    <td className="px-4 py-3 text-slate-500">
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400">
                       {areaLabel[item.area ?? ""] ?? item.area ?? "—"}
                     </td>
                     <td className="px-4 py-3">
@@ -360,14 +360,14 @@ export default function AdminInformes() {
       {/* Modal */}
       {modalOpen && (
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200">
-              <h3 className="text-lg font-semibold text-slate-800">
+          <div className="bg-white dark:bg-slate-800 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-200 dark:border-slate-700">
+              <h3 className="text-lg font-semibold text-slate-800 dark:text-white">
                 {editing ? "Editar Informe" : "Nuevo Informe"}
               </h3>
               <button
                 onClick={closeModal}
-                className="text-slate-400 hover:text-slate-600"
+                className="text-slate-400 hover:text-slate-600 dark:text-slate-300"
               >
                 <X className="h-5 w-5" />
               </button>
@@ -381,7 +381,7 @@ export default function AdminInformes() {
               )}
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Título <span className="text-red-500">*</span>
                 </label>
                 <input
@@ -390,12 +390,12 @@ export default function AdminInformes() {
                   value={form.titulo}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                   Descripción
                 </label>
                 <textarea
@@ -403,13 +403,13 @@ export default function AdminInformes() {
                   value={form.descripcion}
                   onChange={handleChange}
                   rows={2}
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Mes <span className="text-red-500">*</span>
                   </label>
                   <select
@@ -417,7 +417,7 @@ export default function AdminInformes() {
                     value={form.mes}
                     onChange={handleChange}
                     required
-                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     {MESES.map((m, i) => (
                       <option key={m} value={i + 1}>
@@ -427,7 +427,7 @@ export default function AdminInformes() {
                   </select>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Año <span className="text-red-500">*</span>
                   </label>
                   <input
@@ -438,18 +438,18 @@ export default function AdminInformes() {
                     required
                     min={2000}
                     max={2100}
-                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-slate-700 mb-1">
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">
                     Área
                   </label>
                   <select
                     name="area"
                     value={form.area}
                     onChange={handleChange}
-                    className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
                   >
                     {AREAS.map((a) => (
                       <option key={a} value={a}>
@@ -461,7 +461,7 @@ export default function AdminInformes() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">
                   Archivo PDF
                 </label>
                 <FileUpload
@@ -486,7 +486,7 @@ export default function AdminInformes() {
                   value={form.archivo_url}
                   onChange={handleChange}
                   placeholder="https://... o clave de R2"
-                  className="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mt-1"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mt-1"
                 />
               </div>
 
@@ -494,7 +494,7 @@ export default function AdminInformes() {
                 <button
                   type="button"
                   onClick={closeModal}
-                  className="px-4 py-2 text-sm text-slate-600 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+                  className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors"
                 >
                   Cancelar
                 </button>
