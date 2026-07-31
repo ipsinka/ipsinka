@@ -991,7 +991,7 @@ function TransparenciaContent() {
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-gray-900">
       {/* Hero */}
-      <section className="py-12 bg-gradient-to-br from-green-600 via-green-700 to-blue-800 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900 text-white">
+      <section className="pt-24 pb-12 bg-gradient-to-br from-green-600 via-green-700 to-blue-800 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">

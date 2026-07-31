@@ -174,66 +174,31 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
                 </p>
               </div>
             ) : (
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 gap-8">
                 {eventos.map((evento) => (
                   <div
                     key={evento.id}
                     className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow dark:bg-gray-800 border dark:border-white"
                   >
-                    {evento.imagen_url && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={evento.imagen_url}
-                        alt={evento.titulo}
-                        className="w-full h-48 object-cover"
-                      />
-                    )}
-                    <div className="p-6">
-                      <div className="flex items-start mb-4">
-                        <span className="text-2xl mr-3">📅</span>
-                        <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1">
-                          {evento.titulo}
-                        </h3>
-                      </div>
-
-                      <div className="space-y-3 mb-4">
-                        <div className="flex items-center text-gray-600 dark:text-white">
-                          <svg
-                            className="w-5 h-5 mr-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
-                            />
-                          </svg>
-                          <span>{formatFecha(evento.fecha_inicio)}</span>
+                    <div className="flex flex-row">
+                      {/* Imagen izquierda — solo en ≥1024px */}
+                      {evento.imagen_url && (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={evento.imagen_url}
+                          alt={evento.titulo}
+                          className="hidden lg:block w-64 xl:w-80 flex-shrink-0 object-contain self-start"
+                        />
+                      )}
+                      <div className="p-6 flex-1 flex flex-col">
+                        <div className="flex items-start mb-4">
+                          <span className="text-2xl mr-3">📅</span>
+                          <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-1">
+                            {evento.titulo}
+                          </h3>
                         </div>
 
-                        <div className="flex items-center text-gray-600 dark:text-white">
-                          <svg
-                            className="w-5 h-5 mr-2"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                            />
-                          </svg>
-                          <span>
-                            {formatHora(evento.fecha_inicio, evento.fecha_fin)}
-                          </span>
-                        </div>
-
-                        {evento.lugar && (
+                        <div className="space-y-3 mb-4">
                           <div className="flex items-center text-gray-600 dark:text-white">
                             <svg
                               className="w-5 h-5 mr-2"
@@ -245,35 +210,83 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                                 strokeWidth={2}
-                                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
                               />
+                            </svg>
+                            <span>{formatFecha(evento.fecha_inicio)}</span>
+                          </div>
+
+                          <div className="flex items-center text-gray-600 dark:text-white">
+                            <svg
+                              className="w-5 h-5 mr-2"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
                               <path
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                                 strokeWidth={2}
-                                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                               />
                             </svg>
-                            <span>{evento.lugar}</span>
+                            <span>
+                              {formatHora(evento.fecha_inicio, evento.fecha_fin)}
+                            </span>
                           </div>
+
+                          {evento.lugar && (
+                            <div className="flex items-center text-gray-600 dark:text-white">
+                              <svg
+                                className="w-5 h-5 mr-2"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                              >
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                                />
+                                <path
+                                  strokeLinecap="round"
+                                  strokeLinejoin="round"
+                                  strokeWidth={2}
+                                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                                />
+                              </svg>
+                              <span>{evento.lugar}</span>
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="mb-4">
+                          <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
+                            evento.sede_id
+                              ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
+                              : "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
+                          }`}>
+                            📍 {evento.sede_id ? (sedes[evento.sede_id] ?? `Sede #${evento.sede_id}`) : "Todas las sedes"}
+                          </span>
+                        </div>
+
+                        {evento.descripcion && (
+                          <p className="text-gray-600 mb-4 dark:text-white">
+                            {evento.descripcion}
+                          </p>
+                        )}
+
+                        {/* Imagen abajo del texto — solo en <1024px */}
+                        {evento.imagen_url && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img
+                            src={evento.imagen_url}
+                            alt={evento.titulo}
+                            className="lg:hidden w-full object-contain mt-2"
+                          />
                         )}
                       </div>
-
-                      <div className="mb-4">
-                        <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
-                          evento.sede_id
-                            ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
-                            : "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
-                        }`}>
-                          📍 {evento.sede_id ? (sedes[evento.sede_id] ?? `Sede #${evento.sede_id}`) : "Todas las sedes"}
-                        </span>
-                      </div>
-
-                      {evento.descripcion && (
-                        <p className="text-gray-600 mb-4 dark:text-white">
-                          {evento.descripcion}
-                        </p>
-                      )}
                     </div>
                   </div>
                 ))}

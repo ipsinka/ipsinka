@@ -6,6 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import PresentacionCarousel from "@/components/PresentacionCarousel";
 import NoticiasDestacadas from "@/components/NoticiasDestacadas";
+import SliderEnlaces from "@/components/SliderEnlaces";
+import SedesPreview from "@/components/SedesPreview";
 import HealthInfoSection from "@/components/HealthInfoSection";
 import GlobalSearch from "@/components/GlobalSearch";
 import CalendarioConsultas from "@/components/CalendarioConsultas";
@@ -338,6 +340,9 @@ export default function Home() {
       {/* Noticias publicadas por la IPS (después de las imágenes de presentación) */}
       <NoticiasDestacadas />
 
+      {/* Slider de acceso rápido a todas las secciones */}
+      <SliderEnlaces />
+
       <div className="flex flex-col md:flex-row bg-gray-100 dark:bg-gray-800">
         <div className="w-full md:w-1/2">
           <AutoSlider slides={sedesSlides} title="Servicios" />
@@ -411,6 +416,9 @@ export default function Home() {
       </section>
 
       <GlobalSearch />
+
+      {/* Vista previa de Contactos y Sedes con acceso a Google Maps */}
+      <SedesPreview />
 
       {/* Informes Mensuales */}
       <InformesMensuales />

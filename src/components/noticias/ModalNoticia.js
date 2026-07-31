@@ -37,7 +37,7 @@ export default function ModalNoticia({ noticia, onClose }) {
       onClick={onClose}
     >
       <div
-        className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+        className="relative bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Botón cerrar */}
@@ -51,42 +51,55 @@ export default function ModalNoticia({ noticia, onClose }) {
           </svg>
         </button>
 
-        {/* Imagen de cabecera */}
-        {noticia.imagen_url && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={noticia.imagen_url}
-            alt={noticia.titulo}
-            className="w-full h-56 md:h-64 object-cover rounded-t-xl"
-          />
-        )}
-
-        <div className="p-6">
-          {noticia.tipo === "evento" && (
-            <span className="inline-block mb-3 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800">
-              Evento
-            </span>
+        {/* Layout: en ≥1024px imagen izquierda + texto derecha; en <1024px texto arriba + imagen abajo */}
+        <div className="flex flex-col lg:flex-row">
+          {/* Imagen izquierda — solo ≥1024px */}
+          {noticia.imagen_url && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={noticia.imagen_url}
+              alt={noticia.titulo}
+              className="hidden lg:block lg:w-96 xl:w-[28rem] flex-shrink-0 object-contain self-start rounded-tl-xl rounded-bl-xl"
+            />
           )}
 
-          <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
-            {noticia.titulo}
-          </h2>
+          <div className="p-6 flex-1 flex flex-col">
+            {noticia.tipo === "evento" && (
+              <span className="inline-block mb-3 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 self-start">
+                Evento
+              </span>
+            )}
 
-          <p className="text-xs text-gray-400 dark:text-gray-500 mb-4">
-            {formatFecha(noticia.fecha_evento || noticia.creado_en)}
-          </p>
+            <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">
+              {noticia.titulo}
+            </h2>
 
-          {noticia.descripcion && (
-            <p className="text-gray-700 dark:text-gray-200 font-medium mb-4">
-              {noticia.descripcion}
+            <p className="text-xs text-gray-400 dark:text-gray-500 mb-4">
+              {formatFecha(noticia.fecha_evento || noticia.creado_en)}
             </p>
-          )}
 
-          {noticia.contenido && (
-            <div className="text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
-              {noticia.contenido}
-            </div>
-          )}
+            {noticia.descripcion && (
+              <p className="text-gray-700 dark:text-gray-200 font-medium mb-4">
+                {noticia.descripcion}
+              </p>
+            )}
+
+            {noticia.contenido && (
+              <div className="text-gray-600 dark:text-gray-300 leading-relaxed whitespace-pre-line">
+                {noticia.contenido}
+              </div>
+            )}
+
+            {/* Imagen abajo del texto — solo <1024px */}
+            {noticia.imagen_url && (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={noticia.imagen_url}
+                alt={noticia.titulo}
+                className="lg:hidden w-full object-contain mt-4 rounded-b-xl"
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
