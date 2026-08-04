@@ -276,8 +276,7 @@ export default function RotatingCarousel({
         <button
           onClick={() => openExpanded(currentIndex)}
           className="boton-maximizar-pulso absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 bg-black/50 text-white p-4 rounded-full hover:bg-black/75 transition-colors opacity-100 lg:opacity-0 lg:group-hover:opacity-100 [animation-play-state:running] hover:[animation-play-state:paused]"
-          aria-label="Maximizar imagen"
-          title="Ver en pantalla completa"
+          aria-label="Ver en pantalla completa"
         >
           <svg
             className="w-9 h-9"

@@ -74,7 +74,7 @@ export default function Footer() {
                   <span className="text-white font-bold">IK</span>
                 </div> */}
 
-                <Link href="/" title="Ir a inicio">
+                <Link href="/" aria-label="Ir a inicio">
                   <Image
                     alt="Logo IPS Inga Kamentsá"
                     width={40}
@@ -352,10 +352,9 @@ export default function Footer() {
             <div className=" space-x-6 mt-4 sm:mt-0 ">
               <Link
                 href="https://neurai.dev/"
-                title="Abrir sitio web"
                 className="flex items-center space-x-2 text-gray-400 hover:text-white dark:text-gray-500 dark:hover:text-green-400 text-sm transition-colors"
-                aria-label="Desarrollado por neurai.dev"
                 target="_blank"
+                rel="noopener noreferrer"
               >
                 <span className="font-medium">Desarrollado por neurai.dev</span>
                 <Image
