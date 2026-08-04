@@ -385,7 +385,7 @@ export default function Home() {
             >
               <Link
                 href="/sedes"
-                className="bg-white text-green-600 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
+                className="bg-white text-green-800 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors inline-block"
               >
                 Ver Nuestras Sedes
               </Link>
@@ -446,7 +446,7 @@ export default function Home() {
                 </p>
                 <Link
                   href="/servicios"
-                  className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 font-semibold"
+                  className="text-green-800 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300 font-semibold"
                 >
                   Ver más
                 </Link>
@@ -468,7 +468,7 @@ export default function Home() {
                 </p>
                 <Link
                   href="/servicios"
-                  className="text-green-600 hover:text-green-800 dark:text-green-400 dark:hover:text-green-300 font-semibold"
+                  className="text-green-800 hover:text-green-900 dark:text-green-400 dark:hover:text-green-300 font-semibold"
                 >
                   Ver más
                 </Link>

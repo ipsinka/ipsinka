@@ -423,8 +423,8 @@ export default function PresentacionCarousel({
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
               className={`px-3 py-1 rounded-full text-sm transition-colors ${
                 isAutoPlaying
-                  ? "bg-green-500 text-white"
-                  : "bg-gray-500 text-white hover:bg-gray-400"
+                  ? "bg-green-700 text-white"
+                  : "bg-gray-600 text-white hover:bg-gray-500"
               }`}
             >
               {isAutoPlaying ? "⏸️ Pausa" : "▶️ Auto"}

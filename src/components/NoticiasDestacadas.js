@@ -68,7 +68,7 @@ export default function NoticiasDestacadas() {
             <div className="text-center mt-10">
               <Link
                 href="/noticias"
-                className="inline-block bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
+                className="inline-block bg-green-700 hover:bg-green-800 text-white px-8 py-3 rounded-lg font-semibold transition-colors"
                 data-aos="zoom-in"
               >
                 Ver todas las noticias
