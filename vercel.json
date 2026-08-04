@@ -1,0 +1,6 @@
+{
+  "redirects": [
+    { "source": "/nuestras-sedes", "destination": "/sedes", "permanent": true },
+    { "source": "/nuestros-servicios", "destination": "/servicios", "permanent": true }
+  ]
+}
