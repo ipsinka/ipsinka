@@ -4,14 +4,16 @@ import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import PresentacionCarousel from "@/components/PresentacionCarousel";
 import NoticiasDestacadas from "@/components/NoticiasDestacadas";
 import SliderEnlaces from "@/components/SliderEnlaces";
 import SedesPreview from "@/components/SedesPreview";
 import HealthInfoSection from "@/components/HealthInfoSection";
-import GlobalSearch from "@/components/GlobalSearch";
-import CalendarioConsultas from "@/components/CalendarioConsultas";
 import { obtenerTodasLasCitas } from "@/data/citasProduccion";
+
+const GlobalSearch = dynamic(() => import("@/components/GlobalSearch"), { ssr: false });
+const CalendarioConsultas = dynamic(() => import("@/components/CalendarioConsultas"), { ssr: false });
 
 const sedesSlides = [
   {
@@ -304,33 +306,29 @@ function InformesMensuales() {
 export default function Home() {
   const [consultas, setConsultas] = useState([]);
   const [eventos, setEventos] = useState([]);
+  const calendarioRef = useRef(null);
 
   useEffect(() => {
-    const citas = obtenerTodasLasCitas();
-    setConsultas(citas);
-    const interval = setInterval(() => {
-      setConsultas(obtenerTodasLasCitas());
-    }, 30000);
-    return () => clearInterval(interval);
+    setConsultas(obtenerTodasLasCitas());
   }, []);
 
   useEffect(() => {
+    const el = calendarioRef.current;
+    if (!el) return;
     let activo = true;
-    const cargarEventos = async () => {
-      try {
-        const res = await fetch("/api/eventos");
-        if (!res.ok) throw new Error("Error al cargar eventos");
-        const data = await res.json();
-        const lista = Array.isArray(data) ? data : (data.results ?? []);
-        if (activo) setEventos(lista);
-      } catch {
-        if (activo) setEventos([]);
-      }
-    };
-    cargarEventos();
-    return () => {
-      activo = false;
-    };
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        fetch("/api/eventos")
+          .then((r) => (r.ok ? r.json() : []))
+          .then((data) => { if (activo) setEventos(Array.isArray(data) ? data : (data.results ?? [])); })
+          .catch(() => {});
+      },
+      { rootMargin: "200px" }
+    );
+    observer.observe(el);
+    return () => { activo = false; observer.disconnect(); };
   }, []);
 
   return (
@@ -400,7 +398,7 @@ export default function Home() {
       </section>
 
       {/* Sección del Calendario de Consultas */}
-      <section className="py-16 dark:bg-gray-900">
+      <section className="py-16 dark:bg-gray-900" ref={calendarioRef}>
         <div className="container mx-auto px-4">
           <div className="text-center mb-8">
             <h2 className="text-4xl font-bold text-gray-800 dark:text-white mb-4">

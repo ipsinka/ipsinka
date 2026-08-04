@@ -12,26 +12,13 @@ import "aos/dist/aos.css";
 export default function AOSInit() {
   useEffect(() => {
     AOS.init({
-      // Duración de las animaciones en milisegundos
-      duration: 1000,
-
-      // Retraso antes de que comience la animación
-      delay: 100,
-
-      // Si las animaciones deben ocurrir solo una vez
+      duration: 600,
+      delay: 0,
       once: true,
-
-      // Offset desde el punto de activación original
-      offset: 100,
-
-      // Función de aceleración
-      easing: "ease-in-out",
-
-      // Si se debe animar elementos cuando se hace scroll hacia arriba
+      offset: 80,
+      easing: "ease-out",
       mirror: false,
-
-      // Si se deben deshabilitar animaciones en dispositivos móviles
-      disable: false,
+      disable: window.innerWidth < 768,
     });
 
     // Refrescar AOS cuando cambie el contenido

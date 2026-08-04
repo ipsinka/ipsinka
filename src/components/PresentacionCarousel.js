@@ -213,15 +213,20 @@ export default function PresentacionCarousel({
         >
           {/* Background image */}
           {slide.image && (
-            <>
-              <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat cursor-zoom-in"
-                style={{
-                  backgroundImage: `url('${slide.image}')`,
-                }}
-                onClick={() => handleImageClick(slide.image)}
+            <div
+              className="absolute inset-0 cursor-zoom-in overflow-hidden"
+              onClick={() => handleImageClick(slide.image)}
+            >
+              <Image
+                src={slide.image}
+                alt={slide.title ?? "Slide"}
+                fill
+                sizes="100vw"
+                className="object-cover object-center"
+                priority={index === 0}
+                loading={index === 0 ? "eager" : "lazy"}
               />
-            </>
+            </div>
           )}
 
           {/* Background gradient overlay */}
