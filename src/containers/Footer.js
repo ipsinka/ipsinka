@@ -3,19 +3,41 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import styles from "../styles/Footer.module.scss";
+
+// Redes sociales del widget flotante — agregar aquí nuevas redes cuando se activen
+const socialLinks = [
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/luisfernando.mutunbajoyjacacanamejoy",
+    color: "#1877F2",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+        <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+      </svg>
+    ),
+  },
+  // {
+  //   name: "WhatsApp",
+  //   href: "https://wa.me/573132863398",
+  //   color: "#25D366",
+  //   icon: (
+  //     <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+  //       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+  //     </svg>
+  //   ),
+  // },
+];
 
 export default function Footer() {
   const [menuOption, setMenuOption] = useState(false);
-  const [imageError, setImageError] = useState({});
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
-  // Cerrar menú al hacer click fuera
+  // Cerrar menú al hacer click fuera o con Escape
   useEffect(() => {
+    if (!menuOption) return;
     const handleClickOutside = (event) => {
       if (
-        menuOption &&
         menuRef.current &&
         buttonRef.current &&
         !menuRef.current.contains(event.target) &&
@@ -24,47 +46,19 @@ export default function Footer() {
         setMenuOption(false);
       }
     };
-
+    const handleEscape = (event) => {
+      if (event.key === "Escape") setMenuOption(false);
+    };
     document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
     };
   }, [menuOption]);
 
-  // IDs únicos para el manejo de errores de imágenes
-  const facebookImageId = "facebook";
-  const instagramImageId = "instagram";
-  const whatsappImageId = "whatsapp";
-  const tiktokImageId = "tiktok";
-
-  // Estilos para los items de redes sociales
-  const socialItemStyle = {
-    padding: "5px",
-    backgroundColor: "#fff",
-    border: "1px solid #000",
-    borderRadius: "50%",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: "50px",
-    height: "50px",
-  };
-
   return (
     <>
-      <style jsx>{`
-        @keyframes slideInFromLeft {
-          from {
-            transform: translateX(-250px);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-      `}</style>
-
       <footer className="bg-gray-800 text-white dark:bg-gray-900 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -369,180 +363,76 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Botón flotante para abrir/cerrar redes sociales */}
-        <div
-          ref={buttonRef}
-          className={styles.flecha}
-          onClick={() => {
-            setMenuOption(!menuOption);
-          }}
-          role="button"
-          tabIndex={0}
-          aria-label="Toggle social media menu"
-          style={{
-            position: "fixed",
-            bottom: "8px",
-            left: "5px",
-            zIndex: 1000,
-            backgroundColor: "#16a34a",
-            padding: "10px",
-            borderRadius: "50%",
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: "50px",
-            height: "50px",
-            boxShadow: "1px 2px 10px 4px rgba(0,0,0,0.5)",
-            transition: "transform 0.3s ease",
-            transform: menuOption ? "rotate(180deg)" : "rotate(0deg)",
-            scale: menuOption ? ".9" : "1",
-          }}
-        >
-          <Image
-            src="https://0dwas2ied3dcs14f.public.blob.vercel-storage.com/icons/arrow.png"
-            alt="Compartir"
-            width={30}
-            height={30}
-            style={{ filter: "brightness(0) invert(1)" }}
-          />
-        </div>
-
-        {/* Redes sociales flotantes */}
-        <article
-          ref={menuRef}
-          className={`${styles.redes} ${
-            menuOption ? styles.open : styles.closed
-          }`}
-          style={{
-            position: "fixed",
-            bottom: "65px",
-            left: "10px",
-            zIndex: 999,
-            display: menuOption ? "flex" : "none",
-            flexDirection: "column",
-            gap: "10px",
-            animation: menuOption
-              ? "slideInFromLeft 0.3s ease-in forwards"
-              : "none",
-          }}
-        >
+        {/* Widget flotante de redes sociales */}
+        <div className="fixed bottom-4 left-4 z-[1000] flex flex-col items-start gap-3">
+          {/* Menú de redes — pastillas con ícono y nombre */}
           <ul
-            style={{
-              listStyle: "none",
-              padding: 0,
-              margin: 0,
-              display: "flex",
-              flexDirection: "column",
-              gap: "10px",
-            }}
+            ref={menuRef}
+            className={`flex flex-col gap-2 transition-all duration-300 ease-out origin-bottom-left ${
+              menuOption
+                ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
+                : "opacity-0 scale-90 translate-y-3 pointer-events-none"
+            }`}
           >
-            <li style={socialItemStyle}>
-              <Link
-                href="https://www.facebook.com/luisfernando.mutunbajoyjacacanamejoy"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {imageError[facebookImageId] ? (
-                  <span style={{ fontSize: "40px" }}>📘</span>
-                ) : (
-                  <Image
-                    alt="Facebook"
-                    src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
-                    width={40}
-                    height={40}
-                    loading="lazy"
-                    onError={() =>
-                      setImageError((prev) => ({
-                        ...prev,
-                        [facebookImageId]: true,
-                      }))
-                    }
-                  />
-                )}
-              </Link>
-            </li>
-
-            {/* <li style={socialItemStyle}>
-              <Link
-                href="https://www.instagram.com/julianrio95/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {imageError[instagramImageId] ? (
-                  <span style={{ fontSize: "40px" }}>📷</span>
-                ) : (
-                  <Image
-                    alt="Instagram"
-                    src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png"
-                    width={40}
-                    height={40}
-                    loading="lazy"
-                    onError={() =>
-                      setImageError((prev) => ({
-                        ...prev,
-                        [instagramImageId]: true,
-                      }))
-                    }
-                  />
-                )}
-              </Link>
-            </li> */}
-
-            {/* WhatsApp - Temporalmente deshabilitado */}
-            {/* <li style={socialItemStyle}>
-              <Link
-                href="https://wa.me/573132863398"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {imageError[whatsappImageId] ? (
-                  <span style={{ fontSize: "40px" }}>💬</span>
-                ) : (
-                  <Image
-                    alt="Whatsapp"
-                    src="https://cdn-icons-png.flaticon.com/512/733/733585.png"
-                    width={40}
-                    height={40}
-                    loading="lazy"
-                    onError={() =>
-                      setImageError((prev) => ({
-                        ...prev,
-                        [whatsappImageId]: true,
-                      }))
-                    }
-                  />
-                )}
-              </Link>
-            </li> */}
-
-            {/* <li style={socialItemStyle}>
-              <Link
-                href="https://www.tiktok.com/@julii1295?_t=8n2OQ52Q4aD&_r=1"
-                target="_blank"
-                rel="noreferrer"
-              >
-                {imageError[tiktokImageId] ? (
-                  <span style={{ fontSize: "40px" }}>🎵</span>
-                ) : (
-                  <Image
-                    alt="TikTok"
-                    src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png"
-                    width={40}
-                    height={40}
-                    loading="lazy"
-                    onError={() =>
-                      setImageError((prev) => ({
-                        ...prev,
-                        [tiktokImageId]: true,
-                      }))
-                    }
-                  />
-                )}
-              </Link>
-            </li> */}
+            {socialLinks.map((social) => (
+              <li key={social.name}>
+                <Link
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2.5 bg-white dark:bg-gray-800 pl-2.5 pr-4 py-2 rounded-full shadow-lg border border-gray-200 dark:border-gray-600 hover:scale-105 hover:shadow-xl transition-all duration-200"
+                >
+                  <span
+                    className="flex items-center justify-center w-8 h-8 rounded-full text-white"
+                    style={{ backgroundColor: social.color }}
+                  >
+                    {social.icon}
+                  </span>
+                  <span className="text-sm font-semibold text-gray-800 dark:text-white">
+                    {social.name}
+                  </span>
+                </Link>
+              </li>
+            ))}
           </ul>
-        </article>
+
+          {/* Botón toggle */}
+          <button
+            ref={buttonRef}
+            onClick={() => setMenuOption(!menuOption)}
+            aria-expanded={menuOption}
+            aria-label={
+              menuOption ? "Cerrar redes sociales" : "Abrir redes sociales"
+            }
+            className="w-12 h-12 rounded-full bg-green-700 hover:bg-green-800 text-white shadow-xl border border-white/30 flex items-center justify-center transition-all duration-300 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-green-800"
+          >
+            {menuOption ? (
+              /* Ícono X para cerrar */
+              <svg
+                className="w-5 h-5 transition-transform duration-300 rotate-90"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth={2.5}
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            ) : (
+              /* Ícono de compartir/redes */
+              <svg
+                className="w-5 h-5 transition-transform duration-300"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z" />
+              </svg>
+            )}
+          </button>
+        </div>
       </footer>
     </>
   );
