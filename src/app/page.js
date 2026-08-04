@@ -118,7 +118,7 @@ function AutoSlider({ slides, title }) {
         {/* Flechas */}
         <button
           onClick={() => setCurrent((p) => (p - 1 + slides.length) % slides.length)}
-          className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full z-10"
+          className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-10 border border-white/30"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -126,7 +126,7 @@ function AutoSlider({ slides, title }) {
         </button>
         <button
           onClick={() => setCurrent((p) => (p + 1) % slides.length)}
-          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/75 text-white p-2 rounded-full z-10"
+          className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 hover:bg-black/90 text-white p-2 rounded-full z-10 border border-white/30"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -139,7 +139,7 @@ function AutoSlider({ slides, title }) {
             <button
               key={i}
               onClick={() => setCurrent(i)}
-              className={`w-2.5 h-2.5 rounded-full transition-colors ${i === current ? "bg-green-600" : "bg-gray-400"}`}
+              className={`w-2.5 h-2.5 rounded-full transition-colors border border-white/40 ${i === current ? "bg-green-700" : "bg-gray-600"}`}
             />
           ))}
         </div>

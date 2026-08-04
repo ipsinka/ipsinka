@@ -121,7 +121,7 @@ export default function SearchPage() {
                   />
                   <button
                     type="submit"
-                    className="bg-green-600 text-white px-6 py-3 rounded-r-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors"
+                    className="bg-green-700 text-white px-6 py-3 rounded-r-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors"
                   >
                     {isLoading ? (
                       <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>

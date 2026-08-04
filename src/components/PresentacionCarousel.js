@@ -366,7 +366,7 @@ export default function PresentacionCarousel({
         <>
           <button
             onClick={prevSlide}
-            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 sm:p-3 rounded-full hover:bg-opacity-75 transition-colors z-20"
+            className="absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-black/70 text-white p-2 sm:p-3 rounded-full hover:bg-black/90 transition-colors z-20 border border-white/30"
           >
             <svg
               className="w-5 h-5 sm:w-6 sm:h-6"
@@ -385,7 +385,7 @@ export default function PresentacionCarousel({
 
           <button
             onClick={nextSlide}
-            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 sm:p-3 rounded-full hover:bg-opacity-75 transition-colors z-20"
+            className="absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-black/70 text-white p-2 sm:p-3 rounded-full hover:bg-black/90 transition-colors z-20 border border-white/30"
           >
             <svg
               className="w-5 h-5 sm:w-6 sm:h-6"
@@ -408,10 +408,10 @@ export default function PresentacionCarousel({
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-colors duration-200 ${
+                className={`w-3 h-3 rounded-full transition-colors duration-200 border border-white/60 ${
                   index === currentSlide
-                    ? "bg-yellow-400"
-                    : "bg-white bg-opacity-50 hover:bg-opacity-75"
+                    ? "bg-yellow-300 border-yellow-200"
+                    : "bg-white/50 hover:bg-white/80"
                 }`}
               />
             ))}

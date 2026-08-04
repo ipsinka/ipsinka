@@ -19,8 +19,7 @@ export default function ThemeSwitcher() {
     <Button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       variant="outline"
-      className="w-10 h-10 p-0 rounded-full bg-gray-800 text-white  dark:bg-yellow-400 transition-colors
-      "
+      className="w-10 h-10 p-0 rounded-full bg-gray-900 text-white dark:bg-yellow-500 dark:text-gray-900 transition-colors focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-gray-900"
     >
       {theme === "dark" ? <Sun /> : <Moon />}
     </Button>

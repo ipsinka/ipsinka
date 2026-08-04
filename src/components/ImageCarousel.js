@@ -79,7 +79,7 @@ export default function ImageCarousel({ images, title, description }) {
           <>
             <button
               onClick={(e) => { e.stopPropagation(); prevImage(); }}
-              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-colors z-10"
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/70 text-white p-2 rounded-full hover:bg-black/90 transition-colors z-10 border border-white/30"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -87,7 +87,7 @@ export default function ImageCarousel({ images, title, description }) {
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); nextImage(); }}
-              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white p-2 rounded-full hover:bg-opacity-75 transition-colors z-10"
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/70 text-white p-2 rounded-full hover:bg-black/90 transition-colors z-10 border border-white/30"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -103,8 +103,8 @@ export default function ImageCarousel({ images, title, description }) {
               <button
                 key={index}
                 onClick={(e) => { e.stopPropagation(); goToImage(index); }}
-                className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-                  index === currentImage ? "bg-white" : "bg-white bg-opacity-50 hover:bg-opacity-75"
+                className={`w-2 h-2 rounded-full transition-colors duration-200 border border-white/60 ${
+                  index === currentImage ? "bg-white" : "bg-white/50 hover:bg-white/80"
                 }`}
               />
             ))}
