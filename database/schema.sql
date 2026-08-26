@@ -132,6 +132,25 @@ CREATE TABLE IF NOT EXISTS eventos (
 
 CREATE INDEX IF NOT EXISTS idx_eventos_fecha ON eventos (fecha_inicio);
 
+-- Slider / carrusel de presentación de la página de inicio
+CREATE TABLE IF NOT EXISTS slider (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  titulo TEXT,
+  subtitulo TEXT,
+  descripcion TEXT,
+  imagen_url TEXT,
+  bg_color TEXT,            -- clase de gradiente Tailwind, ej: "from-green-600 to-blue-700"
+  icono TEXT,               -- emoji/icono decorativo, ej: "🏥"
+  icono_label TEXT,         -- texto bajo el icono
+  botones TEXT,             -- JSON: array de { text, href, estilo }
+  orden INTEGER NOT NULL DEFAULT 0,
+  activo INTEGER NOT NULL DEFAULT 1,
+  creado_en TEXT NOT NULL DEFAULT (datetime('now')),
+  actualizado_en TEXT NOT NULL DEFAULT (datetime('now'))
+);
+
+CREATE INDEX IF NOT EXISTS idx_slider_orden ON slider (orden);
+
 -- Usuarios administradores
 CREATE TABLE IF NOT EXISTS usuarios (
   id INTEGER PRIMARY KEY AUTOINCREMENT,

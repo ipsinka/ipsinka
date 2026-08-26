@@ -10,6 +10,7 @@ import {
   ClipboardList,
   CalendarDays,
   UserCog,
+  GalleryHorizontalEnd,
 } from "lucide-react";
 
 interface StatCard {
@@ -22,6 +23,14 @@ interface StatCard {
 }
 
 const statCards: StatCard[] = [
+  {
+    label: "Slider de inicio",
+    href: "/admin/slider",
+    icon: GalleryHorizontalEnd,
+    color: "text-emerald-600",
+    bgColor: "bg-emerald-50",
+    endpoint: "/api/slider",
+  },
   {
     label: "Informes Mensuales",
     href: "/admin/informes",

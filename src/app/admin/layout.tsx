@@ -20,10 +20,12 @@ import {
   ClipboardList,
   CalendarDays,
   UserCog,
+  GalleryHorizontalEnd,
 } from "lucide-react";
 
 const navItems = [
   { href: "/admin", label: "Tablero de control", icon: LayoutDashboard },
+  { href: "/admin/slider", label: "Slider de inicio", icon: GalleryHorizontalEnd },
   { href: "/admin/informes", label: "Informes Mensuales", icon: ClipboardList },
   { href: "/admin/eventos", label: "Calendario", icon: CalendarDays },
   { href: "/admin/publicaciones", label: "Publicaciones", icon: BookOpen },

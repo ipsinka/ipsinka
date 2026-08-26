@@ -107,8 +107,53 @@ const defaultSlides = [
   },
 ];
 
+// Convierte una fila de la tabla `slider` (API) al formato interno de slide.
+function mapearSlideDesdeApi(row) {
+  let botones = [];
+  try {
+    const parsed =
+      typeof row.botones === "string" ? JSON.parse(row.botones) : row.botones;
+    if (Array.isArray(parsed)) botones = parsed;
+  } catch {
+    botones = [];
+  }
+
+  return {
+    id: row.id,
+    title: row.titulo ?? undefined,
+    subtitle: row.subtitulo ?? undefined,
+    description: row.descripcion ?? undefined,
+    image: row.imagen_url ?? undefined,
+    bgColor: row.bg_color ?? undefined,
+    icon: row.icono ?? undefined,
+    iconLabel: row.icono_label ?? undefined,
+    // Array de botones: { text, href, estilo }
+    buttons: botones
+      .filter((b) => b && b.text && b.href)
+      .map((b) => ({
+        text: b.text,
+        href: b.href,
+        estilo: b.estilo === "secondary" ? "secondary" : "primary",
+      })),
+  };
+}
+
+// Normaliza cualquier slide (default o de API) a un array de botones unificado.
+// Mantiene compatibilidad con la antigua estructura `cta.primary/secondary`.
+function obtenerBotones(slide) {
+  if (Array.isArray(slide.buttons)) return slide.buttons;
+  const botones = [];
+  if (slide.cta?.primary) {
+    botones.push({ ...slide.cta.primary, estilo: "primary" });
+  }
+  if (slide.cta?.secondary) {
+    botones.push({ ...slide.cta.secondary, estilo: "secondary" });
+  }
+  return botones;
+}
+
 export default function PresentacionCarousel({
-  slides = defaultSlides,
+  slides: slidesProp,
   showContent = true,
   showIcons = true,
   showControls = true,
@@ -118,6 +163,35 @@ export default function PresentacionCarousel({
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [expandedImage, setExpandedImage] = useState(null);
+  // Slides cargados desde la BD (null = aún sin cargar / se usa el fallback)
+  const [slidesRemotos, setSlidesRemotos] = useState(null);
+
+  // Prioridad: prop explícita > slides de la BD > slides por defecto
+  const slides = slidesProp ?? slidesRemotos ?? defaultSlides;
+
+  // Cargar los slides administrables desde la API (salvo que vengan por prop)
+  useEffect(() => {
+    if (slidesProp) return;
+    let activo = true;
+    fetch("/api/slider")
+      .then((res) => (res.ok ? res.json() : []))
+      .then((data) => {
+        if (!activo) return;
+        const filas = Array.isArray(data) ? data : data.results ?? [];
+        if (filas.length > 0) {
+          setSlidesRemotos(filas.map(mapearSlideDesdeApi));
+        }
+      })
+      .catch(() => {});
+    return () => {
+      activo = false;
+    };
+  }, [slidesProp]);
+
+  // Si el número de slides cambia, evitar índice fuera de rango
+  useEffect(() => {
+    setCurrentSlide((prev) => (prev >= slides.length ? 0 : prev));
+  }, [slides.length]);
 
   useEffect(() => {
     if (!isAutoPlaying) return;
@@ -272,59 +346,46 @@ export default function PresentacionCarousel({
                       )}
                     </div>
 
-                    {slide.cta && (
-                      <div className="flex flex-col sm:flex-row gap-4">
-                        {slide.cta.primary &&
-                          (slide.cta.primary.href.startsWith("tel:") ? (
-                            <a
-                              href={slide.cta.primary.href}
-                              className="inline-flex items-center justify-center px-8 py-4 bg-yellow-500 text-gray-900 font-semibold rounded-lg hover:bg-yellow-400 transition-colors duration-200"
+                    {obtenerBotones(slide).length > 0 && (
+                      <div className="flex flex-col sm:flex-row flex-wrap gap-4">
+                        {obtenerBotones(slide).map((boton, i) => {
+                          const esPrimario = boton.estilo !== "secondary";
+                          const clases = esPrimario
+                            ? "inline-flex items-center justify-center px-8 py-4 bg-yellow-500 text-gray-900 font-semibold rounded-lg hover:bg-yellow-400 transition-colors duration-200"
+                            : "inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-colors duration-200";
+                          const esTelefono = boton.href.startsWith("tel:");
+                          const flecha = esPrimario && (
+                            <svg
+                              className="ml-2 w-5 h-5"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
                             >
-                              {slide.cta.primary.text}
-                              <svg
-                                className="ml-2 w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                                />
-                              </svg>
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d={
+                                  esTelefono
+                                    ? "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                                    : "M9 5l7 7-7 7"
+                                }
+                              />
+                            </svg>
+                          );
+
+                          return esTelefono ? (
+                            <a key={i} href={boton.href} className={clases}>
+                              {boton.text}
+                              {flecha}
                             </a>
                           ) : (
-                            <Link
-                              href={slide.cta.primary.href}
-                              className="inline-flex items-center justify-center px-8 py-4 bg-yellow-500 text-gray-900 font-semibold rounded-lg hover:bg-yellow-400 transition-colors duration-200"
-                            >
-                              {slide.cta.primary.text}
-                              <svg
-                                className="ml-2 w-5 h-5"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  strokeWidth={2}
-                                  d="M9 5l7 7-7 7"
-                                />
-                              </svg>
+                            <Link key={i} href={boton.href} className={clases}>
+                              {boton.text}
+                              {flecha}
                             </Link>
-                          ))}
-
-                        {slide.cta.secondary && (
-                          <Link
-                            href={slide.cta.secondary.href}
-                            className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-gray-900 transition-colors duration-200"
-                          >
-                            {slide.cta.secondary.text}
-                          </Link>
-                        )}
+                          );
+                        })}
                       </div>
                     )}
                   </div>
