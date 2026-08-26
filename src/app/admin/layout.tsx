@@ -19,7 +19,6 @@ import {
   BookOpen,
   ClipboardList,
   CalendarDays,
-  UserCog,
   GalleryHorizontalEnd,
   Globe,
   ChevronLeft,
@@ -35,10 +34,9 @@ const navItems = [
   { href: "/admin/noticias", label: "Noticias", icon: Newspaper },
   { href: "/admin/galeria", label: "Galería", icon: Image },
   { href: "/admin/documentos", label: "Documentos", icon: FileText },
-  { href: "/admin/usuarios", label: "Usuarios", icon: UserCog },
 ];
 
-const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "").split(",").map(e => e.trim()).filter(Boolean);
+const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "").split(",").map(e => e.trim().toLowerCase()).filter(Boolean);
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -61,28 +59,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       return;
     }
 
-    const email = user.primaryEmailAddress?.emailAddress ?? "";
+    const email = user.primaryEmailAddress?.emailAddress?.toLowerCase() ?? "";
 
-    // El email del env var siempre tiene acceso (admin por defecto)
+    // El acceso al panel se basa únicamente en la lista de emails autorizados.
     if (ADMIN_EMAILS.includes(email)) {
       setAutorizado(true);
-      return;
+    } else {
+      setAutorizado(false);
+      router.replace("/admin/sign-in?error=unauthorized");
     }
-
-    fetch(`/api/usuarios/me?email=${encodeURIComponent(email)}`)
-      .then((r) => (r.ok ? r.json() : { rol: null }))
-      .then((data) => {
-        if (data.rol) {
-          setAutorizado(true);
-        } else {
-          setAutorizado(false);
-          router.replace("/admin/sign-in?error=unauthorized");
-        }
-      })
-      .catch(() => {
-        setAutorizado(false);
-        router.replace("/admin/sign-in?error=unauthorized");
-      });
   }, [isLoaded, user, pathname, router]);
 
   const isSignInPage = pathname.startsWith("/admin/sign-in");

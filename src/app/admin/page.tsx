@@ -9,7 +9,6 @@ import {
   ArrowRight,
   ClipboardList,
   CalendarDays,
-  UserCog,
   GalleryHorizontalEnd,
 } from "lucide-react";
 
@@ -70,14 +69,6 @@ const statCards: StatCard[] = [
     color: "text-amber-600",
     bgColor: "bg-amber-50",
     endpoint: "/api/documentos",
-  },
-  {
-    label: "Usuarios",
-    href: "/admin/usuarios",
-    icon: UserCog,
-    color: "text-slate-600 dark:text-slate-300",
-    bgColor: "bg-slate-100",
-    endpoint: "/api/usuarios",
   },
 ];
 
