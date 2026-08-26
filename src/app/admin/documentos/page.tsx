@@ -79,12 +79,19 @@ const CATEGORIAS: CategoriaConfig[] = [
   },
 ];
 
+// Años seleccionables: desde el actual hacia atrás hasta 2017.
+const ANIO_ACTUAL = new Date().getFullYear();
+const ANIOS_DISPONIBLES = Array.from(
+  { length: ANIO_ACTUAL - 2017 + 1 },
+  (_, i) => ANIO_ACTUAL - i
+);
+
 const emptyForm: FormData = {
   nombre: "",
   descripcion: "",
   archivo_url: "",
   categoria: "estados-financieros",
-  anio: String(new Date().getFullYear()),
+  anio: String(ANIO_ACTUAL),
 };
 
 export default function AdminDocumentos() {
@@ -384,18 +391,31 @@ export default function AdminDocumentos() {
                 />
               </div>
 
-              {/* Año */}
+              {/* Año — botones grandes de selección rápida */}
               <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Año</label>
-                <input
-                  type="number"
-                  name="anio"
-                  value={form.anio}
-                  onChange={handleChange}
-                  min={2000}
-                  max={2100}
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
-                />
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-2">Año</label>
+                <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                  {ANIOS_DISPONIBLES.map((y) => {
+                    const activo = form.anio === String(y);
+                    return (
+                      <button
+                        key={y}
+                        type="button"
+                        onClick={() => setForm((prev) => ({ ...prev, anio: String(y) }))}
+                        className={`py-3 rounded-lg text-base font-semibold border-2 transition-colors ${
+                          activo
+                            ? "bg-emerald-600 border-emerald-600 text-white shadow"
+                            : "bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:border-emerald-400 hover:text-emerald-700"
+                        }`}
+                      >
+                        {y}
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="text-xs text-slate-400 mt-1.5">
+                  Seleccionado: <span className="font-medium text-slate-600 dark:text-slate-300">{form.anio || "—"}</span>
+                </p>
               </div>
 
               {/* Descripción */}
