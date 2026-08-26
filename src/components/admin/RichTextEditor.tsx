@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Image from "@tiptap/extension-image";
@@ -7,8 +8,8 @@ import Link from "@tiptap/extension-link";
 import Youtube from "@tiptap/extension-youtube";
 import {
   Bold, Italic, List, ListOrdered, Link as LinkIcon,
-  Image as ImageIcon, Youtube as YoutubeIcon, Heading2,
-  Heading3, Quote, Undo, Redo,
+  Image as ImageIcon, Upload, Youtube as YoutubeIcon, Heading2,
+  Heading3, Quote, Undo, Redo, Loader2,
 } from "lucide-react";
 
 interface RichTextEditorProps {
@@ -17,6 +18,9 @@ interface RichTextEditorProps {
 }
 
 export default function RichTextEditor({ content, onChange }: RichTextEditorProps) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [subiendo, setSubiendo] = useState(false);
+
   const editor = useEditor({
     immediatelyRender: false,
     extensions: [
@@ -36,9 +40,37 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
 
   if (!editor) return null;
 
-  const addImage = () => {
+  const addImageFromUrl = () => {
     const url = window.prompt("URL de la imagen:");
     if (url) editor.chain().focus().setImage({ src: url }).run();
+  };
+
+  // Sube una imagen desde el equipo a R2 y la inserta en el contenido.
+  const handleImageFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setSubiendo(true);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("carpeta", "publicaciones/contenido");
+
+      const res = await fetch("/api/upload", { method: "POST", body: formData });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Error al subir la imagen");
+      }
+      const data = await res.json();
+      const url = data.url || data.key;
+      if (url) editor.chain().focus().setImage({ src: url }).run();
+    } catch (err) {
+      window.alert(
+        err instanceof Error ? err.message : "No se pudo subir la imagen"
+      );
+    } finally {
+      setSubiendo(false);
+      if (fileInputRef.current) fileInputRef.current.value = "";
+    }
   };
 
   const addLink = () => {
@@ -83,9 +115,25 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
         <button type="button" onClick={addLink} className={btnClass(editor.isActive("link"))} title="Enlace">
           <LinkIcon className="h-4 w-4" />
         </button>
-        <button type="button" onClick={addImage} className={btnClass(false)} title="Imagen por URL">
+        <button
+          type="button"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={subiendo}
+          className={btnClass(false)}
+          title="Subir imagen desde el equipo"
+        >
+          {subiendo ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
+        </button>
+        <button type="button" onClick={addImageFromUrl} className={btnClass(false)} title="Imagen por URL">
           <ImageIcon className="h-4 w-4" />
         </button>
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          className="hidden"
+          onChange={handleImageFile}
+        />
         <button type="button" onClick={addYoutube} className={btnClass(false)} title="Video YouTube">
           <YoutubeIcon className="h-4 w-4" />
         </button>

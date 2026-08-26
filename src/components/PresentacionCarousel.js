@@ -324,23 +324,24 @@ export default function PresentacionCarousel({
 
           {/* Content */}
           {showContent && (
-            <div className="relative z-10 h-full flex items-center px-6 py-12 sm:px-12 sm:py-16 border-b bg-gray-400/80">
+            <div className="relative z-10 h-full flex items-center px-6 pt-24 pb-12 sm:px-12 sm:pt-28 sm:pb-16">
               <div className="container mx-auto px-4">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                  <div className="  space-y-6 max-w-2xl mx-auto lg:mx-0">
+                  {/* Panel de texto con fondo borroso (glassmorphism) para mejorar la legibilidad */}
+                  <div className="space-y-6 max-w-2xl mx-auto lg:mx-0 rounded-2xl bg-black/40 backdrop-blur-md ring-1 ring-white/10 p-6 sm:p-8 shadow-xl">
                     <div>
                       {slide.subtitle && (
-                        <p className="text-base sm:text-lg  font-medium text-black mb-2 ">
+                        <p className="text-base sm:text-lg font-semibold uppercase tracking-wide text-yellow-300 mb-2 drop-shadow">
                           {slide.subtitle}
                         </p>
                       )}
                       {slide.title && (
-                        <h1 className="text-3xl text-black dark:text-black sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-6">
+                        <h1 className="text-3xl text-white sm:text-4xl lg:text-5xl xl:text-6xl font-bold leading-tight mb-4 sm:mb-6 drop-shadow-lg">
                           {slide.title}
                         </h1>
                       )}
                       {slide.description && (
-                        <p className="text-lg text-black dark:text-black sm:text-xl  leading-relaxed">
+                        <p className="text-lg text-white/95 sm:text-xl leading-relaxed drop-shadow">
                           {slide.description}
                         </p>
                       )}

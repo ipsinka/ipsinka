@@ -7,6 +7,7 @@ import Image from "next/image";
 import dynamic from "next/dynamic";
 import PresentacionCarousel from "@/components/PresentacionCarousel";
 import NoticiasDestacadas from "@/components/NoticiasDestacadas";
+import PublicacionesDestacadas from "@/components/PublicacionesDestacadas";
 import SliderEnlaces from "@/components/SliderEnlaces";
 import SedesPreview from "@/components/SedesPreview";
 import HealthInfoSection from "@/components/HealthInfoSection";
@@ -337,6 +338,9 @@ export default function Home() {
 
       {/* Noticias publicadas por la IPS (después de las imágenes de presentación) */}
       <NoticiasDestacadas />
+
+      {/* Publicaciones recientes con acceso directo a la página completa */}
+      <PublicacionesDestacadas />
 
       {/* Slider de acceso rápido a todas las secciones */}
       <SliderEnlaces />

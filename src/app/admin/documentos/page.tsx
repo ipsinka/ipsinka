@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import {
-  Plus, Pencil, Trash2, X, Loader2, FileText, TrendingUp,
-  ClipboardList, Award, BookOpen, Scale, FileCheck, UploadCloud,
+  Plus, Pencil, Trash2, X, Loader2, TrendingUp,
+  ClipboardList, BookOpen,
 } from "lucide-react";
 import FileUpload from "@/components/admin/FileUpload";
 import { confirmDelete, showError } from "@/lib/alerts";
@@ -40,12 +40,15 @@ interface CategoriaConfig {
   icon: React.ElementType;
 }
 
+// Categorías alineadas 1:1 con los bloques de la página /transparencia.
+// El `value` es la clave que se guarda en la BD y con la que /transparencia
+// agrupa cada documento en su sección correspondiente.
 const CATEGORIAS: CategoriaConfig[] = [
   {
     value: "estados-financieros",
     label: "Estados Financieros",
     descripcion: "Documentos contables y financieros de la IPS.",
-    ejemplos: ["Estados financieros y notas", "Balance general", "Estado de resultados"],
+    ejemplos: ["Estados financieros y notas", "Balance general", "Estado de resultados", "Certificado estados financieros"],
     carpeta: "documentos/estados-financieros",
     color: "text-blue-700",
     bgColor: "bg-blue-50",
@@ -53,81 +56,26 @@ const CATEGORIAS: CategoriaConfig[] = [
     icon: TrendingUp,
   },
   {
-    value: "informes-gestion",
-    label: "Informes de Gestión",
-    descripcion: "Informes anuales de gestión y rendición de cuentas.",
-    ejemplos: ["Informe de Gestión anual", "Informe de actividades", "Rendición de cuentas"],
-    carpeta: "documentos/informes-gestion",
+    value: "informe-financiero",
+    label: "Informe Financiero",
+    descripcion: "Informes de gestión y rendición de cuentas financiera.",
+    ejemplos: ["Informe de Gestión anual", "Acta asignación permanente", "Acta no excedente", "Rendición de cuentas"],
+    carpeta: "documentos/informe-financiero",
     color: "text-emerald-700",
     bgColor: "bg-emerald-50",
     borderColor: "border-emerald-200",
     icon: ClipboardList,
   },
   {
-    value: "actas",
-    label: "Actas",
-    descripcion: "Actas de reuniones, asambleas y juntas directivas.",
-    ejemplos: ["Acta de Asamblea General", "Acta Junta Directiva", "Acta de Asignación Permanente", "Acta No Excedente"],
-    carpeta: "documentos/actas",
+    value: "documentacion-institucional",
+    label: "Documentación Institucional",
+    descripcion: "Actas, certificaciones y documentos institucionales.",
+    ejemplos: ["Acta de Asamblea General", "Certificación de antecedentes", "Certificación cargos directivos", "RUT actualizado", "Certificado de cumplimiento"],
+    carpeta: "documentos/documentacion-institucional",
     color: "text-amber-700",
     bgColor: "bg-amber-50",
     borderColor: "border-amber-200",
     icon: BookOpen,
-  },
-  {
-    value: "certificaciones",
-    label: "Certificaciones",
-    descripcion: "Certificados y constancias institucionales requeridos por entidades externas.",
-    ejemplos: ["Certificación de antecedentes judiciales", "Certificado de cumplimiento de requisitos", "Certificación cargos directivos", "RUT actualizado", "Certificado de existencia y representación legal"],
-    carpeta: "documentos/certificaciones",
-    color: "text-purple-700",
-    bgColor: "bg-purple-50",
-    borderColor: "border-purple-200",
-    icon: Award,
-  },
-  {
-    value: "contratos-convenios",
-    label: "Contratos y Convenios",
-    descripcion: "Contratos con EPS, convenios interinstitucionales y acuerdos.",
-    ejemplos: ["Contratos con EPS", "Convenios interinstitucionales", "Acuerdos de servicio"],
-    carpeta: "documentos/contratos-convenios",
-    color: "text-rose-700",
-    bgColor: "bg-rose-50",
-    borderColor: "border-rose-200",
-    icon: Scale,
-  },
-  {
-    value: "resoluciones",
-    label: "Resoluciones",
-    descripcion: "Resoluciones internas y habilitaciones emitidas por entidades de salud.",
-    ejemplos: ["Resolución de habilitación", "Resoluciones internas", "Actos administrativos"],
-    carpeta: "documentos/resoluciones",
-    color: "text-orange-700",
-    bgColor: "bg-orange-50",
-    borderColor: "border-orange-200",
-    icon: FileCheck,
-  },
-  {
-    value: "manuales-politicas",
-    label: "Manuales y Políticas",
-    descripcion: "Manuales de procedimientos, políticas institucionales y reglamentos.",
-    ejemplos: ["Manual de calidad", "Política de privacidad", "Reglamento interno", "Protocolo de atención"],
-    carpeta: "documentos/manuales-politicas",
-    color: "text-teal-700",
-    bgColor: "bg-teal-50",
-    borderColor: "border-teal-200",
-    icon: FileText,
-  },
-  {
-    value: "otros",
-    label: "Otros Documentos",
-    descripcion: "Documentos institucionales que no encajan en las categorías anteriores.",
-    ejemplos: ["Escritura pública", "Estatutos", "Documentos varios"],
-    carpeta: "documentos/otros",
-    color: "text-slate-700 dark:text-slate-200",
-    bgColor: "bg-slate-50",
-    borderColor: "border-slate-200 dark:border-slate-700",
-    icon: UploadCloud,
   },
 ];
 

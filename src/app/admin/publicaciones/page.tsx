@@ -154,7 +154,24 @@ export default function PublicacionesPage() {
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Imagen de portada</label>
                 <FileUpload carpeta="publicaciones" accept="image/*" onUpload={(url) => setForm({ ...form, imagen_portada: url })} />
-                {form.imagen_portada && <p className="text-xs text-emerald-600 mt-1">✓ Imagen cargada</p>}
+                {form.imagen_portada && (
+                  <div className="mt-2 relative inline-block">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={form.imagen_portada}
+                      alt="Portada"
+                      className="h-28 w-auto rounded-lg object-cover border border-slate-200 dark:border-slate-700"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setForm({ ...form, imagen_portada: "" })}
+                      className="absolute -top-2 -right-2 bg-red-600 text-white rounded-full p-1 shadow"
+                      aria-label="Quitar imagen"
+                    >
+                      <X className="h-3 w-3" />
+                    </button>
+                  </div>
+                )}
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Contenido *</label>

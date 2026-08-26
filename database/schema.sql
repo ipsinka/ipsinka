@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS documentos (
   nombre TEXT NOT NULL,
   descripcion TEXT,
   archivo_url TEXT NOT NULL,
-  categoria TEXT NOT NULL DEFAULT 'estados-financieros', -- 'estados-financieros' | 'actas' | 'informes' | etc.
+  categoria TEXT NOT NULL DEFAULT 'estados-financieros', -- 'estados-financieros' | 'informe-financiero' | 'documentacion-institucional'
   anio INTEGER,
   activo INTEGER NOT NULL DEFAULT 1,
   creado_en TEXT NOT NULL DEFAULT (datetime('now'))

@@ -62,27 +62,74 @@
   }
 }
 
-/* Menú móvil con el mismo efecto glass que el navbar */
+/* Menú desplegable con el mismo efecto glass (blur) del navbar.
+   IMPORTANTE: el contenedor anima con `transform` (scale), y backdrop-filter
+   NO funciona sobre un elemento con transform. Por eso el blur se aplica en
+   una capa de fondo (::before) sin transform, detrás del contenido. */
 .mobileMenu {
-  /* Fondo semi-transparente para que se vea el blur */
-  background-color: rgba(255, 255, 255, 0.95);
+  position: relative;
+  background-color: transparent;
   border-radius: 1rem;
   transition: all 0.3s ease-in-out;
+  border: 1px solid rgba(64, 151, 44, 0.9);
+  box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    /* Fondo oscuro semitransparente para que las letras blancas resalten */
+    background-color: rgba(15, 23, 42, 0.85);
+    -webkit-backdrop-filter: saturate(140%) blur(12px);
+    backdrop-filter: saturate(140%) blur(12px);
+  }
 
   /* Estilos para dark mode */
   :global(.dark) & {
-    background-color: rgba(30, 41, 59, 0.95);
+    border: 1px solid rgba(142, 198, 132, 0.5);
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
+
+    &::before {
+      background-color: rgba(15, 23, 42, 0.9);
+    }
+  }
+}
+
+/* Fallback si el navegador no soporta backdrop-filter */
+@supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
+  .mobileMenu::before {
+    background-color: rgba(15, 23, 42, 0.92);
+  }
+
+  :global(.dark) .mobileMenu::before {
+    background-color: rgba(15, 23, 42, 0.95);
   }
 }
 
 .mobileLink {
-  :global(.dark) & {
-    color: #e2e8f0;
+  /* El menú siempre tiene fondo oscuro, así que el texto va claro.
+     En hover: fondo blanco, borde y texto negros. */
+  color: #e2e8f0;
+  border: 1px solid transparent;
 
-    &:hover {
-      color: #8ec684;
-    }
+  &:hover {
+    background-color: #ffffff;
+    border-color: #000000;
+    color: #000000;
   }
+}
+
+/* Contenedor del logo: mantiene su lugar y tamaño en el navbar. La versión
+   ampliada (centro del viewport) se renderiza aparte con un portal en React. */
+.logoLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
 }
 
 .themeSwitcher {

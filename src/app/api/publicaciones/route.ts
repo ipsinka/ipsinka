@@ -5,12 +5,17 @@ export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const estado = searchParams.get("estado");
+    // Por defecto se ocultan las publicaciones archivadas (equivale a "eliminadas").
+    // Con ?incluirArchivadas=1 se pueden listar todas.
+    const incluirArchivadas = searchParams.get("incluirArchivadas") === "1";
 
     let query = "SELECT * FROM publicaciones";
     const params: string[] = [];
     if (estado) {
       query += " WHERE estado = ?";
       params.push(estado);
+    } else if (!incluirArchivadas) {
+      query += " WHERE estado != 'archivado'";
     }
     query += " ORDER BY creado_en DESC";
 

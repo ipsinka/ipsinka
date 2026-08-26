@@ -55,6 +55,25 @@ function IconoChevron({ abierto }) {
 
 const BASE = "https://pub-49f5ca8cdb65405f8a86e9257bee4c7f.r2.dev/documents";
 
+// Mapa categoría (BD) → nombre de la sección mostrada en /transparencia.
+// Debe coincidir con las categorías del admin de documentos.
+const CATEGORIA_LABEL = {
+  "estados-financieros": "Estados Financieros",
+  "informe-financiero": "Informe Financiero",
+  "documentacion-institucional": "Documentación Institucional",
+};
+
+// Orden en el que se muestran las secciones dentro de cada año.
+const ORDEN_SECCIONES = [
+  "Estados Financieros",
+  "Informe Financiero",
+  "Documentación Institucional",
+];
+const ordenSeccion = (nombre) => {
+  const i = ORDEN_SECCIONES.indexOf(nombre);
+  return i === -1 ? ORDEN_SECCIONES.length : i;
+};
+
 async function descargarDoc(url, nombre) {
   // Extraer la ruta relativa al bucket para pasarla al proxy server-side
   const ruta = url.startsWith(BASE + "/") ? url.slice(BASE.length + 1) : url;
@@ -922,16 +941,31 @@ function TransparenciaContent() {
         if (!activo) return;
         const lista = Array.isArray(data) ? data : (data.results ?? []);
         if (lista.length === 0) return;
+
+        // Agrupar por año y, dentro de cada año, por categoría/sección para
+        // que cada documento quede en su bloque correcto (Estados Financieros,
+        // Informe Financiero o Documentación Institucional).
         const porAnio = new Map();
         for (const d of lista) {
           const anio = d.anio ?? "Sin año";
-          if (!porAnio.has(anio)) porAnio.set(anio, []);
-          porAnio.get(anio).push({ nombre: d.nombre, url: d.archivo_url });
+          const seccionNombre = CATEGORIA_LABEL[d.categoria] ?? "Otros documentos";
+          if (!porAnio.has(anio)) porAnio.set(anio, new Map());
+          const secciones = porAnio.get(anio);
+          if (!secciones.has(seccionNombre)) secciones.set(seccionNombre, []);
+          secciones.get(seccionNombre).push({ nombre: d.nombre, url: d.archivo_url });
         }
+
         setAniosBD(
           Array.from(porAnio.entries())
             .sort((a, b) => Number(b[0]) - Number(a[0]))
-            .map(([anio, documentos]) => ({ año: anio, etiqueta: "Publicados desde el panel", secciones: [{ titulo: "Documentos", documentos }] }))
+            .map(([anio, seccionesMap]) => ({
+              año: anio,
+              etiqueta: "Publicados desde el panel",
+              // Ordena las secciones según ORDEN_SECCIONES; el resto al final.
+              secciones: Array.from(seccionesMap.entries())
+                .sort((a, b) => ordenSeccion(a[0]) - ordenSeccion(b[0]))
+                .map(([nombre, documentos]) => ({ nombre, documentos })),
+            }))
         );
       })
       .catch(() => {});
