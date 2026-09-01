@@ -219,8 +219,10 @@ export default function Navbar() {
               }`}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Botón cerrar (X) arriba a la derecha */}
-              <div className="flex justify-end px-6 pt-6 pb-2 flex-shrink-0">
+              {/* Botón cerrar (X) arriba a la derecha. pt-16 la baja unos px
+                  respecto al borde superior, para que no quede tan pegada
+                  arriba en ninguna resolución. */}
+              <div className="flex justify-end px-6 pt-16 pb-2 flex-shrink-0">
                 <button
                   onClick={() => setIsMenuOpen(false)}
                   aria-label="Cerrar menú"
