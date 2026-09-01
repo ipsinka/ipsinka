@@ -505,3 +505,20 @@ textarea:focus-visible {
     transform: translateX(-50%);
   }
 }
+
+/* ============================================
+   Fix AOS en móvil: AOSInit desactiva AOS por
+   debajo de 768px (disable: window.innerWidth < 768).
+   Como el CSS de AOS deja [data-aos] en opacity:0 y,
+   estando desactivado, nunca se les añade .aos-animate,
+   el contenido queda invisible en celulares. Aquí
+   forzamos su visibilidad en ese rango para que el
+   contenido se muestre sin depender del JS de AOS.
+   ============================================ */
+@media (max-width: 767px) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
