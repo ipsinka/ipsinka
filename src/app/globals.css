@@ -516,9 +516,12 @@ textarea:focus-visible {
    contenido se muestre sin depender del JS de AOS.
    ============================================ */
 @media (max-width: 767px) {
-  [data-aos] {
+  /* Selector duplicado para igualar/superar la especificidad de las
+     reglas de AOS del tipo [data-aos^="fade"][data-aos^="fade"]{opacity:0}. */
+  [data-aos][data-aos] {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+    pointer-events: auto !important;
   }
 }
