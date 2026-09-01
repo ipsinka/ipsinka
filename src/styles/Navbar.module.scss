@@ -80,11 +80,14 @@
   flex-direction: column;
   overflow: hidden; /* recorta el contenido siguiendo el borde curvo */
 
-  /* Forma de hoja: borde izquierdo con un arco discreto mediante radios
-     elípticos en las esquinas superior-izquierda e inferior-izquierda.
-     Curva reducida para que el panel no sobresalga tanto a la izquierda. */
-  border-top-left-radius: 12% 32%;
-  border-bottom-left-radius: 12% 32%;
+  /* Borde izquierdo como ARCO DE CÍRCULO PERFECTO: se recorta el panel con un
+     círculo cuyo centro queda a la derecha (fuera del panel). Así el borde
+     visible a la izquierda es un arco de circunferencia real, sin las esquinas
+     "anchas" e irregulares que producían los radios elípticos.
+     - Radio 130% (del lado mayor): curva amplia y suave.
+     - Centro en 135% horizontal / 50% vertical: lo empuja a la derecha para que
+       solo la parte izquierda del arco entre en el panel. */
+  clip-path: circle(130% at 135% 50%);
 
   transition:
     transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
@@ -96,30 +99,19 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    border-radius: inherit;
-    /* Sin fondo oscuro: solo un desenfoque sutil que deja ver la página. */
-    background-color: rgba(15, 23, 42, 0.12);
+    /* Solo desenfoque glass, sin color de fondo: deja ver la página detrás.
+       Hereda el recorte circular del panel (clip-path), por eso el arco del
+       blur es un círculo perfecto. */
     -webkit-backdrop-filter: saturate(140%) blur(4px);
     backdrop-filter: saturate(140%) blur(4px);
-  }
-
-  :global(.dark) &::before {
-    background-color: rgba(15, 23, 42, 0.18);
   }
 
   @media (max-width: 640px) {
     width: 88%;
     min-width: 0;
-    /* En móvil, curva aún más sutil para que quepan los textos */
-    border-top-left-radius: 7% 50%;
-    border-bottom-left-radius: 7% 50%;
-  }
-}
-
-/* Fallback si el navegador no soporta backdrop-filter */
-@supports not ((-webkit-backdrop-filter: none) or (backdrop-filter: none)) {
-  .panelCurvo::before {
-    background-color: rgba(23, 30, 44, 0.97);
+    /* En móvil el panel es más angosto: se aleja el centro del círculo para
+       mantener la misma curvatura suave del arco. */
+    clip-path: circle(160% at 118% 50%);
   }
 }
 

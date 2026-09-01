@@ -51,6 +51,8 @@ export default function Navbar() {
   const acumScroll = useRef(0);
   // Contenedor de la rueda: se le adjunta el listener wheel no-pasivo.
   const ruedaRef = useRef(null);
+  // Y anterior del dedo, para calcular el desplazamiento en el arrastre táctil.
+  const touchPrevY = useRef(null);
 
   useEffect(() => setMontado(true), []);
 
@@ -83,6 +85,20 @@ export default function Navbar() {
     }
   }, [isMenuOpen]);
 
+  // Avanza/retrocede el enlace activo según el desplazamiento acumulado.
+  // UMBRAL = px de desplazamiento (scroll o arrastre) por cada enlace.
+  const UMBRAL = 40;
+  const avanzar = (delta) => {
+    acumScroll.current += delta;
+    if (acumScroll.current > UMBRAL) {
+      acumScroll.current = 0;
+      setRuedaActiva((n) => Math.min(n + 1, navLinksCurva.length - 1));
+    } else if (acumScroll.current < -UMBRAL) {
+      acumScroll.current = 0;
+      setRuedaActiva((n) => Math.max(n - 1, 0));
+    }
+  };
+
   // Girar la rueda con el scroll del mouse (listener no-pasivo para poder
   // llamar a preventDefault y que la página de fondo no se desplace).
   useEffect(() => {
@@ -90,19 +106,29 @@ export default function Navbar() {
     if (!el || !isMenuOpen) return;
     const onWheel = (e) => {
       e.preventDefault();
-      acumScroll.current += e.deltaY;
-      const UMBRAL = 40; // sensibilidad: px de scroll por cada enlace
-      if (acumScroll.current > UMBRAL) {
-        acumScroll.current = 0;
-        setRuedaActiva((n) => Math.min(n + 1, navLinksCurva.length - 1));
-      } else if (acumScroll.current < -UMBRAL) {
-        acumScroll.current = 0;
-        setRuedaActiva((n) => Math.max(n - 1, 0));
-      }
+      avanzar(e.deltaY);
     };
     el.addEventListener("wheel", onWheel, { passive: false });
     return () => el.removeEventListener("wheel", onWheel);
   }, [isMenuOpen]);
+
+  // Arrastre táctil (móvil/tableta): registramos la Y del dedo y giramos la
+  // rueda con el desplazamiento. Dedo hacia arriba => avanza (igual que el
+  // scroll). Sin estos handlers, en pantallas táctiles no se puede desplazar.
+  const handleTouchStart = (e) => {
+    touchPrevY.current = e.touches[0].clientY;
+    acumScroll.current = 0;
+  };
+  const handleTouchMove = (e) => {
+    if (touchPrevY.current === null) return;
+    const y = e.touches[0].clientY;
+    avanzar(touchPrevY.current - y);
+    touchPrevY.current = y;
+  };
+  const handleTouchEnd = () => {
+    touchPrevY.current = null;
+    acumScroll.current = 0;
+  };
 
   // backdrop-blur-md
   // Detect click outside mobile menu
@@ -213,7 +239,11 @@ export default function Navbar() {
                   centro con el scroll del mouse. */}
               <div
                 ref={ruedaRef}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
                 className="relative flex flex-col items-end justify-center pr-4 sm:pr-6 flex-1 overflow-hidden select-none"
+                style={{ touchAction: "none" }}
               >
                 {/* Llanta: círculo (SVG) del que solo se ve la mitad izquierda
                     (su centro queda en el borde derecho del panel). Rota junto
@@ -284,6 +314,7 @@ export default function Navbar() {
                         transition:
                           "transform 0.35s cubic-bezier(0.22,1,0.36,1), opacity 0.35s ease, right 0.35s cubic-bezier(0.22,1,0.36,1), background-color 0.2s ease, color 0.2s ease",
                         pointerEvents: isMenuOpen ? "auto" : "none",
+                        touchAction: "none",
                       }}
                       className={`${esActivo ? styles.pillLinkActivo : styles.pillLink} inline-flex items-center justify-between gap-4 px-5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold uppercase tracking-wide whitespace-nowrap`}
                     >
