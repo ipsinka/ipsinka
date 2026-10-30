@@ -151,6 +151,34 @@
   cursor: pointer;
 }
 
+// Tres rebotes de altura decreciente al tocar el logo.
+.logoRebote {
+  animation: logoRebote 0.9s ease-out;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes logoRebote {
+  0%, 30%, 60%, 85%, 100% {
+    transform: translateY(0);
+    animation-timing-function: ease-in;
+  }
+  15% {
+    transform: translateY(-12px);
+    animation-timing-function: ease-out;
+  }
+  45% {
+    transform: translateY(-7px);
+    animation-timing-function: ease-out;
+  }
+  72% {
+    transform: translateY(-3px);
+    animation-timing-function: ease-out;
+  }
+}
+
 .themeSwitcher {
   @media screen and (min-width: 320px) and (max-width: 767px) {
     position: absolute;

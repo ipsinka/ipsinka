@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import styles from "../styles/Navbar.module.scss";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -41,9 +42,10 @@ const navLinksCurva = ordenarPorLongitud(navigationLinks);
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Hover del logo: al activarse, se muestra ampliado en el centro del viewport.
-  const [logoHover, setLogoHover] = useState(false);
-  // El logo ampliado se renderiza con portal a document.body; solo tras montar.
+  // Al tocar el logo se reproduce una animación de 3 rebotes.
+  const [logoRebotando, setLogoRebotando] = useState(false);
+  const pathname = usePathname();
+  // El menú se renderiza con portal a document.body; solo tras montar.
   const [montado, setMontado] = useState(false);
   // Índice del enlace que está en el centro de la rueda (el activo).
   const [ruedaActiva, setRuedaActiva] = useState(0);
@@ -147,14 +149,17 @@ export default function Navbar() {
             <ThemeSwitcher />
           </div>
 
-          {/* Logo centrado en el navbar. Mientras el cursor está sobre él,
-              se muestra una copia ampliada en el centro del viewport (vía
-              portal, para no quedar atrapada por el backdrop-filter del nav). */}
+          {/* Logo centrado en el navbar: lleva al inicio y rebota 3 veces */}
           <Link
             href="/"
-            className={styles.logoLink}
-            onMouseEnter={() => setLogoHover(true)}
-            onMouseLeave={() => setLogoHover(false)}
+            aria-label="Ir al inicio"
+            className={`${styles.logoLink} ${logoRebotando ? styles.logoRebote : ""}`}
+            onClick={() => {
+              setLogoRebotando(true);
+              // Ya en el inicio, el Link no navega: subir al principio.
+              if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
+            }}
+            onAnimationEnd={() => setLogoRebotando(false)}
           >
             <Image
               src="https://pub-c0883d14d3e84a69bf84546fa108aa0b.r2.dev/ipsinka/logo.jpg"
@@ -162,7 +167,6 @@ export default function Navbar() {
               width={50}
               height={50}
               className="rounded-full"
-              style={{ visibility: logoHover ? "hidden" : "visible" }}
               priority
             />
           </Link>
@@ -333,51 +337,6 @@ export default function Navbar() {
           document.body
         )}
 
-      {/* Logo ampliado en el centro del viewport (portal a body).
-          Se muestra mientras el cursor está sobre el logo del navbar.
-          pointer-events:none para que no interfiera con el hover del navbar. */}
-      {montado &&
-        createPortal(
-          <div
-            aria-hidden="true"
-            style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: `translate(-50%, -50%) scale(${logoHover ? 1 : 0.6})`,
-              opacity: logoHover ? 1 : 0,
-              transition: "opacity 0.35s ease, transform 0.35s ease",
-              pointerEvents: "none",
-              zIndex: 100,
-              display: "grid",
-              placeItems: "center",
-            }}
-          >
-            {/* Fondo circular difuminado (mayor diámetro que el logo) con
-                velo oscuro para resaltar el logo. Va detrás (z-index 1). */}
-            <div
-              className="backdrop-blur-sm"
-              style={{
-                gridArea: "1 / 1",
-                width: 420,
-                height: 420,
-                borderRadius: "50%",
-                backgroundColor: "rgba(0, 0, 0, 0.35)",
-                zIndex: 1,
-              }}
-            />
-            <Image
-              src="https://pub-c0883d14d3e84a69bf84546fa108aa0b.r2.dev/ipsinka/logo.jpg"
-              alt=""
-              width={280}
-              height={280}
-              className="rounded-full shadow-2xl"
-              style={{ gridArea: "1 / 1", position: "relative", zIndex: 2 }}
-              priority
-            />
-          </div>,
-          document.body
-        )}
     </nav>
   );
 }
