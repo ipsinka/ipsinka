@@ -152,6 +152,8 @@ function obtenerBotones(slide) {
   return botones;
 }
 
+const slidesSinImagen = defaultSlides.map((s) => ({ ...s, image: undefined }));
+
 export default function PresentacionCarousel({
   slides: slidesProp,
   showContent = true,
@@ -165,9 +167,16 @@ export default function PresentacionCarousel({
   const [expandedImage, setExpandedImage] = useState(null);
   // Slides cargados desde la BD (null = aún sin cargar / se usa el fallback)
   const [slidesRemotos, setSlidesRemotos] = useState(null);
+  // true cuando la API ya respondió (con o sin datos)
+  const [apiResuelta, setApiResuelta] = useState(false);
 
-  // Prioridad: prop explícita > slides de la BD > slides por defecto
-  const slides = slidesProp ?? slidesRemotos ?? defaultSlides;
+  // Prioridad: prop explícita > slides de la BD > slides por defecto.
+  // Mientras la API no responde, el fallback se muestra sin imágenes para que
+  // no aparezca un instante la foto antigua antes de la imagen administrada.
+  const slides =
+    slidesProp ??
+    slidesRemotos ??
+    (apiResuelta ? defaultSlides : slidesSinImagen);
 
   // Cargar los slides administrables desde la API (salvo que vengan por prop)
   useEffect(() => {
@@ -182,7 +191,10 @@ export default function PresentacionCarousel({
           setSlidesRemotos(filas.map(mapearSlideDesdeApi));
         }
       })
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => {
+        if (activo) setApiResuelta(true);
+      });
     return () => {
       activo = false;
     };
