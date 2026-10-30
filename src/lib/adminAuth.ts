@@ -21,6 +21,8 @@ export function esEmailAdmin(email: string | null | undefined, admins: string[])
 // true si la petición solo la puede hacer un administrador.
 export function requiereAdmin(metodo: string, url: URL): boolean {
   if (!url.pathname.startsWith("/api/")) return false;
+  // El navegador de cualquier visitante envía aquí los reportes de la CSP.
+  if (url.pathname === "/api/csp-report") return false;
   if (METODOS_ESCRITURA.has(metodo.toUpperCase())) return true;
 
   // Los visitantes solo pueden listar publicaciones publicadas; borradores y
