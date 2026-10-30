@@ -151,9 +151,12 @@
   cursor: pointer;
 }
 
-// Tres rebotes de altura decreciente al tocar el logo.
+// Tres rebotes de altura decreciente al tocar el logo y, 1 s después de
+// terminar (0.9 s + 1 s), un pulso.
 .logoRebote {
-  animation: logoRebote 0.9s ease-out;
+  animation:
+    logoRebote 0.9s ease-out,
+    logoPulso 0.6s ease-in-out 1.9s;
 
   @media (prefers-reduced-motion: reduce) {
     animation: none;
@@ -176,6 +179,15 @@
   72% {
     transform: translateY(-3px);
     animation-timing-function: ease-out;
+  }
+}
+
+@keyframes logoPulso {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
   }
 }
 

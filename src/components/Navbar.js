@@ -42,7 +42,7 @@ const navLinksCurva = ordenarPorLongitud(navigationLinks);
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // Al tocar el logo se reproduce una animación de 3 rebotes.
+  // Al tocar el logo se reproducen 3 rebotes y, 1 s después, un pulso.
   const [logoRebotando, setLogoRebotando] = useState(false);
   const pathname = usePathname();
   // El menú se renderiza con portal a document.body; solo tras montar.
@@ -159,7 +159,10 @@ export default function Navbar() {
               // Ya en el inicio, el Link no navega: subir al principio.
               if (pathname === "/") window.scrollTo({ top: 0, behavior: "smooth" });
             }}
-            onAnimationEnd={() => setLogoRebotando(false)}
+            // La secuencia termina con el pulso (los nombres de CSS Modules llevan hash).
+            onAnimationEnd={(e) => {
+              if (e.animationName.includes("logoPulso")) setLogoRebotando(false);
+            }}
           >
             <Image
               src="https://pub-c0883d14d3e84a69bf84546fa108aa0b.r2.dev/ipsinka/logo.jpg"
