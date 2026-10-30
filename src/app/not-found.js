@@ -227,10 +227,10 @@ export default function NotFound() {
                 </a>{" "}
                 o escríbenos a{" "}
                 <a
-                  href="mailto:ipsingakamentsa@gmail.com"
+                  href="mailto:contacto@ipsinka.com"
                   className="font-bold hover:underline"
                 >
-                  ipsingakamentsa@gmail.com
+                  contacto@ipsinka.com
                 </a>
               </p>
             </div>

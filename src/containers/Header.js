@@ -8,7 +8,7 @@ export default function Header() {
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center">
           <div className="flex items-center space-x-4">
             <span>📞 Línea de atención: (8) 420-4123</span>
-            <span>📧 contacto@ipsinga.gov.co</span>
+            <span>📧 contacto@ipsinka.com</span>
           </div>
           <div className="flex items-center space-x-4 mt-2 sm:mt-0">
             <span>🕒 Horario: Lun-Vie 7:00 AM - 5:00 PM</span>

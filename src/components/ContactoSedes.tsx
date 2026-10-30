@@ -25,7 +25,7 @@ const contactoSedes: ContactoSede[] = [
     nombre: "Sede Principal Sibundoy",
     direccion: "Diagonal al mercado municipal",
     telefono: "3132863398",
-    email: "ipsingakamentsa@gmail.com",
+    email: "contacto@ipsinka.com",
     horarios: "Lunes a Viernes: 8:00 AM - 5:00 PM\nSábados: no disponible",
     imagen:
       "https://ghx22gzm9l6t5pgk.public.blob.vercel-storage.com/images/sedes/1.jpeg",
@@ -36,7 +36,7 @@ const contactoSedes: ContactoSede[] = [
     nombre: "Sede Colón",
     direccion: "Barrio Centro - Cerca al Centro Cultural",
     telefono: "3132863398",
-    email: "ipsingakamentsa@gmail.com",
+    email: "contacto@ipsinka.com",
     horarios: "Lunes a Viernes: 8:00 AM - 5:00 PM\nSábados: no disponible",
     imagen:
       "https://ghx22gzm9l6t5pgk.public.blob.vercel-storage.com/images/sedes/2.jpeg",
@@ -47,7 +47,7 @@ const contactoSedes: ContactoSede[] = [
     nombre: "Sede Santiago",
     direccion: "Sede Nazareth",
     telefono: "3132863398",
-    email: "ipsingakamentsa@gmail.com",
+    email: "contacto@ipsinka.com",
     horarios: "Lunes a Viernes: 8:00 AM - 5:00 PM",
     imagen:
       "https://ghx22gzm9l6t5pgk.public.blob.vercel-storage.com/images/sedes/3.jpeg",
@@ -58,7 +58,7 @@ const contactoSedes: ContactoSede[] = [
     nombre: "Sede San Andrés",
     direccion: "Chorro San Jose",
     telefono: "3132863398",
-    email: "ipsingakamentsa@gmail.com",
+    email: "contacto@ipsinka.com",
     horarios: "Lunes a Viernes: 8:00 AM - 5:00 PM",
     imagen:
       "https://ghx22gzm9l6t5pgk.public.blob.vercel-storage.com/images/sedes/4.jpeg",

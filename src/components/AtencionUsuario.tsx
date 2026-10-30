@@ -147,10 +147,10 @@ Fecha: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" })}
                       Correo Institucional
                     </p>
                     <Link
-                      href="mailto:ipsingakamentsa@gmail.com"
+                      href="mailto:contacto@ipsinka.com"
                       className="text-green-600 hover:underline dark:text-white"
                     >
-                      ipsingakamentsa@gmail.com
+                      contacto@ipsinka.com
                     </Link>
                   </div>
                 </div>

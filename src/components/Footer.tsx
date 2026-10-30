@@ -124,10 +124,10 @@ export default function Footer() {
               <div className="flex items-center">
                 <span className="mr-2">📧</span>
                 <a
-                  href="mailto:contacto@ips-inga-kamentsa.org"
+                  href="mailto:contacto@ipsinka.com"
                   className="hover:text-white transition-colors"
                 >
-                  contacto@ips-inga-kamentsa.org
+                  contacto@ipsinka.com
                 </a>
               </div>
               <div className="flex items-center">

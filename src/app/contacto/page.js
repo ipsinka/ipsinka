@@ -64,7 +64,7 @@ export default function ContactoPage() {
                 Envíenos sus consultas por correo electrónico
               </p>
               <Link
-                href="mailto:ipsingakamentsa@gmail.com"
+                href="mailto:contacto@ipsinka.com"
                 className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700  inline-block dark:bg-gray-800 border dark:border-white transition-all duration-300 hover:scale-90"
               >
                 Enviar Email

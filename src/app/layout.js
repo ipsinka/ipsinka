@@ -163,7 +163,7 @@ export default function RootLayout({ children }) {
           "https://www.facebook.com/luisfernando.mutunbajoyjacacanamejoy",
         ],
         telephone: "3132863398",
-        email: "ipsinga.sibundoy@gmail.com",
+        email: "contacto@ipsinka.com",
         priceRange: "$$",
         openingHoursSpecification: [
           {

@@ -44,7 +44,7 @@ export default function DirectorioTelefonico() {
             cargo: c.cargo,
             departamento: c.area ?? "Administrativo",
             telefono: c.telefono ?? "3132863398",
-            email: c.email ?? "ipsingakamentsa@gmail.com",
+            email: c.email ?? "contacto@ipsinka.com",
             sede: "Sibundoy",
             horarioAtencion: "Lunes a Viernes 8:00 AM - 5:00 PM",
           })
@@ -142,10 +142,10 @@ export default function DirectorioTelefonico() {
               <h3 className="text-xl font-bold mb-2">📧 Email General</h3>
               <p className="text-lg font-bold">
                 <Link
-                  href="mailto:ipsingakamentsa@gmail.com"
+                  href="mailto:contacto@ipsinka.com"
                   className="hover:text-green-200 transition-colors"
                 >
-                  ipsingakamentsa@gmail.com
+                  contacto@ipsinka.com
                 </Link>
               </p>
               <p className="opacity-90">Información general</p>
