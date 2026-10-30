@@ -43,7 +43,7 @@ export async function PUT(
 
     await d1Query(
       `UPDATE sedes
-       SET nombre = ?, direccion = ?, municipio = ?, departamento = ?, telefono = ?, email = ?, horario = ?, latitud = ?, longitud = ?, imagen_url = ?, actualizado_en = datetime('now')
+       SET nombre = ?, direccion = ?, municipio = ?, departamento = ?, telefono = ?, email = ?, horario = ?, latitud = ?, longitud = ?, imagen_url = ?
        WHERE id = ?`,
       [nombre ?? null, direccion ?? null, municipio ?? null, departamento ?? null, telefono ?? null, email ?? null, horario ?? null, latitud ?? null, longitud ?? null, imagen_url ?? null, id]
     );
@@ -72,7 +72,7 @@ export async function DELETE(
     }
 
     await d1Query(
-      "UPDATE sedes SET activo = 0, actualizado_en = datetime('now') WHERE id = ?",
+      "UPDATE sedes SET activo = 0 WHERE id = ?",
       [id]
     );
 

@@ -16,6 +16,7 @@ import {
   X,
   LogOut,
   Building2,
+  MapPin,
   BookOpen,
   ClipboardList,
   CalendarDays,
@@ -34,6 +35,7 @@ const navItems = [
   { href: "/admin/noticias", label: "Noticias", icon: Newspaper },
   { href: "/admin/galeria", label: "Galería", icon: Image },
   { href: "/admin/documentos", label: "Documentos", icon: FileText },
+  { href: "/admin/sedes", label: "Sedes", icon: MapPin },
 ];
 
 const ADMIN_EMAILS = (process.env.NEXT_PUBLIC_ADMIN_EMAILS ?? "").split(",").map(e => e.trim().toLowerCase()).filter(Boolean);

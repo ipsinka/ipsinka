@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await d1Query(
-      `INSERT INTO directorio (nombre, cargo, area, telefono, email, foto_url, orden, activo, creado_en, actualizado_en)
-       VALUES (?, ?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      `INSERT INTO directorio (nombre, cargo, area, telefono, email, foto_url, orden, activo, creado_en)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 1, datetime('now'))`,
       [nombre, cargo ?? null, area ?? null, telefono ?? null, email ?? null, foto_url ?? null, orden ?? 0]
     );
 

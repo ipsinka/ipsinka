@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await d1Query(
-      `INSERT INTO sedes (nombre, direccion, municipio, departamento, telefono, email, horario, latitud, longitud, imagen_url, activo, creado_en, actualizado_en)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, datetime('now'), datetime('now'))`,
+      `INSERT INTO sedes (nombre, direccion, municipio, departamento, telefono, email, horario, latitud, longitud, imagen_url, activo, creado_en)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1, datetime('now'))`,
       [nombre, direccion, municipio ?? null, departamento ?? null, telefono ?? null, email ?? null, horario ?? null, latitud ?? null, longitud ?? null, imagen_url ?? null]
     );
 
