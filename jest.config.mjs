@@ -20,4 +20,17 @@ const config = {
   ],
 };
 
-export default createJestConfig(config);
+// htmlparser2 (dependencia de sanitize-html) y sus paquetes solo se publican
+// como ESM; Jest debe transformarlos. El resto de node_modules no se toca.
+const ESM_EN_NODE_MODULES = "htmlparser2|domhandler|domutils|dom-serializer|domelementtype|entities";
+
+const jestConfig = async () => {
+  const final = await createJestConfig(config)();
+  final.transformIgnorePatterns = [
+    `/node_modules/(?!(.*/)?(${ESM_EN_NODE_MODULES})/)`,
+    "^.+\\.module\\.(css|sass|scss)$",
+  ];
+  return final;
+};
+
+export default jestConfig;

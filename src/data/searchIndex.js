@@ -292,14 +292,23 @@ export const categories = [
   'Programas'
 ];
 
+// Minúsculas y sin tildes, para que "odontologia" encuentre "Odontología".
+export function normalizarTexto(texto) {
+  return texto.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase();
+}
+
 // Función de búsqueda
 export function searchContent(query, categoryFilter = null) {
   if (!query || query.trim().length < 2) {
     return [];
   }
 
-  const searchTerm = query.toLowerCase().trim();
+  const searchTerm = normalizarTexto(query.trim());
   const words = searchTerm.split(' ').filter(word => word.length > 1);
+  const coincide = (texto) => {
+    const t = normalizarTexto(texto);
+    return t.includes(searchTerm) || words.some(word => t.includes(word));
+  };
 
   let results = searchIndex.filter(item => {
     // Filtrar por categoría si se especifica
@@ -307,21 +316,7 @@ export function searchContent(query, categoryFilter = null) {
       return false;
     }
 
-    // Buscar en título (peso mayor)
-    const titleMatch = item.title.toLowerCase().includes(searchTerm) ||
-                      words.some(word => item.title.toLowerCase().includes(word));
-
-    // Buscar en descripción
-    const descriptionMatch = item.description.toLowerCase().includes(searchTerm) ||
-                           words.some(word => item.description.toLowerCase().includes(word));
-
-    // Buscar en tags
-    const tagMatch = item.tags.some(tag => 
-      tag.toLowerCase().includes(searchTerm) ||
-      words.some(word => tag.toLowerCase().includes(word))
-    );
-
-    return titleMatch || descriptionMatch || tagMatch;
+    return coincide(item.title) || coincide(item.description) || item.tags.some(coincide);
   });
 
   // Ordenar por relevancia y prioridad
@@ -333,8 +328,8 @@ export function searchContent(query, categoryFilter = null) {
     if (priorityDiff !== 0) return priorityDiff;
 
     // Luego por coincidencia exacta en título
-    const aExactTitle = a.title.toLowerCase().includes(searchTerm);
-    const bExactTitle = b.title.toLowerCase().includes(searchTerm);
+    const aExactTitle = normalizarTexto(a.title).includes(searchTerm);
+    const bExactTitle = normalizarTexto(b.title).includes(searchTerm);
     
     if (aExactTitle && !bExactTitle) return -1;
     if (!aExactTitle && bExactTitle) return 1;

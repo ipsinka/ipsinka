@@ -1,4 +1,4 @@
-import { searchContent, searchIndex, categories } from "@/data/searchIndex";
+import { searchContent, searchIndex, categories, normalizarTexto } from "@/data/searchIndex";
 
 describe("searchContent", () => {
   it("no busca con menos de 2 caracteres", () => {
@@ -9,6 +9,17 @@ describe("searchContent", () => {
   it("encuentra por título sin importar mayúsculas", () => {
     const ids = searchContent("ODONTOLOGÍA").map((r) => r.id);
     expect(ids).toContain("odontologia");
+  });
+
+  it("encuentra sin tildes lo que está escrito con tilde", () => {
+    expect(searchContent("odontologia").map((r) => r.id)).toContain("odontologia");
+    expect(searchContent("pediatria").map((r) => r.id)).toContain("pediatria");
+    expect(searchContent("ginecologia").map((r) => r.id)).toContain("ginecologia");
+  });
+
+  it("encuentra con tilde lo que está escrito sin tilde", () => {
+    expect(searchContent("niños pediatría").map((r) => r.id)).toContain("pediatria");
+    expect(searchContent("dentál").map((r) => r.id)).toContain("odontologia");
   });
 
   it("encuentra por etiquetas", () => {
@@ -52,5 +63,11 @@ describe("searchIndex", () => {
 
   it("solo usa categorías declaradas", () => {
     for (const item of searchIndex) expect(categories).toContain(item.category);
+  });
+});
+
+describe("normalizarTexto", () => {
+  it("quita tildes y pasa a minúsculas, conservando la ñ como n", () => {
+    expect(normalizarTexto("Atención ÁÉÍÓÚ Ü Ñandú")).toBe("atencion aeiou u nandu");
   });
 });

@@ -28,5 +28,7 @@ export function requiereAdmin(metodo: string, url: URL): boolean {
   if (url.pathname === "/api/publicaciones") {
     return url.searchParams.get("estado") !== "publicado";
   }
+  // El detalle por id devuelve cualquier estado y solo lo usa el panel.
+  if (url.pathname.startsWith("/api/publicaciones/")) return true;
   return false;
 }

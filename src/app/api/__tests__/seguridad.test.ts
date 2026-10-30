@@ -52,6 +52,10 @@ describe("reglas de acceso", () => {
     expect(requiereAdmin("GET", url("/api/publicaciones?incluirArchivadas=1"))).toBe(true);
   });
 
+  it("el detalle de una publicación por id es solo del panel", () => {
+    expect(requiereAdmin("GET", url("/api/publicaciones/1"))).toBe(true);
+  });
+
   it("fuera de /api no aplica", () => {
     expect(requiereAdmin("POST", url("/admin/sedes"))).toBe(false);
   });
@@ -107,8 +111,4 @@ describe("proxy de la API", () => {
     const res = await pedir("DELETE", "/api/noticias/5");
     expect(res).toBeUndefined();
   });
-});
-
-describe("contenido HTML de publicaciones", () => {
-  test.todo("el HTML de una publicación se sanitiza (sin <script>, on*=, javascript:) antes de renderizarse");
 });

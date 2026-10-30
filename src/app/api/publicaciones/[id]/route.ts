@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { d1Query, d1First } from "@/lib/cloudflare";
+import { sanitizarHtml } from "@/lib/sanitizarHtml";
 
 export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
-    const result = await d1First("SELECT * FROM publicaciones WHERE id = ?", [id]);
+    const result = await d1First<{ contenido?: string }>("SELECT * FROM publicaciones WHERE id = ?", [id]);
     if (!result) return NextResponse.json({ error: "No encontrado" }, { status: 404 });
-    return NextResponse.json(result);
+    return NextResponse.json({ ...result, contenido: sanitizarHtml(result.contenido) });
   } catch (error) {
     console.error(error);
     return NextResponse.json({ error: "Error interno" }, { status: 500 });
@@ -21,7 +22,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     await d1Query(
       "UPDATE publicaciones SET titulo=?, resumen=?, contenido=?, imagen_portada=?, slug=?, estado=?, autor=?, actualizado_en=datetime('now') WHERE id=?",
-      [titulo, resumen ?? null, contenido, imagen_portada ?? null, slug ?? null, estado ?? "borrador", autor ?? null, id]
+      [titulo, resumen ?? null, sanitizarHtml(contenido), imagen_portada ?? null, slug ?? null, estado ?? "borrador", autor ?? null, id]
     );
 
     return NextResponse.json({ success: true });
