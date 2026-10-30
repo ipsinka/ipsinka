@@ -1,7 +1,11 @@
 import { Cita, DiaCalendario, HorarioDisponible, HORARIOS_TRABAJO, HORARIOS_SABADO } from '@/types/citas';
 
+// YYYY-MM-DD en hora local. toISOString() convierte a UTC y en Colombia
+// (UTC-5) adelantaba un día cualquier fecha después de las 7 p. m.
 export const formatearFecha = (fecha: Date): string => {
-  return fecha.toISOString().split('T')[0];
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  return `${fecha.getFullYear()}-${mes}-${dia}`;
 };
 
 export const formatearFechaLegible = (fecha: string): string => {
