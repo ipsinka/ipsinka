@@ -40,3 +40,44 @@ it("usa la carpeta general si no se indica", async () => {
   await subir({ file: new File(["x"], "a.png", { type: "image/png" }) });
   expect(mockPut.mock.calls[0][0]).toMatch(/^general\//);
 });
+
+it("acepta subcarpetas conocidas como galeria/eventos", async () => {
+  const res = await subir({
+    file: new File(["x"], "a.webp", { type: "image/webp" }),
+    carpeta: "galeria/eventos",
+  });
+  expect(res.status).toBe(201);
+});
+
+it.each([
+  ["text/html", "pagina.html"],
+  ["image/svg+xml", "logo.svg"],
+  ["application/javascript", "x.js"],
+  ["", "sin-tipo.bin"],
+])("rechaza el tipo %s", async (tipo, nombre) => {
+  const res = await subir({ file: new File(["x"], nombre, { type: tipo }) });
+  expect(res.status).toBe(415);
+  expect(mockPut).not.toHaveBeenCalled();
+});
+
+it.each(["../otro", "privado", "galeria/../../x", "Galeria", "a/b/c/d"])(
+  "rechaza la carpeta %s",
+  async (carpeta) => {
+    const res = await subir({ file: new File(["x"], "a.png", { type: "image/png" }), carpeta });
+    expect(res.status).toBe(400);
+    expect(mockPut).not.toHaveBeenCalled();
+  }
+);
+
+it("rechaza archivos de más de 50 MB", async () => {
+  const grande = new File(["x"], "video.mp4", { type: "video/mp4" });
+  Object.defineProperty(grande, "size", { value: 51 * 1024 * 1024 });
+  const form = new FormData();
+  form.append("file", grande);
+  const req = new NextRequest("http://localhost/api/upload", { method: "POST" });
+  jest.spyOn(req, "formData").mockResolvedValue(form);
+
+  const res = await POST(req);
+  expect(res.status).toBe(413);
+  expect(mockPut).not.toHaveBeenCalled();
+});
