@@ -67,10 +67,10 @@ export default function FileUpload({
     <div className="space-y-2">
       {/* Toggle archivo / URL */}
       <div className="flex gap-3 text-xs mb-1">
-        <button type="button" onClick={() => setUrlMode(false)} className={`pb-0.5 border-b font-medium transition-colors ${!urlMode ? "border-emerald-600 text-emerald-600" : "border-transparent text-slate-400 hover:text-slate-600"}`}>
+        <button type="button" onClick={() => setUrlMode(false)} className={`pb-0.5 border-b font-medium transition-colors ${!urlMode ? "border-green-700 text-green-700" : "border-transparent text-slate-400 hover:text-slate-600"}`}>
           Subir archivo
         </button>
-        <button type="button" onClick={() => setUrlMode(true)} className={`pb-0.5 border-b font-medium transition-colors ${urlMode ? "border-emerald-600 text-emerald-600" : "border-transparent text-slate-400 hover:text-slate-600"}`}>
+        <button type="button" onClick={() => setUrlMode(true)} className={`pb-0.5 border-b font-medium transition-colors ${urlMode ? "border-green-700 text-green-700" : "border-transparent text-slate-400 hover:text-slate-600"}`}>
           Usar URL
         </button>
       </div>
@@ -82,12 +82,12 @@ export default function FileUpload({
             placeholder="https://..."
             value={urlInput}
             onChange={e => setUrlInput(e.target.value)}
-            className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="flex-1 border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
           />
           <button
             type="button"
             onClick={() => { if (urlInput) { onUpload(urlInput); setUploadedName(urlInput); setError(null); } }}
-            className="px-3 py-2 bg-emerald-600 text-white text-sm rounded-lg hover:bg-emerald-700"
+            className="px-3 py-2 bg-green-700 text-white text-sm rounded-lg hover:bg-green-800"
           >
             Usar
           </button>
@@ -104,7 +104,7 @@ export default function FileUpload({
               <span className="text-sm">Subiendo...</span>
             </div>
           ) : uploadedName ? (
-            <div className="flex items-center justify-center gap-2 text-green-600">
+            <div className="flex items-center justify-center gap-2 text-green-700">
               <CheckCircle className="h-5 w-5" />
               <span className="text-sm truncate max-w-xs">{uploadedName}</span>
               <button type="button" onClick={(e) => { e.stopPropagation(); handleClear(); }} className="text-slate-400 hover:text-slate-600">

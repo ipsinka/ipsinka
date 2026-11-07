@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-green-600 to-green-800 text-white overflow-hidden">
+    <section className="relative bg-gradient-to-br from-green-700 to-green-800 text-white overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 bg-black opacity-20"></div>
       <div className="absolute inset-0" style={{
@@ -36,7 +36,7 @@ export default function HeroSection() {
               </Link>
               <Link
                 href="/contacto"
-                className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-700 transition-colors duration-200 text-center"
+                className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-800 transition-colors duration-200 text-center"
               >
                 Agendar Cita
               </Link>
@@ -62,7 +62,7 @@ export default function HeroSection() {
           {/* Image/Illustration placeholder */}
           <div className="relative">
             <div className="bg-white bg-opacity-10 backdrop-blur-sm rounded-2xl p-8 text-center">
-              <div className="w-full h-80 bg-gradient-to-br from-green-400 to-green-600 rounded-xl flex items-center justify-center mb-6">
+              <div className="w-full h-80 bg-gradient-to-br from-green-400 to-green-700 rounded-xl flex items-center justify-center mb-6">
                 <div className="text-center">
                   <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
                     <span className="text-4xl">🏥</span>

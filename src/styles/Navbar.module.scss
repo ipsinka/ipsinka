@@ -13,7 +13,7 @@
   -webkit-backdrop-filter: saturate(140%) blur(8px);
   backdrop-filter: saturate(140%) blur(8px);
 
-  border-bottom: 1px solid rgba(64, 151, 44, 0.9);
+  border-bottom: 1px solid rgba(21, 128, 61, 0.9);
   border-bottom-left-radius: 25px;
   border-bottom-right-radius: 25px;
   box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.25);
@@ -23,6 +23,37 @@
     border-bottom: 1px solid rgba(142, 198, 132, 0.5);
     background-color: rgba(15, 23, 42, 0.7);
     box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* Enlaces en línea del navbar (desde 1024px) */
+.navLink {
+  color: #ffffff;
+  /* Contorno oscuro alrededor de cada letra: el navbar es transparente y,
+     sobre secciones de fondo blanco, el texto blanco no se leería. */
+  text-shadow:
+    -1px -1px 0 rgba(0, 0, 0, 0.75),
+    1px -1px 0 rgba(0, 0, 0, 0.75),
+    -1px 1px 0 rgba(0, 0, 0, 0.75),
+    1px 1px 0 rgba(0, 0, 0, 0.75),
+    0 0 4px rgba(0, 0, 0, 0.5);
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.18);
+  }
+
+  &:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+}
+
+.navLinkActivo {
+  color: #15803d;
+  background-color: #ffffff;
+
+  :global(.dark) & {
+    color: #0f172a;
   }
 }
 

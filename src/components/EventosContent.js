@@ -144,11 +144,11 @@ export default function EventosContent() {
   const getColorClasses = (color) => {
     const colors = {
       blue: {
-        bg: "bg-blue-100 dark:bg-blue-900",
-        hover: "hover:bg-blue-200 dark:hover:bg-blue-800",
-        text: "text-blue-800 dark:text-blue-200",
-        border: "border-blue-500",
-        selected: "ring-4 ring-blue-500",
+        bg: "bg-green-100 dark:bg-green-900",
+        hover: "hover:bg-green-200 dark:hover:bg-green-800",
+        text: "text-green-800 dark:text-green-200",
+        border: "border-green-500",
+        selected: "ring-4 ring-green-500",
       },
       green: {
         bg: "bg-green-100 dark:bg-green-900",
@@ -158,11 +158,11 @@ export default function EventosContent() {
         selected: "ring-4 ring-green-500",
       },
       purple: {
-        bg: "bg-purple-100 dark:bg-purple-900",
-        hover: "hover:bg-purple-200 dark:hover:bg-purple-800",
-        text: "text-purple-800 dark:text-purple-200",
-        border: "border-purple-500",
-        selected: "ring-4 ring-purple-500",
+        bg: "bg-green-100 dark:bg-green-900",
+        hover: "hover:bg-green-200 dark:hover:bg-green-800",
+        text: "text-green-800 dark:text-green-200",
+        border: "border-green-500",
+        selected: "ring-4 ring-green-500",
       },
       yellow: {
         bg: "bg-yellow-100 dark:bg-yellow-900",
@@ -193,7 +193,7 @@ export default function EventosContent() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-16 dark:bg-gray-800 dark:from-green-800">
+      <section className="bg-gradient-to-r from-green-700 to-green-800 text-white py-16 dark:bg-gray-800 dark:from-green-800">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -215,21 +215,21 @@ export default function EventosContent() {
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto dark:bg-gray-800">
-            <div className="bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg p-8 border-l-4 border-blue-500 dark:from-gray-800 dark:border-white">
+            <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-8 border-l-4 border-green-500 dark:from-gray-800 dark:border-white">
               <div className="flex items-start justify-between mb-4">
                 <div className="text-3xl">🏥</div>
-                <span className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                   Próximamente
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-blue-800 mb-3">
+              <h3 className="text-xl font-bold text-green-800 mb-3">
                 Jornada de Vacunación Infantil
               </h3>
-              <p className="text-blue-700 mb-4 dark:text-white">
+              <p className="text-green-700 mb-4 dark:text-white">
                 Jornada especial de vacunación para niños de 0 a 5 años en todas
                 nuestras sedes.
               </p>
-              <div className="text-sm text-blue-600 dark:text-white">
+              <div className="text-sm text-green-700 dark:text-white">
                 <p>📅 15 de Enero, 2025</p>
                 <p>🕐 8:00 AM - 4:00 PM</p>
                 <p>📍 Todas las sedes</p>
@@ -250,28 +250,28 @@ export default function EventosContent() {
                 Participa en nuestro taller para aprender sobre alimentación
                 balanceada, actividad física y bienestar general.
               </p>
-              <div className="text-sm text-green-600 dark:text-white">
+              <div className="text-sm text-green-700 dark:text-white">
                 <p>📅 20 de Enero, 2025</p>
                 <p>🕐 2:00 PM - 5:00 PM</p>
                 <p>📍 Sede Colón</p>
               </div>
             </div>
 
-            <div className="bg-gradient-to-r from-purple-50 to-purple-100 rounded-lg p-8 border-l-4 border-purple-500 dark:from-gray-800  dark:border-white">
+            <div className="bg-gradient-to-r from-green-50 to-green-100 rounded-lg p-8 border-l-4 border-green-500 dark:from-gray-800  dark:border-white">
               <div className="flex items-start justify-between mb-4">
                 <div className="text-3xl">🤝</div>
-                <span className="bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
+                <span className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
                   Confirmado
                 </span>
               </div>
-              <h3 className="text-xl font-bold text-purple-800 mb-3">
+              <h3 className="text-xl font-bold text-green-800 mb-3">
                 Encuentro Comunitario
               </h3>
-              <p className="text-purple-700 mb-4 dark:text-white">
+              <p className="text-green-700 mb-4 dark:text-white">
                 Espacio abierto para compartir información, resolver dudas y
                 fortalecer la participación de toda la comunidad.
               </p>
-              <div className="text-sm text-purple-600 dark:text-white">
+              <div className="text-sm text-green-700 dark:text-white">
                 <p>📅 1 de Febrero, 2025</p>
                 <p>🕐 9:00 AM - 3:00 PM</p>
                 <p>📍 Auditorio Principal</p>
@@ -284,7 +284,7 @@ export default function EventosContent() {
       <EventosCalendario />
 
       {/* Filtros de Categorías */}
-      <section className="py-12 bg-gradient-to-r from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+      <section className="py-12 bg-gradient-to-r from-green-50 to-green-150 dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8 text-gray-800 dark:text-white">
             Filtrar Eventos por Categoría
@@ -433,7 +433,7 @@ export default function EventosContent() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="text-center">
-                <div className="bg-blue-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                <div className="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
                   <span className="text-3xl">1️⃣</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-4">
@@ -459,7 +459,7 @@ export default function EventosContent() {
               </div>
 
               <div className="text-center">
-                <div className="bg-purple-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
+                <div className="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-6">
                   <span className="text-3xl">3️⃣</span>
                 </div>
                 <h3 className="text-xl font-bold text-gray-800 mb-4">
@@ -472,7 +472,7 @@ export default function EventosContent() {
               </div>
             </div>
 
-            <div className="mt-12 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-8 border border-green-200 dark:from-gray-800 dark:border-white">
+            <div className="mt-12 bg-gradient-to-r from-green-50 to-green-150 rounded-lg p-8 border border-green-200 dark:from-gray-800 dark:border-white">
               <h3 className="text-xl font-bold text-gray-800 mb-4 text-center ">
                 📱 Mantente Conectado
               </h3>
@@ -485,14 +485,14 @@ export default function EventosContent() {
                   href="https://www.facebook.com/luisfernando.mutunbajoyjacacanamejoy"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors text-center"
+                  className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-colors text-center"
                 >
                   Síguenos en Facebook
                 </Link>
                 {/* <ModalInstagram /> */}
                 {/* <Link
                   href="/contacto"
-                  className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors text-center"
+                  className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-colors text-center"
                 >
                   Contactar
                 </Link> */}

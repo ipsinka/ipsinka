@@ -195,7 +195,7 @@ export default function AdminCitasPage() {
               </div>
               <button
                 onClick={abrirModalNuevaCita}
-                className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 font-medium text-sm"
+                className="px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 font-medium text-sm"
               >
                 ➕ Nueva Cita
               </button>
@@ -240,20 +240,20 @@ export default function AdminCitasPage() {
             <div className="flex items-end gap-2 flex-wrap">
               <button
                 onClick={handleAgregarEjemplos}
-                className="px-3 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 text-sm"
+                className="px-3 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 text-sm"
               >
                 ➕ Agregar Ejemplos
               </button>
               <button
                 onClick={handleCargarEjemplos}
-                className="px-3 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 text-sm"
+                className="px-3 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 text-sm"
               >
                 📥 Cargar Ejemplos
               </button>
               <button
                 onClick={exportarCitas}
                 disabled={citasFiltradas.length === 0}
-                className="px-3 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed text-sm"
+                className="px-3 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 disabled:bg-gray-400 disabled:cursor-not-allowed text-sm"
               >
                 📄 Exportar
               </button>
@@ -285,7 +285,7 @@ export default function AdminCitasPage() {
                             {formatearFechaLegible(cita.fecha)} - {cita.hora}
                           </span>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                            cita.estado === 'agendada' ? 'bg-blue-100 text-blue-800' :
+                            cita.estado === 'agendada' ? 'bg-green-100 text-green-800' :
                             cita.estado === 'confirmada' ? 'bg-green-100 text-green-800' :
                             cita.estado === 'cancelada' ? 'bg-red-100 text-red-800' :
                             'bg-gray-100 text-gray-800'
@@ -306,7 +306,7 @@ export default function AdminCitasPage() {
                       </div>
                       
                       {esCitaDeProduccion(cita.id) ? (
-                        <div className="ml-4 px-3 py-1 bg-blue-100 text-blue-600 rounded-md text-sm flex items-center gap-1">
+                        <div className="ml-4 px-3 py-1 bg-green-100 text-green-700 rounded-md text-sm flex items-center gap-1">
                           🔒 Producción
                         </div>
                       ) : (
@@ -530,7 +530,7 @@ export default function AdminCitasPage() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 font-medium"
+                  className="flex-1 px-4 py-2 bg-green-700 text-white rounded-md hover:bg-green-800 font-medium"
                 >
                   Guardar Cita
                 </button>

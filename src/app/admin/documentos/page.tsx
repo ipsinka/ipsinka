@@ -50,9 +50,9 @@ const CATEGORIAS: CategoriaConfig[] = [
     descripcion: "Documentos contables y financieros de la IPS.",
     ejemplos: ["Estados financieros y notas", "Balance general", "Estado de resultados", "Certificado estados financieros"],
     carpeta: "documentos/estados-financieros",
-    color: "text-blue-700",
-    bgColor: "bg-blue-50",
-    borderColor: "border-blue-200",
+    color: "text-green-700",
+    bgColor: "bg-green-50",
+    borderColor: "border-green-200",
     icon: TrendingUp,
   },
   {
@@ -61,9 +61,9 @@ const CATEGORIAS: CategoriaConfig[] = [
     descripcion: "Informes de gestión y rendición de cuentas financiera.",
     ejemplos: ["Informe de Gestión anual", "Acta asignación permanente", "Acta no excedente", "Rendición de cuentas"],
     carpeta: "documentos/informe-financiero",
-    color: "text-emerald-700",
-    bgColor: "bg-emerald-50",
-    borderColor: "border-emerald-200",
+    color: "text-green-700",
+    bgColor: "bg-green-50",
+    borderColor: "border-green-200",
     icon: ClipboardList,
   },
   {
@@ -219,7 +219,7 @@ export default function AdminDocumentos() {
         {esAdmin && (
           <button
             onClick={() => openCreate()}
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
             <Plus className="h-4 w-4" />
             Agregar
@@ -291,7 +291,7 @@ export default function AdminDocumentos() {
                                 <div className="flex items-center gap-1 flex-shrink-0">
                                   <button
                                     onClick={() => openEdit(doc)}
-                                    className="p-1.5 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                    className="p-1.5 text-slate-400 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors"
                                     title="Editar"
                                   >
                                     <Pencil className="h-3.5 w-3.5" />
@@ -360,7 +360,7 @@ export default function AdminDocumentos() {
                   name="categoria"
                   value={form.categoria}
                   onChange={handleChange}
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   {CATEGORIAS.map((c) => (
                     <option key={c.value} value={c.value}>{c.label}</option>
@@ -387,7 +387,7 @@ export default function AdminDocumentos() {
                   onChange={handleChange}
                   required
                   placeholder={catActualConfig?.ejemplos[0] ?? "Nombre del documento"}
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
 
@@ -404,8 +404,8 @@ export default function AdminDocumentos() {
                         onClick={() => setForm((prev) => ({ ...prev, anio: String(y) }))}
                         className={`py-3 rounded-lg text-base font-semibold border-2 transition-colors ${
                           activo
-                            ? "bg-emerald-600 border-emerald-600 text-white shadow"
-                            : "bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:border-emerald-400 hover:text-emerald-700"
+                            ? "bg-green-700 border-green-700 text-white shadow"
+                            : "bg-white dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:border-green-400 hover:text-green-800"
                         }`}
                       >
                         {y}
@@ -426,7 +426,7 @@ export default function AdminDocumentos() {
                   value={form.descripcion}
                   onChange={handleChange}
                   rows={2}
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
                 />
               </div>
 
@@ -441,7 +441,7 @@ export default function AdminDocumentos() {
                   onUpload={(url) => setForm((prev) => ({ ...prev, archivo_url: url }))}
                 />
                 {form.archivo_url && (
-                  <p className="text-xs text-emerald-600 mt-1 truncate">✓ {form.archivo_url}</p>
+                  <p className="text-xs text-green-700 mt-1 truncate">✓ {form.archivo_url}</p>
                 )}
               </div>
 
@@ -456,7 +456,7 @@ export default function AdminDocumentos() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors disabled:opacity-60"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors disabled:opacity-60"
                 >
                   {saving && <Loader2 className="h-4 w-4 animate-spin" />}
                   {editing ? "Guardar cambios" : "Publicar documento"}

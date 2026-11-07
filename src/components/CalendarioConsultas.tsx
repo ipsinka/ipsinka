@@ -222,19 +222,19 @@ export default function CalendarioConsultas({
         {/* Eventos del día */}
         {eventosDelDia.length > 0 && (
           <div className="mb-4 space-y-3">
-            <h4 className="text-sm font-semibold text-purple-700 dark:text-purple-300 flex items-center gap-2">
+            <h4 className="text-sm font-semibold text-green-700 dark:text-green-300 flex items-center gap-2">
               <span>📅</span> Eventos
             </h4>
             {eventosDelDia.map((evento) => (
               <div
                 key={evento.id}
-                className="p-4 rounded-lg border-l-4 bg-purple-50 dark:bg-purple-900/20 border-purple-500"
+                className="p-4 rounded-lg border-l-4 bg-green-50 dark:bg-green-900/20 border-green-500"
               >
                 <div className="flex items-start justify-between mb-2">
                   <span className="text-sm font-bold text-gray-800 dark:text-white">
                     {evento.titulo}
                   </span>
-                  <span className="text-xs px-2 py-1 rounded-full font-medium bg-purple-100 dark:bg-purple-800 text-purple-700 dark:text-purple-200 whitespace-nowrap">
+                  <span className="text-xs px-2 py-1 rounded-full font-medium bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200 whitespace-nowrap">
                     {formatearHoraEvento(evento)}
                   </span>
                 </div>
@@ -284,7 +284,7 @@ export default function CalendarioConsultas({
                   cita.estado === "confirmada"
                     ? "bg-green-50 dark:bg-green-900/20 border-green-500 hover:bg-green-100 dark:hover:bg-green-900/30"
                     : cita.estado === "agendada"
-                    ? "bg-blue-50 dark:bg-blue-900/20 border-blue-500 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                    ? "bg-green-50 dark:bg-green-900/20 border-green-500 hover:bg-green-100 dark:hover:bg-green-900/30"
                     : "bg-gray-50 dark:bg-gray-700 border-gray-400 hover:bg-gray-100 dark:hover:bg-gray-600"
                 }`}
               >
@@ -297,7 +297,7 @@ export default function CalendarioConsultas({
                       cita.estado === "confirmada"
                         ? "bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200"
                         : cita.estado === "agendada"
-                        ? "bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200"
+                        ? "bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200"
                         : "bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200"
                     }`}
                   >
@@ -409,12 +409,12 @@ export default function CalendarioConsultas({
                 style={
                   esHoy
                     ? {
-                        backgroundColor: "#2f8132",
+                        backgroundColor: "#15803d",
                         // Si además tiene eventos, dejar que la animación de
                         // pulso controle el box-shadow (no lo fijamos aquí)
                         ...(tieneEventos
                           ? {}
-                          : { boxShadow: "0 0 0 2px rgba(47, 129, 50, 0.4)" }),
+                          : { boxShadow: "0 0 0 2px rgba(21, 128, 61, 0.4)" }),
                       }
                     : undefined
                 }
@@ -456,7 +456,7 @@ export default function CalendarioConsultas({
                               key={`c-${i}`}
                               className="w-1.5 h-1.5 rounded-full"
                               style={{
-                                backgroundColor: esHoy ? "#ffffff" : "#2f8132",
+                                backgroundColor: esHoy ? "#ffffff" : "#15803d",
                               }}
                             />
                           )
@@ -477,8 +477,8 @@ export default function CalendarioConsultas({
               <div
                 className="w-4 h-4 rounded"
                 style={{
-                  backgroundColor: "#2f8132",
-                  boxShadow: "0 0 0 2px rgba(47, 129, 50, 0.4)",
+                  backgroundColor: "#15803d",
+                  boxShadow: "0 0 0 2px rgba(21, 128, 61, 0.4)",
                 }}
               ></div>
               <span className="text-gray-600 dark:text-gray-400">
@@ -489,7 +489,7 @@ export default function CalendarioConsultas({
               <div className="w-4 h-4 rounded bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 relative">
                 <div
                   className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 rounded-full"
-                  style={{ backgroundColor: "#2f8132" }}
+                  style={{ backgroundColor: "#15803d" }}
                 ></div>
               </div>
               <span className="text-gray-600 dark:text-gray-400">
@@ -499,7 +499,7 @@ export default function CalendarioConsultas({
             <div className="flex items-center gap-2">
               <div
                 className="w-4 h-4 rounded bg-gray-50 dark:bg-gray-700 border-2"
-                style={{ borderColor: "#2f8132" }}
+                style={{ borderColor: "#15803d" }}
               ></div>
               <span className="text-gray-600 dark:text-gray-400">
                 Tiene eventos
@@ -563,7 +563,7 @@ export default function CalendarioConsultas({
                 <div
                   key={evento.id}
                   className="rounded-lg border-l-4 bg-green-50 dark:bg-green-900/20 p-4"
-                  style={{ borderLeftColor: "#2f8132" }}
+                  style={{ borderLeftColor: "#15803d" }}
                 >
                   {evento.imagen_url && (
                     // eslint-disable-next-line @next/next/no-img-element

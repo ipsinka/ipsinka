@@ -7,7 +7,7 @@ import Swal, { type SweetAlertOptions } from "sweetalert2";
  * Reemplazan los window.alert() / window.confirm() nativos.
  */
 
-const EMERALD = "#059669"; // emerald-600
+const EMERALD = "#15803d"; // green-700 (color principal)
 const RED = "#dc2626"; // red-600
 const GRAY = "#64748b"; // slate-500
 

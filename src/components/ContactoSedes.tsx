@@ -192,7 +192,7 @@ export default function ContactoSedes() {
                     onClick={() => setSelectedSede(sede.id)}
                     className={`w-full text-left p-4 rounded-lg transition-colors border dark:border-white ${
                       selectedSede === sede.id
-                        ? "bg-green-600 text-white dark:bg-white dark:text-gray-900 shadow-lg"
+                        ? "bg-green-700 text-white dark:bg-white dark:text-gray-900 shadow-lg"
                         : "bg-gray-100 hover:bg-gray-200 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200"
                     }`}
                   >
@@ -205,7 +205,7 @@ export default function ContactoSedes() {
               {/* <div className="mt-6">
                 <button
                   onClick={showCitasForm ? handleCloseForm : handleOpenForm}
-                  className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg hover:bg-blue-700 transition-colors font-semibold cursor-pointer"
+                  className="w-full bg-green-700 text-white py-3 px-4 rounded-lg hover:bg-green-800 transition-colors font-semibold cursor-pointer"
                 >
                   {showCitasForm ? "Cerrar Formulario" : "Programar Cita"}
                 </button>
@@ -215,7 +215,7 @@ export default function ContactoSedes() {
             {/* Información de la sede seleccionada */}
             <div className="lg:col-span-2 dark:bg-gray-800">
               {selectedSedeData && (
-                <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-8 shadow-lg dark:from-gray-700 dark:to-gray-800 border dark:border-white">
+                <div className="bg-gradient-to-r from-green-50 to-green-150 rounded-lg p-8 shadow-lg dark:from-gray-700 dark:to-gray-800 border dark:border-white">
                   <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-6 ">
                     {selectedSedeData.nombre}
                   </h3>
@@ -236,7 +236,7 @@ export default function ContactoSedes() {
                     <div className="space-y-4">
                       <div className="flex items-start">
                         <svg
-                          className="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0"
+                          className="w-6 h-6 text-green-700 mr-3 mt-1 flex-shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -266,7 +266,7 @@ export default function ContactoSedes() {
 
                       <div className="flex items-center">
                         <svg
-                          className="w-6 h-6 text-green-600 mr-3"
+                          className="w-6 h-6 text-green-700 mr-3"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -284,7 +284,7 @@ export default function ContactoSedes() {
                           </p>
                           <Link
                             href={`tel:${selectedSedeData.telefono}`}
-                            className="text-green-600 hover:underline dark:text-white"
+                            className="text-green-700 hover:underline dark:text-white"
                           >
                             {selectedSedeData.telefono}
                           </Link>
@@ -293,7 +293,7 @@ export default function ContactoSedes() {
 
                       <div className="flex items-center">
                         <svg
-                          className="w-6 h-6 text-green-600 mr-3"
+                          className="w-6 h-6 text-green-700 mr-3"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -311,7 +311,7 @@ export default function ContactoSedes() {
                           </p>
                           <Link
                             href={`mailto:${selectedSedeData.email}`}
-                            className="text-green-600 hover:underline dark:text-white"
+                            className="text-green-700 hover:underline dark:text-white"
                           >
                             {selectedSedeData.email}
                           </Link>
@@ -322,7 +322,7 @@ export default function ContactoSedes() {
                     <div>
                       <div className="flex items-start">
                         <svg
-                          className="w-6 h-6 text-green-600 mr-3 mt-1 flex-shrink-0"
+                          className="w-6 h-6 text-green-700 mr-3 mt-1 flex-shrink-0"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -348,7 +348,7 @@ export default function ContactoSedes() {
 
                   {/* Mapa interactivo */}
                   <div
-                    className="bg-gradient-to-br from-green-100 to-blue-100 h-64 rounded-lg cursor-pointer hover:from-green-200 hover:to-blue-200 transition-all duration-300 relative overflow-hidden border-2 border-green-200 hover:border-green-300"
+                    className="bg-gradient-to-br from-green-100 to-green-200 h-64 rounded-lg cursor-pointer hover:from-green-200 hover:to-green-200 transition-all duration-300 relative overflow-hidden border-2 border-green-200 hover:border-green-300"
                     onClick={() =>
                       handleMapClick(
                         selectedSedeData.coordenadas.lat,
@@ -361,7 +361,7 @@ export default function ContactoSedes() {
                     <div className="absolute inset-0 flex flex-col items-center justify-center p-6">
                       <div className="text-center">
                         <svg
-                          className="w-16 h-16 mx-auto mb-4 text-green-600"
+                          className="w-16 h-16 mx-auto mb-4 text-green-700"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -386,7 +386,7 @@ export default function ContactoSedes() {
                           {selectedSedeData.direccion}
                         </p>
                         <div className="bg-white bg-opacity-90 rounded-lg p-3 shadow-lg">
-                          <p className="text-sm font-semibold text-green-600 mb-1">
+                          <p className="text-sm font-semibold text-green-700 mb-1">
                             Haz clic para abrir en mapas
                           </p>
                           <p className="text-xs text-gray-500">
@@ -400,7 +400,7 @@ export default function ContactoSedes() {
                     <div className="absolute inset-0  bg-opacity-0 hover:bg-opacity-5 transition-all duration-300 flex items-center justify-center">
                       <div className="bg-white bg-opacity-90 rounded-lg p-3 text-center shadow-lg opacity-0 hover:opacity-100 transition-opacity duration-300">
                         <svg
-                          className="w-8 h-8 mx-auto mb-1 text-green-600"
+                          className="w-8 h-8 mx-auto mb-1 text-green-700"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -468,7 +468,7 @@ export default function ContactoSedes() {
                     value={formData.nombres}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 "
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 "
                   />
                 </div>
                 <div>
@@ -481,7 +481,7 @@ export default function ContactoSedes() {
                     value={formData.apellidos}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   />
                 </div>
               </div>
@@ -497,7 +497,7 @@ export default function ContactoSedes() {
                     value={formData.telefono}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   />
                 </div>
                 <div>
@@ -510,7 +510,7 @@ export default function ContactoSedes() {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
                   />
                 </div>
               </div>
@@ -524,7 +524,7 @@ export default function ContactoSedes() {
                   value={formData.sede}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700"
                 >
                   <option value="" className="text-gray-500">
                     Seleccionar sede...
@@ -548,7 +548,7 @@ export default function ContactoSedes() {
                     onChange={handleInputChange}
                     required
                     min={new Date().toISOString().split("T")[0]}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700"
                   />
                 </div>
                 <div>
@@ -560,7 +560,7 @@ export default function ContactoSedes() {
                     value={formData.horaPreferida}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700"
                   >
                     <option value="" className="text-gray-500">
                       Seleccionar...
@@ -582,7 +582,7 @@ export default function ContactoSedes() {
                     name="especialidad"
                     value={formData.especialidad}
                     onChange={handleInputChange}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700"
                   >
                     <option value="">Seleccionar...</option>
                     <option value="medicina-general">Medicina General</option>
@@ -602,7 +602,7 @@ export default function ContactoSedes() {
                   value={formData.observaciones}
                   onChange={handleInputChange}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-700 placeholder-gray-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 text-gray-700 placeholder-gray-500"
                   placeholder="Motivo de la consulta o información adicional..."
                 ></textarea>
               </div>
@@ -617,7 +617,7 @@ export default function ContactoSedes() {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition-colors font-semibold cursor-pointer"
+                  className="flex-1 bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 transition-colors font-semibold cursor-pointer"
                 >
                   Enviar Solicitud
                 </button>

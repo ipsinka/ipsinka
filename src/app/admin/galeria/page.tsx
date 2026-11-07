@@ -200,7 +200,7 @@ export default function AdminGaleria() {
         {esAdmin && (
           <button
             onClick={openCreate}
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
             <Plus className="h-4 w-4" />
             Agregar
@@ -217,7 +217,7 @@ export default function AdminGaleria() {
               onClick={() => setFiltroTipo(t)}
               className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 filtroTipo === t
-                  ? "bg-emerald-600 text-white"
+                  ? "bg-green-700 text-white"
                   : "bg-slate-100 text-slate-600 dark:text-slate-300 hover:bg-slate-200"
               }`}
             >
@@ -230,7 +230,7 @@ export default function AdminGaleria() {
         <select
           value={filtroSeccion}
           onChange={(e) => setFiltroSeccion(e.target.value)}
-          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           <option value="">Todas las secciones</option>
           {SECCIONES.map((s) => (
@@ -268,8 +268,8 @@ export default function AdminGaleria() {
                 {/* Badge tipo */}
                 <span className={`absolute top-2 left-2 text-xs font-semibold px-2 py-0.5 rounded-full ${
                   (item.tipo ?? "imagen") === "video"
-                    ? "bg-purple-600 text-white"
-                    : "bg-emerald-600 text-white"
+                    ? "bg-green-700 text-white"
+                    : "bg-green-700 text-white"
                 }`}>
                   {(item.tipo ?? "imagen") === "video" ? "Video" : "Imagen"}
                 </span>
@@ -286,7 +286,7 @@ export default function AdminGaleria() {
                 <div className="flex items-center gap-2 mt-3">
                   <button
                     onClick={() => openEdit(item)}
-                    className="flex-1 inline-flex items-center justify-center gap-1 text-xs text-blue-600 border border-blue-200 hover:bg-blue-50 px-2 py-1.5 rounded-lg transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-1 text-xs text-green-700 border border-green-200 hover:bg-green-50 px-2 py-1.5 rounded-lg transition-colors"
                   >
                     <Pencil className="h-4 w-4" />
                     Editar
@@ -336,7 +336,7 @@ export default function AdminGaleria() {
                       key={t}
                       className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-lg border-2 cursor-pointer transition-colors ${
                         form.tipo === t
-                          ? "border-emerald-500 bg-emerald-50 text-emerald-700"
+                          ? "border-green-500 bg-green-50 text-green-700"
                           : "border-slate-200 dark:border-slate-700 text-slate-500 dark:text-slate-400 hover:border-slate-300"
                       }`}
                     >
@@ -364,7 +364,7 @@ export default function AdminGaleria() {
                   name="seccion"
                   value={form.seccion}
                   onChange={handleChange}
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   {SECCIONES.map((s) => (
                     <option key={s.value} value={s.value}>{s.label}</option>
@@ -386,7 +386,7 @@ export default function AdminGaleria() {
                   value={form.titulo}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
 
@@ -398,7 +398,7 @@ export default function AdminGaleria() {
                   value={form.descripcion}
                   onChange={handleChange}
                   rows={2}
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
                 />
               </div>
 
@@ -445,7 +445,7 @@ export default function AdminGaleria() {
                 <button
                   type="submit"
                   disabled={saving || !form.imagen_url}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors disabled:opacity-60"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors disabled:opacity-60"
                 >
                   {saving && <Loader2 className="h-4 w-4 animate-spin" />}
                   {editing ? "Guardar cambios" : "Agregar"}

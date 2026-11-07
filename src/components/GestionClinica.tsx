@@ -94,7 +94,7 @@ export default function GestionClinica() {
                       className="flex items-center text-gray-700 dark:text-white"
                     >
                       <svg
-                        className="w-4 h-4 text-green-600 mr-2"
+                        className="w-4 h-4 text-green-700 mr-2"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -145,14 +145,14 @@ export default function GestionClinica() {
 
         {/* Derechos y Deberes del Paciente */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <div className="bg-blue-50 rounded-lg p-8 border border-blue-200 dark:bg-gray-800">
-            <h4 className="text-2xl font-bold text-blue-800 mb-6">
+          <div className="bg-green-50 rounded-lg p-8 border border-green-200 dark:bg-gray-800">
+            <h4 className="text-2xl font-bold text-green-800 mb-6">
               Derechos del Paciente
             </h4>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-blue-600 mr-2 mt-1 "
+                  className="w-5 h-5 text-green-700 mr-2 mt-1 "
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -162,13 +162,13 @@ export default function GestionClinica() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="text-blue-700 dark:text-white">
+                <span className="text-green-700 dark:text-white">
                   Recibir atención médica de calidad sin discriminación
                 </span>
               </li>
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-blue-600 mr-2 mt-1"
+                  className="w-5 h-5 text-green-700 mr-2 mt-1"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -178,13 +178,13 @@ export default function GestionClinica() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="text-blue-700 dark:text-white">
+                <span className="text-green-700 dark:text-white">
                   Ser informado sobre su estado de salud y tratamientos
                 </span>
               </li>
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-blue-600 mr-2 mt-1"
+                  className="w-5 h-5 text-green-700 mr-2 mt-1"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -194,13 +194,13 @@ export default function GestionClinica() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="text-blue-700 dark:text-white">
+                <span className="text-green-700 dark:text-white">
                   Confidencialidad y privacidad de su información médica
                 </span>
               </li>
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-blue-600 mr-2 mt-1"
+                  className="w-5 h-5 text-green-700 mr-2 mt-1"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -210,13 +210,13 @@ export default function GestionClinica() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="text-blue-700 dark:text-white">
+                <span className="text-green-700 dark:text-white">
                   Participar en decisiones sobre su atención médica
                 </span>
               </li>
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-blue-600 mr-2 mt-1"
+                  className="w-5 h-5 text-green-700 mr-2 mt-1"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -226,7 +226,7 @@ export default function GestionClinica() {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="text-blue-700 dark:text-white">
+                <span className="text-green-700 dark:text-white">
                   Recibir atención culturalmente apropiada
                 </span>
               </li>
@@ -240,7 +240,7 @@ export default function GestionClinica() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-green-600 mr-2 mt-1"
+                  className="w-5 h-5 text-green-700 mr-2 mt-1"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -256,7 +256,7 @@ export default function GestionClinica() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-green-600 mr-2 mt-1"
+                  className="w-5 h-5 text-green-700 mr-2 mt-1"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -272,7 +272,7 @@ export default function GestionClinica() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-green-600 mr-2 mt-1"
+                  className="w-5 h-5 text-green-700 mr-2 mt-1"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -288,7 +288,7 @@ export default function GestionClinica() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-green-600 mr-2 mt-1"
+                  className="w-5 h-5 text-green-700 mr-2 mt-1"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >
@@ -304,7 +304,7 @@ export default function GestionClinica() {
               </li>
               <li className="flex items-start">
                 <svg
-                  className="w-5 h-5 text-green-600 mr-2 mt-1"
+                  className="w-5 h-5 text-green-700 mr-2 mt-1"
                   fill="currentColor"
                   viewBox="0 0 20 20"
                 >

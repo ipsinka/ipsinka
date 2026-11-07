@@ -191,7 +191,7 @@ export default function AdminEventos() {
         {esAdmin && (
           <button
             onClick={openCreate}
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
             <Plus className="h-4 w-4" />
             Agregar
@@ -230,7 +230,7 @@ export default function AdminEventos() {
                   {item.titulo}
                 </h3>
                 <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-1">
-                  <Calendar className="h-4 w-4 flex-shrink-0 text-emerald-600" />
+                  <Calendar className="h-4 w-4 flex-shrink-0 text-green-700" />
                   <span>
                     {formatFecha(item.fecha_inicio)}
                     {item.fecha_fin ? ` — ${formatFecha(item.fecha_fin)}` : ""}
@@ -238,14 +238,14 @@ export default function AdminEventos() {
                 </div>
                 {item.lugar && (
                   <div className="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 mb-2">
-                    <MapPin className="h-4 w-4 flex-shrink-0 text-emerald-600" />
+                    <MapPin className="h-4 w-4 flex-shrink-0 text-green-700" />
                     <span>{item.lugar}</span>
                   </div>
                 )}
                 <div className="flex items-center gap-2 text-sm mb-2">
                   <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${
                     item.sede_id
-                      ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
+                      ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300"
                       : "bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400"
                   }`}>
                     <MapPin className="h-3 w-3" />
@@ -262,7 +262,7 @@ export default function AdminEventos() {
                 <div className="flex items-center gap-2 justify-end mt-auto pt-2 border-t border-slate-100">
                   <button
                     onClick={() => openEdit(item)}
-                    className="text-slate-400 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-blue-50"
+                    className="text-slate-400 hover:text-green-700 transition-colors p-2 rounded-lg hover:bg-green-50"
                     title="Editar"
                   >
                     <Pencil className="h-5 w-5" />
@@ -314,7 +314,7 @@ export default function AdminEventos() {
                   value={form.titulo}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
 
@@ -327,7 +327,7 @@ export default function AdminEventos() {
                   value={form.descripcion}
                   onChange={handleChange}
                   rows={3}
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
                 />
               </div>
 
@@ -342,7 +342,7 @@ export default function AdminEventos() {
                     value={form.fecha_inicio}
                     onChange={handleChange}
                     required
-                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                   />
                 </div>
                 <div>
@@ -354,7 +354,7 @@ export default function AdminEventos() {
                     name="fecha_fin"
                     value={form.fecha_fin}
                     onChange={handleChange}
-                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                   />
                 </div>
               </div>
@@ -369,7 +369,7 @@ export default function AdminEventos() {
                   value={form.lugar}
                   onChange={handleChange}
                   placeholder="Sede principal, auditorio, etc."
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
 
@@ -386,7 +386,7 @@ export default function AdminEventos() {
                   }
                 />
                 {form.imagen_url && (
-                  <p className="text-xs text-emerald-600 mt-1 truncate">
+                  <p className="text-xs text-green-700 mt-1 truncate">
                     Imagen: {form.imagen_url}
                   </p>
                 )}
@@ -400,7 +400,7 @@ export default function AdminEventos() {
                   name="sede_id"
                   value={form.sede_id}
                   onChange={handleChange}
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 >
                   <option value="">Todas las sedes (global)</option>
                   {sedes.map((s) => (
@@ -425,7 +425,7 @@ export default function AdminEventos() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors disabled:opacity-60"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors disabled:opacity-60"
                 >
                   {saving && <Loader2 className="h-4 w-4 animate-spin" />}
                   {editing ? "Guardar cambios" : "Crear evento"}

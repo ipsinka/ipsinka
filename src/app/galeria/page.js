@@ -167,7 +167,7 @@ export default function Galeria() {
   return (
     <div className="min-h-screen bg-slate-300/75 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-green-600 via-green-700 to-blue-800 dark:from-gray-800 dark:via-gray-800 dark:bg-gray-800 text-white py-20">
+      <section className="relative bg-gradient-to-br from-green-700 via-green-800 to-green-900 dark:from-gray-800 dark:via-gray-800 dark:bg-gray-800 text-white py-20">
         <div className="absolute inset-0 bg-black opacity-20 dark:opacity-40"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-4xl mx-auto">

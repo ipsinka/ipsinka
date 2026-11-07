@@ -79,7 +79,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   if (!autorizado) {
     return (
       <div className="h-dvh flex items-center justify-center bg-slate-100 dark:bg-slate-950">
-        <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-green-700 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -103,7 +103,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {/* Logo sidebar */}
         <div className={`flex items-center justify-between border-b border-slate-700 py-5 ${colapsado ? "lg:px-3" : "px-6"}`}>
           <div className={`flex items-center gap-2 min-w-0 ${colapsado ? "lg:justify-center lg:w-full" : ""}`}>
-            <Building2 className="h-6 w-6 text-emerald-400 flex-shrink-0" />
+            <Building2 className="h-6 w-6 text-green-400 flex-shrink-0" />
             {!colapsado && (
               <>
                 <span className="text-white font-semibold text-sm leading-tight lg:inline">
@@ -165,7 +165,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                   ${colapsado ? "lg:justify-center lg:px-0" : ""}
                   ${
                     isActive
-                      ? "bg-emerald-600 text-white"
+                      ? "bg-green-700 text-white"
                       : "text-slate-300 hover:bg-slate-700 hover:text-white"
                   }`}
               >

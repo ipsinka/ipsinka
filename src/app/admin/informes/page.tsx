@@ -213,7 +213,7 @@ export default function AdminInformes() {
         {esAdmin && (
           <button
             onClick={openCreate}
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
             <Plus className="h-4 w-4" />
             Agregar
@@ -226,7 +226,7 @@ export default function AdminInformes() {
         <select
           value={filtroAnio}
           onChange={(e) => setFiltroAnio(e.target.value)}
-          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           <option value="">Todos los años</option>
           {aniosDisponibles.map((a) => (
@@ -238,7 +238,7 @@ export default function AdminInformes() {
         <select
           value={filtroMes}
           onChange={(e) => setFiltroMes(e.target.value)}
-          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           <option value="">Todos los meses</option>
           {MESES.map((m, i) => (
@@ -250,7 +250,7 @@ export default function AdminInformes() {
         <select
           value={filtroArea}
           onChange={(e) => setFiltroArea(e.target.value)}
-          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           <option value="">Todas las áreas</option>
           {AREAS.map((a) => (
@@ -322,7 +322,7 @@ export default function AdminInformes() {
                           download
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1 text-emerald-600 hover:underline text-sm"
+                          className="inline-flex items-center gap-1 text-green-700 hover:underline text-sm"
                         >
                           <Download className="h-4 w-4" />
                           Descargar
@@ -335,7 +335,7 @@ export default function AdminInformes() {
                       <div className="flex items-center gap-2 justify-end">
                         <button
                           onClick={() => openEdit(item)}
-                          className="text-slate-400 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-blue-50"
+                          className="text-slate-400 hover:text-green-700 transition-colors p-2 rounded-lg hover:bg-green-50"
                           title="Editar"
                         >
                           <Pencil className="h-5 w-5" />
@@ -390,7 +390,7 @@ export default function AdminInformes() {
                   value={form.titulo}
                   onChange={handleChange}
                   required
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
 
@@ -403,7 +403,7 @@ export default function AdminInformes() {
                   value={form.descripcion}
                   onChange={handleChange}
                   rows={2}
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
                 />
               </div>
 
@@ -417,7 +417,7 @@ export default function AdminInformes() {
                     value={form.mes}
                     onChange={handleChange}
                     required
-                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
                     {MESES.map((m, i) => (
                       <option key={m} value={i + 1}>
@@ -438,7 +438,7 @@ export default function AdminInformes() {
                     required
                     min={2000}
                     max={2100}
-                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                   />
                 </div>
                 <div>
@@ -449,7 +449,7 @@ export default function AdminInformes() {
                     name="area"
                     value={form.area}
                     onChange={handleChange}
-                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500"
                   >
                     {AREAS.map((a) => (
                       <option key={a} value={a}>
@@ -473,7 +473,7 @@ export default function AdminInformes() {
                   }
                 />
                 {form.archivo_url && (
-                  <p className="text-xs text-emerald-600 mt-1 truncate">
+                  <p className="text-xs text-green-700 mt-1 truncate">
                     Archivo: {form.archivo_url}
                   </p>
                 )}
@@ -486,7 +486,7 @@ export default function AdminInformes() {
                   value={form.archivo_url}
                   onChange={handleChange}
                   placeholder="https://... o clave de R2"
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 mt-1"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 mt-1"
                 />
               </div>
 
@@ -501,7 +501,7 @@ export default function AdminInformes() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors disabled:opacity-60"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors disabled:opacity-60"
                 >
                   {saving && <Loader2 className="h-4 w-4 animate-spin" />}
                   {editing ? "Guardar cambios" : "Crear informe"}

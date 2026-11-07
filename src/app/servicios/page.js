@@ -38,7 +38,7 @@ export default function ServiciosPage() {
   return (
     <div className="min-h-screen bg-white/45 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-800 dark:to-blue-900 text-white py-16">
+      <section className="bg-gradient-to-r from-green-700 to-green-800 dark:from-green-800 dark:to-green-900 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
             <h1
@@ -65,11 +65,11 @@ export default function ServiciosPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Medicina General */}
             <div
-              className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-8 border border-blue-200 dark:border-blue-800"
+              className="bg-green-50 dark:bg-green-900/20 rounded-lg p-8 border border-green-200 dark:border-green-800"
               data-aos="fade-right"
               data-aos-delay="100"
             >
-              <h2 className="text-3xl font-bold text-blue-800 dark:text-blue-300 mb-6 text-center">
+              <h2 className="text-3xl font-bold text-green-800 dark:text-green-300 mb-6 text-center">
                 🩺 Medicina General
               </h2>
 
@@ -93,11 +93,11 @@ export default function ServiciosPage() {
 
             {/* Medicina tradicional */}
             <div
-              className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-8 border border-blue-200 dark:border-blue-800"
+              className="bg-green-50 dark:bg-green-900/20 rounded-lg p-8 border border-green-200 dark:border-green-800"
               data-aos="fade-left"
               data-aos-delay="200"
             >
-              <h2 className="text-3xl font-bold text-blue-800 dark:text-blue-300 mb-6 text-center">
+              <h2 className="text-3xl font-bold text-green-800 dark:text-green-300 mb-6 text-center">
                 🌿 Medicina tradicional
               </h2>
 
@@ -272,7 +272,7 @@ export default function ServiciosPage() {
           }
         }
       `}</style>
-      <section className="py-16 bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-800 dark:to-blue-900 text-white">
+      <section className="py-16 bg-gradient-to-r from-green-700 to-green-800 dark:from-green-800 dark:to-green-900 text-white">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6" data-aos="fade-down">
             ¿Necesita Información Específica?
@@ -292,7 +292,7 @@ export default function ServiciosPage() {
           >
             <Link
               href="/directorio"
-              className="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors inline-block"
+              className="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition-colors inline-block"
             >
               Ver Directorio
             </Link>

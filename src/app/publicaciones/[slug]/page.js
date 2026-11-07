@@ -59,7 +59,7 @@ export default function PublicacionDetalle() {
         </h1>
         <Link
           href="/publicaciones"
-          className="text-green-600 hover:text-green-800 font-semibold"
+          className="text-green-700 hover:text-green-800 font-semibold"
         >
           ← Volver a publicaciones
         </Link>
@@ -72,7 +72,7 @@ export default function PublicacionDetalle() {
       <article className="container mx-auto px-4 py-12 max-w-3xl">
         <Link
           href="/publicaciones"
-          className="text-green-600 hover:text-green-800 font-semibold text-sm"
+          className="text-green-700 hover:text-green-800 font-semibold text-sm"
         >
           ← Volver a publicaciones
         </Link>

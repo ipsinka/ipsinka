@@ -22,7 +22,7 @@ export default function Header() {
           <div className="flex items-center justify-between h-20">
             {/* Logo section */}
             <div className="flex items-center space-x-4">
-              <div className="w-16 h-16 bg-green-600 rounded-full flex items-center justify-center">
+              <div className="w-16 h-16 bg-green-700 rounded-full flex items-center justify-center">
                 <span className="text-white font-bold text-xl">IK</span>
               </div>
               <div>

@@ -108,7 +108,7 @@ export default function SedesPreview() {
                 <div className="mt-auto pt-3 flex gap-2">
                   <button
                     onClick={() => abrirMaps(sede.coordenadas.lat, sede.coordenadas.lng, sede.nombre)}
-                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-green-600 hover:bg-green-700 text-white text-xs font-medium transition-colors"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg bg-green-700 hover:bg-green-800 text-white text-xs font-medium transition-colors"
                   >
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
@@ -120,7 +120,7 @@ export default function SedesPreview() {
                   </button>
                   <Link
                     href={`/sedes/${sede.slug}`}
-                    className="inline-flex items-center justify-center px-3 py-2 rounded-lg border border-green-600 text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 text-xs font-medium transition-colors"
+                    className="inline-flex items-center justify-center px-3 py-2 rounded-lg border border-green-700 text-green-700 dark:text-green-400 hover:bg-green-50 dark:hover:bg-green-900/30 text-xs font-medium transition-colors"
                   >
                     Ver más
                   </Link>
@@ -134,7 +134,7 @@ export default function SedesPreview() {
         <div className="text-center" data-aos="fade-up">
           <Link
             href="/sedes"
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-600 hover:bg-green-700 text-white font-medium text-sm transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-green-700 hover:bg-green-800 text-white font-medium text-sm transition-colors shadow-sm"
           >
             Ver Contactos y Sedes completo
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

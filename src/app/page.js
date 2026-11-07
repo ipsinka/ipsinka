@@ -103,7 +103,7 @@ function AutoSlider({ slides, title }) {
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
                   <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white rounded-full p-3 shadow-lg">
-                    <svg className="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-green-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                     </svg>
                   </div>
@@ -187,7 +187,7 @@ function AutoSlider({ slides, title }) {
                 <button
                   key={i}
                   onClick={() => setModal(i)}
-                  className={`w-3 h-3 rounded-full transition-colors shadow ${i === modal ? "bg-blue-500" : "bg-white/60 hover:bg-white/90"}`}
+                  className={`w-3 h-3 rounded-full transition-colors shadow ${i === modal ? "bg-green-500" : "bg-white/60 hover:bg-white/90"}`}
                 />
               ))}
             </div>
@@ -196,7 +196,7 @@ function AutoSlider({ slides, title }) {
           {/* Flecha anterior — esquina inferior izquierda */}
           <button
             onClick={(e) => { e.stopPropagation(); setModal((p) => (p - 1 + slides.length) % slides.length); }}
-            className="absolute bottom-6 left-4 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
+            className="absolute bottom-6 left-4 bg-green-700 hover:bg-green-800 text-white p-3 rounded-full shadow-xl transition-colors z-10"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -206,7 +206,7 @@ function AutoSlider({ slides, title }) {
           {/* Flecha siguiente — esquina inferior derecha */}
           <button
             onClick={(e) => { e.stopPropagation(); setModal((p) => (p + 1) % slides.length); }}
-            className="absolute bottom-6 right-4 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-xl transition-colors z-10"
+            className="absolute bottom-6 right-4 bg-green-700 hover:bg-green-800 text-white p-3 rounded-full shadow-xl transition-colors z-10"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -250,7 +250,7 @@ function InformesMensuales() {
 
           {cargando ? (
             <div className="flex justify-center py-10">
-              <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+              <div className="w-8 h-8 border-4 border-green-700 border-t-transparent rounded-full animate-spin" />
             </div>
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" data-aos="fade-up" data-aos-delay="100">
@@ -258,16 +258,16 @@ function InformesMensuales() {
                 <Link
                   key={inf.id}
                   href={`/transparencia?informe=${inf.id}`}
-                  className="group flex flex-col gap-2 bg-gray-50 dark:bg-gray-800 hover:bg-emerald-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 hover:border-emerald-400 rounded-xl p-4 transition-all duration-200 shadow-sm hover:shadow-md"
+                  className="group flex flex-col gap-2 bg-gray-50 dark:bg-gray-800 hover:bg-green-50 dark:hover:bg-gray-700 border border-gray-200 dark:border-gray-700 hover:border-green-400 rounded-xl p-4 transition-all duration-200 shadow-sm hover:shadow-md"
                 >
                   <div className="flex items-start gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-emerald-100 dark:bg-emerald-900/40 flex items-center justify-center flex-shrink-0 group-hover:bg-emerald-200 dark:group-hover:bg-emerald-800/60 transition-colors">
-                      <svg className="w-5 h-5 text-emerald-600 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="w-10 h-10 rounded-lg bg-green-100 dark:bg-green-900/40 flex items-center justify-center flex-shrink-0 group-hover:bg-green-200 dark:group-hover:bg-green-800/60 transition-colors">
+                      <svg className="w-5 h-5 text-green-700 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                       </svg>
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-100 group-hover:text-emerald-700 dark:group-hover:text-emerald-400 transition-colors line-clamp-2">
+                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-100 group-hover:text-green-800 dark:group-hover:text-green-400 transition-colors line-clamp-2">
                         {inf.titulo}
                       </p>
                       <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
@@ -276,7 +276,7 @@ function InformesMensuales() {
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-1 group-hover:translate-x-1 transition-transform duration-200">
+                  <div className="flex items-center gap-1 text-xs text-green-700 dark:text-green-400 font-medium mt-1 group-hover:translate-x-1 transition-transform duration-200">
                     Ver informe
                     <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -290,7 +290,7 @@ function InformesMensuales() {
           <div className="text-center mt-8" data-aos="fade-up">
             <Link
               href="/transparencia"
-              className="inline-flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400 hover:text-emerald-800 dark:hover:text-emerald-300 font-medium transition-colors"
+              className="inline-flex items-center gap-2 text-sm text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 font-medium transition-colors"
             >
               Ver todos los documentos e informes
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -357,7 +357,7 @@ export default function Home() {
       <HealthInfoSection />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-green-600 via-green-700 to-blue-800 dark:from-gray-800 dark:via-gray-800 dark:bg-gray-800 text-white py-20">
+      <section className="relative bg-gradient-to-br from-green-700 via-green-800 to-green-900 dark:from-gray-800 dark:via-gray-800 dark:bg-gray-800 text-white py-20">
         <div className="absolute inset-0 bg-black opacity-20 dark:opacity-40"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="text-center max-w-4xl mx-auto">
@@ -572,7 +572,7 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 dark:bg-gray-800">
             <Link
               href="/sedes"
-              className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg p-8 text-center hover:from-green-600 hover:to-green-700 transition-colors dark:from-gray-800 border dark:border-white"
+              className="bg-gradient-to-r from-green-700 to-green-800 text-white rounded-lg p-8 text-center hover:from-green-800 hover:to-green-900 transition-colors dark:from-gray-800 border dark:border-white"
               data-aos="flip-up"
               data-aos-delay="100"
             >
@@ -585,7 +585,7 @@ export default function Home() {
 
             <Link
               href="/directorio"
-              className="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-lg p-8 text-center hover:from-blue-600 hover:to-blue-700 transition-colors dark:from-gray-800 border dark:border-white"
+              className="bg-gradient-to-r from-green-700 to-green-800 text-white rounded-lg p-8 text-center hover:from-green-800 hover:to-green-900 transition-colors dark:from-gray-800 border dark:border-white"
               data-aos="flip-up"
               data-aos-delay="200"
             >
@@ -596,7 +596,7 @@ export default function Home() {
 
             <Link
               href="/atencion-usuario"
-              className="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-lg p-8 text-center hover:from-purple-600 hover:to-purple-700 transition-colors dark:from-gray-800 border dark:border-white"
+              className="bg-gradient-to-r from-green-700 to-green-800 text-white rounded-lg p-8 text-center hover:from-green-800 hover:to-green-900 transition-colors dark:from-gray-800 border dark:border-white"
               data-aos="flip-up"
               data-aos-delay="300"
             >

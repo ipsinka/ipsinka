@@ -86,9 +86,9 @@ export default function DirectorioTelefonico() {
   const getDepartamentoColor = (departamento: string) => {
     switch (departamento) {
       case "Gerencia":
-        return "bg-purple-100 text-purple-800 border-purple-200";
+        return "bg-green-100 text-green-800 border-green-200";
       case "Asistencial":
-        return "bg-blue-100 text-blue-800 border-blue-200";
+        return "bg-green-100 text-green-800 border-green-200";
       case "Secretaría":
         return "bg-green-100 text-green-800 border-green-200";
       case "Atención al Usuario":
@@ -125,7 +125,7 @@ export default function DirectorioTelefonico() {
         </h2> */}
 
         {/* Información de contacto principal */}
-        <div className="bg-gradient-to-r from-green-600 to-blue-600 text-white rounded-lg p-8 mb-12 dark:from-gray-400">
+        <div className="bg-gradient-to-r from-green-700 to-green-800 text-white rounded-lg p-8 mb-12 dark:from-gray-400">
           <div className="flex flex-col md:flex-row gap-8 text-center items-center justify-center w-full dark:bg-gray-800">
             <div className="flex-1 flex flex-col items-center">
               <h3 className="text-xl font-bold mb-2">📞 Línea Principal</h3>
@@ -240,7 +240,7 @@ export default function DirectorioTelefonico() {
               <div className="space-y-3">
                 <div className="flex items-center text-gray-700">
                   <svg
-                    className="w-4 h-4 mr-2 text-green-600"
+                    className="w-4 h-4 mr-2 text-green-700"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -254,7 +254,7 @@ export default function DirectorioTelefonico() {
                   </svg>
                   <a
                     href={`tel:${contacto.telefono}`}
-                    className="hover:text-green-600 dark:text-white"
+                    className="hover:text-green-700 dark:text-white"
                   >
                     {contacto.telefono}
                     {contacto.extension && ` Ext. ${contacto.extension}`}
@@ -263,7 +263,7 @@ export default function DirectorioTelefonico() {
 
                 <div className="flex items-center text-gray-700">
                   <svg
-                    className="w-4 h-4 mr-2 text-green-600"
+                    className="w-4 h-4 mr-2 text-green-700"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -277,7 +277,7 @@ export default function DirectorioTelefonico() {
                   </svg>
                   <a
                     href={`mailto:${contacto.email}`}
-                    className="hover:text-green-600 text-sm truncate dark:text-white"
+                    className="hover:text-green-700 text-sm truncate dark:text-white"
                   >
                     {contacto.email}
                   </a>
@@ -285,7 +285,7 @@ export default function DirectorioTelefonico() {
 
                 <div className="flex items-center text-gray-700 dark:text-white">
                   <svg
-                    className="w-4 h-4 mr-2 text-green-600"
+                    className="w-4 h-4 mr-2 text-green-700"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -308,7 +308,7 @@ export default function DirectorioTelefonico() {
 
                 <div className="flex items-start text-gray-700 dark:text-white">
                   <svg
-                    className="w-4 h-4 mr-2 mt-1 text-green-600"
+                    className="w-4 h-4 mr-2 mt-1 text-green-700"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -327,13 +327,13 @@ export default function DirectorioTelefonico() {
               <div className="mt-4 flex gap-2">
                 <a
                   href={`tel:${contacto.telefono}`}
-                  className="flex-1 bg-green-600 text-white py-2 px-4 rounded-lg text-center text-sm hover:bg-green-700 transition-colors"
+                  className="flex-1 bg-green-700 text-white py-2 px-4 rounded-lg text-center text-sm hover:bg-green-800 transition-colors"
                 >
                   Llamar
                 </a>
                 <a
                   href={`mailto:${contacto.email}`}
-                  className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-lg text-center text-sm hover:bg-blue-700 transition-colors"
+                  className="flex-1 bg-green-700 text-white py-2 px-4 rounded-lg text-center text-sm hover:bg-green-800 transition-colors"
                 >
                   Email
                 </a>
@@ -354,7 +354,7 @@ export default function DirectorioTelefonico() {
                 setFiltroSede("todas");
                 setFiltroDepartamento("todos");
               }}
-              className="mt-4 text-green-600 hover:text-green-800 font-semibold"
+              className="mt-4 text-green-700 hover:text-green-800 font-semibold"
             >
               Limpiar filtros
             </button>
@@ -362,11 +362,11 @@ export default function DirectorioTelefonico() {
         )}
 
         {/* Información adicional */}
-        <div className="mt-12 bg-blue-50 rounded-lg p-8 border border-blue-200 dark:bg-gray-800 dark:border-white">
-          <h3 className="text-xl font-bold text-blue-800 mb-4 text-center">
+        <div className="mt-12 bg-green-50 rounded-lg p-8 border border-green-200 dark:bg-gray-800 dark:border-white">
+          <h3 className="text-xl font-bold text-green-800 mb-4 text-center">
             📋 Información Importante
           </h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-blue-700 dark:text-white">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-green-700 dark:text-white">
             <div>
               <h4 className="font-semibold mb-2">Horarios Generales:</h4>
               <ul className="space-y-1">

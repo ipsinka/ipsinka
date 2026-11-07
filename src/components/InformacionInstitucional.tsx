@@ -15,7 +15,7 @@ export default function InformacionInstitucional() {
   return (
     <section
       id="institucional"
-      className="py-16 bg-gradient-to-br from-green-50/20 to-blue-50 dark:from-gray-800 dark:to-gray-900"
+      className="py-16 bg-gradient-to-br from-green-50/20 to-green-150 dark:from-gray-800 dark:to-gray-900"
     >
       <div className="container mx-auto px-4 dark:text-gray-300 ">
         <h2 className="text-4xl font-bold text-center mb-16 text-gray-800 dark:text-white">
@@ -37,11 +37,11 @@ export default function InformacionInstitucional() {
             {servicios.map((servicio, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-4 border border-green-100 hover:shadow-md transition-shadow"
+                className="bg-gradient-to-r from-green-50 to-green-150 rounded-lg p-4 border border-green-100 hover:shadow-md transition-shadow"
               >
                 <div className="flex items-center">
                   <svg
-                    className="w-5 h-5 text-green-600 mr-3 flex-shrink-0"
+                    className="w-5 h-5 text-green-700 mr-3 flex-shrink-0"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -63,7 +63,7 @@ export default function InformacionInstitucional() {
             </p>
             <Link
               href="tel:+573132863398"
-              className="inline-block bg-green-600 text-white px-8 py-3 rounded-lg hover:bg-green-700 transition-colors font-semibold"
+              className="inline-block bg-green-700 text-white px-8 py-3 rounded-lg hover:bg-green-800 transition-colors font-semibold"
               target="_blank"
               rel="noopener noreferrer"
             >

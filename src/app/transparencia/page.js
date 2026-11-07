@@ -111,7 +111,7 @@ function FilaDocumento({ doc }) {
         <Link
           href={doc.url}
           target="_blank"
-          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors shadow-sm"
+          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-700 hover:bg-green-800 text-white rounded-md transition-colors shadow-sm"
         >
           <svg
             className="w-3.5 h-3.5"
@@ -137,7 +137,7 @@ function FilaDocumento({ doc }) {
         <button
           onClick={handleDescargar}
           disabled={descargando}
-          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-md transition-colors shadow-sm"
+          className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-700 hover:bg-green-800 disabled:bg-green-400 text-white rounded-md transition-colors shadow-sm"
         >
           <svg
             className="w-3.5 h-3.5"
@@ -208,7 +208,7 @@ function AcordeonAnio({ anio, defaultAbierto = false }) {
       {/* Cabecera del año */}
       <button
         onClick={() => setAbierto(!abierto)}
-        className="w-full flex items-center justify-between px-6 py-5 bg-gradient-to-r from-green-700 to-green-600 dark:from-gray-700 dark:to-gray-600 text-white hover:from-green-800 hover:to-green-700 dark:hover:from-gray-600 dark:hover:to-gray-500 transition-all"
+        className="w-full flex items-center justify-between px-6 py-5 bg-gradient-to-r from-green-700 to-green-800 dark:from-gray-700 dark:to-gray-600 text-white hover:from-green-800 hover:to-green-800 dark:hover:from-gray-600 dark:hover:to-gray-500 transition-all"
       >
         <div className="flex items-center gap-4">
           <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center font-bold text-lg">
@@ -770,7 +770,7 @@ function BtnDescargarBusqueda({ doc }) {
     <button
       onClick={handleDescargar}
       disabled={descargando}
-      className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 disabled:bg-blue-400 text-white rounded-md transition-colors shadow-sm"
+      className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-700 hover:bg-green-800 disabled:bg-green-400 text-white rounded-md transition-colors shadow-sm"
     >
       <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
@@ -815,7 +815,7 @@ function ResultadosBusqueda({ query }) {
             </div>
           </div>
           <div className="flex items-center gap-2 flex-shrink-0">
-            <Link href={doc.url} target="_blank" className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors shadow-sm">
+            <Link href={doc.url} target="_blank" className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-700 hover:bg-green-800 text-white rounded-md transition-colors shadow-sm">
               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -847,7 +847,7 @@ function InformesArea({ label, informes, onSeleccionar }) {
     <div className="rounded-xl overflow-hidden shadow-sm border border-gray-200 dark:border-gray-700">
       <button
         onClick={() => setAbierto(!abierto)}
-        className="w-full flex items-center justify-between px-5 py-4 bg-gradient-to-r from-green-700 to-green-600 dark:from-gray-700 dark:to-gray-600 text-white hover:from-green-800 hover:to-green-700 transition-all"
+        className="w-full flex items-center justify-between px-5 py-4 bg-gradient-to-r from-green-700 to-green-800 dark:from-gray-700 dark:to-gray-600 text-white hover:from-green-800 hover:to-green-800 transition-all"
       >
         <div className="flex items-center gap-3">
           <span className="font-semibold">{label}</span>
@@ -864,21 +864,21 @@ function InformesArea({ label, informes, onSeleccionar }) {
                 {porAnio[anio]
                   .sort((a, b) => Number(b.mes) - Number(a.mes))
                   .map((inf) => (
-                    <div key={inf.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3 px-4 rounded-lg bg-white dark:bg-gray-700 border border-gray-100 dark:border-gray-600 hover:border-emerald-400 hover:bg-emerald-50 dark:hover:bg-gray-600 transition-colors">
+                    <div key={inf.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 py-3 px-4 rounded-lg bg-white dark:bg-gray-700 border border-gray-100 dark:border-gray-600 hover:border-green-400 hover:bg-green-50 dark:hover:bg-gray-600 transition-colors">
                       <button
                         onClick={() => onSeleccionar?.(inf)}
                         className="flex items-center gap-3 min-w-0 text-left flex-1"
                       >
                         <IconoPDF />
                         <div className="min-w-0">
-                          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 truncate hover:text-emerald-700 dark:hover:text-emerald-400">{inf.titulo}</p>
+                          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 truncate hover:text-green-800 dark:hover:text-green-400">{inf.titulo}</p>
                           <p className="text-xs text-gray-400 dark:text-gray-400">{MESES_NOMBRE[inf.mes]} {inf.anio}{inf.descripcion ? ` · ${inf.descripcion}` : ""}</p>
                         </div>
                       </button>
                       {inf.archivo_url && (
                         <div className="flex items-center gap-2 flex-shrink-0">
                           <Link href={inf.archivo_url} target="_blank"
-                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors shadow-sm">
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-700 hover:bg-green-800 text-white rounded-md transition-colors shadow-sm">
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
@@ -886,7 +886,7 @@ function InformesArea({ label, informes, onSeleccionar }) {
                             Ver
                           </Link>
                           <a href={inf.archivo_url} download
-                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white rounded-md transition-colors shadow-sm">
+                            className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-semibold bg-green-700 hover:bg-green-800 text-white rounded-md transition-colors shadow-sm">
                             <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                             </svg>
@@ -1025,7 +1025,7 @@ function TransparenciaContent() {
   return (
     <div className="min-h-screen bg-slate-100 dark:bg-gray-900">
       {/* Hero */}
-      <section className="pt-24 pb-12 bg-gradient-to-br from-green-600 via-green-700 to-blue-800 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900 text-white">
+      <section className="pt-24 pb-12 bg-gradient-to-br from-green-700 via-green-800 to-green-900 dark:from-gray-800 dark:via-gray-800 dark:to-gray-900 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4" data-aos="fade-up">
@@ -1111,7 +1111,7 @@ function TransparenciaContent() {
               {esAdmin && (
                 <button
                   onClick={() => { setForm(emptyInforme); setErrorModal(null); setModalOpen(true); }}
-                  className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow"
+                  className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors shadow"
                 >
                   <Plus className="h-4 w-4" />
                   Agregar
@@ -1121,8 +1121,8 @@ function TransparenciaContent() {
 
             {/* Visor del informe destacado (llegado desde la página de inicio) */}
             {informeAbierto && (
-              <div className="mb-10 rounded-xl overflow-hidden border border-emerald-300 dark:border-emerald-700 shadow-lg" data-aos="fade-up">
-                <div className="flex items-center justify-between px-4 py-3 bg-emerald-600 dark:bg-emerald-800 text-white">
+              <div className="mb-10 rounded-xl overflow-hidden border border-green-300 dark:border-green-700 shadow-lg" data-aos="fade-up">
+                <div className="flex items-center justify-between px-4 py-3 bg-green-700 dark:bg-green-800 text-white">
                   <div className="min-w-0">
                     <p className="font-semibold text-sm truncate">{informeAbierto.titulo}</p>
                     <p className="text-xs text-white/70">{MESES_NOMBRE[informeAbierto.mes]} {informeAbierto.anio}</p>
@@ -1192,32 +1192,32 @@ function TransparenciaContent() {
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Título <span className="text-red-500">*</span></label>
                 <input type="text" name="titulo" value={form.titulo} onChange={handleChange} required
-                  className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Descripción</label>
                 <input type="text" name="descripcion" value={form.descripcion} onChange={handleChange}
-                  className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
               </div>
               <div className="grid grid-cols-3 gap-3">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Área</label>
                   <select name="area" value={form.area} onChange={handleChange}
-                    className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
                     {AREAS.map((a) => <option key={a} value={a}>{AREA_LABEL[a]}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Mes</label>
                   <select name="mes" value={form.mes} onChange={handleChange}
-                    className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                    className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
                     {MESES_NOMBRE.slice(1).map((m, i) => <option key={i+1} value={i+1}>{m}</option>)}
                   </select>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Año</label>
                   <input type="number" name="anio" value={form.anio} onChange={handleChange} min="2015" max="2100"
-                    className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                    className="w-full border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
                 </div>
               </div>
               <div>
@@ -1225,7 +1225,7 @@ function TransparenciaContent() {
                 <FileUpload accept=".pdf,.doc,.docx,.xls,.xlsx" carpeta="informes" label="Subir archivo"
                   onUpload={(url) => setForm((p) => ({ ...p, archivo_url: url }))} />
                 {form.archivo_url && (
-                  <p className="mt-1 text-xs text-emerald-600 dark:text-emerald-400 truncate">✓ {form.archivo_url}</p>
+                  <p className="mt-1 text-xs text-green-700 dark:text-green-400 truncate">✓ {form.archivo_url}</p>
                 )}
               </div>
               <div className="flex justify-end gap-3 pt-2">
@@ -1234,7 +1234,7 @@ function TransparenciaContent() {
                   Cancelar
                 </button>
                 <button type="submit" disabled={saving || !form.archivo_url}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors disabled:opacity-60">
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors disabled:opacity-60">
                   {saving && <Loader2 className="h-4 w-4 animate-spin" />}
                   Publicar informe
                 </button>
@@ -1251,7 +1251,7 @@ export default function Transparencia() {
   return (
     <Suspense fallback={
       <div className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-gray-900">
-        <div className="w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-4 border-green-700 border-t-transparent rounded-full animate-spin" />
       </div>
     }>
       <TransparenciaContent />

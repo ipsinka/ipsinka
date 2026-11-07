@@ -2,14 +2,14 @@ import Link from "next/link";
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-green-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-green-150 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 flex items-center justify-center px-4 py-16">
       <div className="max-w-4xl mx-auto text-center">
         {/* Icono médico animado */}
         <div className="relative mb-8 inline-block">
           <div className="absolute inset-0 bg-green-200 dark:bg-green-900/30 rounded-full blur-3xl opacity-50 animate-pulse"></div>
           <div className="relative bg-white dark:bg-gray-800 rounded-full p-8 shadow-2xl border-4 border-green-100 dark:border-green-900">
             <svg
-              className="w-32 h-32 text-green-600 dark:text-green-500 mx-auto"
+              className="w-32 h-32 text-green-700 dark:text-green-500 mx-auto"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -26,13 +26,13 @@ export default function NotFound() {
 
         {/* Código de error */}
         <div className="mb-6">
-          <h1 className="text-8xl md:text-9xl font-bold text-green-600 dark:text-green-500 mb-2">
+          <h1 className="text-8xl md:text-9xl font-bold text-green-700 dark:text-green-500 mb-2">
             404
           </h1>
           <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-400">
-            <div className="h-1 w-12 bg-green-600 dark:bg-green-500 rounded"></div>
+            <div className="h-1 w-12 bg-green-700 dark:bg-green-500 rounded"></div>
             <span className="text-sm font-medium">PÁGINA NO ENCONTRADA</span>
-            <div className="h-1 w-12 bg-green-600 dark:bg-green-500 rounded"></div>
+            <div className="h-1 w-12 bg-green-700 dark:bg-green-500 rounded"></div>
           </div>
         </div>
 
@@ -51,7 +51,7 @@ export default function NotFound() {
         {/* Tarjetas de información médica */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 max-w-3xl mx-auto">
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow">
-            <div className="text-blue-600 dark:text-blue-400 mb-3">
+            <div className="text-green-700 dark:text-green-400 mb-3">
               <svg
                 className="w-8 h-8 mx-auto"
                 fill="none"
@@ -73,7 +73,7 @@ export default function NotFound() {
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow">
-            <div className="text-green-600 dark:text-green-400 mb-3">
+            <div className="text-green-700 dark:text-green-400 mb-3">
               <svg
                 className="w-8 h-8 mx-auto"
                 fill="none"
@@ -95,7 +95,7 @@ export default function NotFound() {
           </div>
 
           <div className="bg-white dark:bg-gray-800 rounded-lg p-6 shadow-lg border border-gray-200 dark:border-gray-700 hover:shadow-xl transition-shadow">
-            <div className="text-purple-600 dark:text-purple-400 mb-3">
+            <div className="text-green-700 dark:text-green-400 mb-3">
               <svg
                 className="w-8 h-8 mx-auto"
                 fill="none"
@@ -121,7 +121,7 @@ export default function NotFound() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105"
+            className="inline-flex items-center gap-2 bg-green-700 text-white px-8 py-4 rounded-lg hover:bg-green-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105"
           >
             <svg
               className="w-5 h-5"
@@ -141,7 +141,7 @@ export default function NotFound() {
 
           <Link
             href="/contacto"
-            className="inline-flex items-center gap-2 bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105"
+            className="inline-flex items-center gap-2 bg-green-700 text-white px-8 py-4 rounded-lg hover:bg-green-800 transition-all duration-300 font-semibold shadow-lg hover:shadow-xl hover:scale-105"
           >
             <svg
               className="w-5 h-5"
@@ -168,28 +168,28 @@ export default function NotFound() {
           <div className="flex flex-wrap justify-center gap-3">
             <Link
               href="/servicios"
-              className="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 hover:underline transition-colors"
+              className="text-sm text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 hover:underline transition-colors"
             >
               📋 Servicios Médicos
             </Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
             <Link
               href="/sedes"
-              className="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 hover:underline transition-colors"
+              className="text-sm text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 hover:underline transition-colors"
             >
               🏥 Nuestras Sedes
             </Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
             <Link
               href="/directorio"
-              className="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 hover:underline transition-colors"
+              className="text-sm text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 hover:underline transition-colors"
             >
               👨‍⚕️ Directorio Médico
             </Link>
             <span className="text-gray-300 dark:text-gray-600">|</span>
             <Link
               href="/atencion-usuario"
-              className="text-sm text-green-600 dark:text-green-400 hover:text-green-700 dark:hover:text-green-300 hover:underline transition-colors"
+              className="text-sm text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 hover:underline transition-colors"
             >
               📞 Atención al Usuario
             </Link>
@@ -197,10 +197,10 @@ export default function NotFound() {
         </div>
 
         {/* Mensaje de ayuda */}
-        <div className="mt-8 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6 max-w-2xl mx-auto">
+        <div className="mt-8 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 max-w-2xl mx-auto">
           <div className="flex items-start gap-3">
             <svg
-              className="w-6 h-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1"
+              className="w-6 h-6 text-green-700 dark:text-green-400 flex-shrink-0 mt-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -213,10 +213,10 @@ export default function NotFound() {
               />
             </svg>
             <div className="text-left">
-              <h4 className="font-semibold text-blue-900 dark:text-blue-300 mb-2">
+              <h4 className="font-semibold text-green-900 dark:text-green-300 mb-2">
                 ¿Necesitas ayuda personalizada?
               </h4>
-              <p className="text-sm text-blue-800 dark:text-blue-400">
+              <p className="text-sm text-green-800 dark:text-green-400">
                 Nuestro equipo de atención está disponible de lunes a viernes de
                 8:00 AM a 5:00 PM. Llámanos al{" "}
                 <a

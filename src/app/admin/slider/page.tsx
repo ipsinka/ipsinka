@@ -48,13 +48,9 @@ interface FormData {
 // Opciones de gradiente (deben ser clases literales de Tailwind para que
 // se generen en el build; ver PresentacionCarousel).
 const GRADIENTES: { value: string; label: string }[] = [
-  { value: "from-green-600 to-blue-700", label: "Verde → Azul" },
-  { value: "from-blue-600 to-indigo-700", label: "Azul → Índigo" },
-  { value: "from-green-700 to-emerald-800", label: "Verde → Esmeralda" },
-  { value: "from-purple-600 to-pink-700", label: "Púrpura → Rosa" },
-  { value: "from-cyan-600 to-blue-700", label: "Cian → Azul" },
-  { value: "from-amber-600 to-orange-700", label: "Ámbar → Naranja" },
-  { value: "from-slate-700 to-slate-900", label: "Gris oscuro" },
+  { value: "from-green-700 to-green-800", label: "Verde institucional" },
+  { value: "from-green-600 to-green-800", label: "Verde claro → Verde" },
+  { value: "from-green-800 to-green-950", label: "Verde oscuro" },
 ];
 
 const emptyForm: FormData = {
@@ -62,7 +58,7 @@ const emptyForm: FormData = {
   subtitulo: "",
   descripcion: "",
   imagen_url: "",
-  bg_color: "from-green-600 to-blue-700",
+  bg_color: "from-green-700 to-green-800",
   icono: "",
   icono_label: "",
   botones: [{ text: "", href: "", estilo: "primary" }],
@@ -132,7 +128,7 @@ export default function AdminSlider() {
       subtitulo: item.subtitulo ?? "",
       descripcion: item.descripcion ?? "",
       imagen_url: item.imagen_url ?? "",
-      bg_color: item.bg_color ?? "from-green-600 to-blue-700",
+      bg_color: item.bg_color ?? "from-green-700 to-green-800",
       icono: item.icono ?? "",
       icono_label: item.icono_label ?? "",
       botones: botones.length ? botones : [],
@@ -264,7 +260,7 @@ export default function AdminSlider() {
         {esAdmin && (
           <button
             onClick={openCreate}
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
             <Plus className="h-4 w-4" />
             Agregar slide
@@ -315,7 +311,7 @@ export default function AdminSlider() {
                 {/* Contenido */}
                 <div className="p-4 flex-1 min-w-0">
                   {item.subtitulo && (
-                    <p className="text-xs font-medium text-emerald-600 uppercase tracking-wide">
+                    <p className="text-xs font-medium text-green-700 uppercase tracking-wide">
                       {item.subtitulo}
                     </p>
                   )}
@@ -351,7 +347,7 @@ export default function AdminSlider() {
                   <div className="flex items-center gap-2 mt-4">
                     <button
                       onClick={() => openEdit(item)}
-                      className="inline-flex items-center gap-1 text-xs text-blue-600 border border-blue-200 hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors"
+                      className="inline-flex items-center gap-1 text-xs text-green-700 border border-green-200 hover:bg-green-50 px-3 py-1.5 rounded-lg transition-colors"
                     >
                       <Pencil className="h-4 w-4" />
                       Editar
@@ -442,7 +438,7 @@ export default function AdminSlider() {
                   value={form.subtitulo}
                   onChange={handleChange}
                   placeholder="Ej: Especialistas en Salud"
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white"
                 />
               </div>
 
@@ -457,7 +453,7 @@ export default function AdminSlider() {
                   value={form.titulo}
                   onChange={handleChange}
                   placeholder="Ej: Atención Médica y Odontológica"
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white"
                 />
               </div>
 
@@ -472,7 +468,7 @@ export default function AdminSlider() {
                   onChange={handleChange}
                   rows={3}
                   placeholder="Texto descriptivo del slide"
-                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white resize-y"
+                  className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white resize-y"
                 />
               </div>
 
@@ -486,7 +482,7 @@ export default function AdminSlider() {
                     name="bg_color"
                     value={form.bg_color}
                     onChange={handleChange}
-                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white"
                   >
                     {GRADIENTES.map((g) => (
                       <option key={g.value} value={g.value}>
@@ -505,7 +501,7 @@ export default function AdminSlider() {
                     value={form.orden}
                     onChange={handleChange}
                     min={0}
-                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white"
                   />
                 </div>
               </div>
@@ -522,7 +518,7 @@ export default function AdminSlider() {
                     value={form.icono}
                     onChange={handleChange}
                     placeholder="🏥"
-                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white"
                   />
                 </div>
                 <div>
@@ -535,7 +531,7 @@ export default function AdminSlider() {
                     value={form.icono_label}
                     onChange={handleChange}
                     placeholder="Ej: Medicina Integral"
-                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white"
+                    className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white"
                   />
                 </div>
               </div>
@@ -549,7 +545,7 @@ export default function AdminSlider() {
                   <button
                     type="button"
                     onClick={addBoton}
-                    className="inline-flex items-center gap-1 text-xs text-emerald-600 border border-emerald-200 hover:bg-emerald-50 px-2.5 py-1.5 rounded-lg transition-colors"
+                    className="inline-flex items-center gap-1 text-xs text-green-700 border border-green-200 hover:bg-green-50 px-2.5 py-1.5 rounded-lg transition-colors"
                   >
                     <Plus className="h-3.5 w-3.5" />
                     Añadir botón
@@ -590,7 +586,7 @@ export default function AdminSlider() {
                             updateBoton(i, "text", e.target.value)
                           }
                           placeholder="Texto (ej: Agendar Cita)"
-                          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white"
+                          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white"
                         />
                         <input
                           type="text"
@@ -599,7 +595,7 @@ export default function AdminSlider() {
                             updateBoton(i, "href", e.target.value)
                           }
                           placeholder="Destino (ej: /sedes o tel:+57...)"
-                          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white"
+                          className="border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white"
                         />
                       </div>
                       <select
@@ -607,7 +603,7 @@ export default function AdminSlider() {
                         onChange={(e) =>
                           updateBoton(i, "estilo", e.target.value)
                         }
-                        className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 dark:bg-slate-700 dark:text-white"
+                        className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 dark:bg-slate-700 dark:text-white"
                       >
                         <option value="primary">
                           Estilo principal (amarillo)
@@ -632,7 +628,7 @@ export default function AdminSlider() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors disabled:opacity-60"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors disabled:opacity-60"
                 >
                   {saving && <Loader2 className="h-4 w-4 animate-spin" />}
                   {editing ? "Guardar cambios" : "Agregar"}

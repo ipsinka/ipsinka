@@ -65,7 +65,7 @@ export default function ModalNoticia({ noticia, onClose }) {
 
           <div className="p-6 flex-1 flex flex-col">
             {noticia.tipo === "evento" && (
-              <span className="inline-block mb-3 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-800 self-start">
+              <span className="inline-block mb-3 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800 self-start">
                 Evento
               </span>
             )}

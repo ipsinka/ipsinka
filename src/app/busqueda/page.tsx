@@ -60,7 +60,7 @@ export default function SearchPage() {
     switch (priority) {
       case 'critical': return 'bg-red-100 text-red-800';
       case 'high': return 'bg-green-100 text-green-800';
-      case 'medium': return 'bg-blue-100 text-blue-800';
+      case 'medium': return 'bg-green-100 text-green-800';
       case 'low': return 'bg-gray-100 text-gray-800';
       default: return 'bg-gray-100 text-gray-800';
     }
@@ -121,7 +121,7 @@ export default function SearchPage() {
                   />
                   <button
                     type="submit"
-                    className="bg-green-700 text-white px-6 py-3 rounded-r-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-600 transition-colors"
+                    className="bg-green-700 text-white px-6 py-3 rounded-r-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-700 transition-colors"
                   >
                     {isLoading ? (
                       <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full"></div>
@@ -139,7 +139,7 @@ export default function SearchPage() {
               <div className="mt-6 flex justify-center">
                 <button
                   onClick={() => setShowAllContent(!showAllContent)}
-                  className="text-green-600 hover:text-green-700 font-medium"
+                  className="text-green-700 hover:text-green-800 font-medium"
                 >
                   {showAllContent ? 'Ocultar todo el contenido' : 'Ver todo el contenido disponible'}
                 </button>

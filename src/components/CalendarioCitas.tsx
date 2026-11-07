@@ -142,7 +142,7 @@ export default function CalendarioCitas({
               dia
             )} ${
               diaSeleccionado === dia.fecha
-                ? "ring-2 ring-blue-500 ring-offset-2"
+                ? "ring-2 ring-green-500 ring-offset-2"
                 : "hover:shadow-md"
             }`}
             onClick={() => seleccionarDia(dia)}
@@ -165,12 +165,12 @@ export default function CalendarioCitas({
       {/* Horarios del día seleccionado */}
       {diaSeleccionado && (
         <div className="border-t pt-6">
-          <div className="bg-blue-50 rounded-lg p-4 mb-4">
-            <h4 className="text-lg font-semibold text-blue-800 mb-2">
+          <div className="bg-green-50 rounded-lg p-4 mb-4">
+            <h4 className="text-lg font-semibold text-green-800 mb-2">
               📅 Horarios disponibles para{" "}
               {formatearFechaLegible(diaSeleccionado)}
             </h4>
-            <p className="text-blue-700 text-sm">
+            <p className="text-green-700 text-sm">
               Haz clic en un horario disponible (verde) para agendar tu cita
             </p>
           </div>
@@ -188,7 +188,7 @@ export default function CalendarioCitas({
                   disabled={!horario.disponible}
                   className={`p-3 rounded-lg text-sm font-medium transition-all duration-200 ${
                     horario.disponible
-                      ? "bg-green-600 text-white hover:bg-green-700 hover:scale-105 shadow-md hover:shadow-lg"
+                      ? "bg-green-700 text-white hover:bg-green-800 hover:scale-105 shadow-md hover:shadow-lg"
                       : "bg-gray-300 text-gray-600 cursor-not-allowed opacity-50"
                   }`}
                 >
@@ -223,7 +223,7 @@ export default function CalendarioCitas({
       )}
 
       {!diaSeleccionado && diasCalendario.length > 0 && (
-        <div className="text-center py-8 text-blue-600 bg-blue-50 rounded-lg">
+        <div className="text-center py-8 text-green-700 bg-green-50 rounded-lg">
           <p className="text-lg font-medium">
             👆 Selecciona un día del calendario
           </p>

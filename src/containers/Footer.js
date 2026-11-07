@@ -64,7 +64,7 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
             <div className="col-span-1 lg:col-span-2">
               <div className="flex items-center space-x-3 mb-4">
-                {/* <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+                {/* <div className="w-12 h-12 bg-green-700 rounded-full flex items-center justify-center">
                   <span className="text-white font-bold">IK</span>
                 </div> */}
 
@@ -98,7 +98,7 @@ export default function Footer() {
               <div className="mt-4">
                 <Link
                   href="/admin"
-                  className="inline-flex items-center gap-2 px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white text-sm font-medium rounded-lg transition-colors"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-green-700 hover:bg-green-800 text-white text-sm font-medium rounded-lg transition-colors"
                 >
                   <span>🔐</span> Acceso Administrativo
                 </Link>

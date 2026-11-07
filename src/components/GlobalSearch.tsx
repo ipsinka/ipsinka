@@ -84,9 +84,9 @@ export default function GlobalSearch() {
       case "critical":
         return "text-red-600";
       case "high":
-        return "text-green-600";
+        return "text-green-700";
       case "medium":
-        return "text-blue-600";
+        return "text-green-700";
       case "low":
         return "text-gray-600";
       default:
@@ -182,7 +182,7 @@ export default function GlobalSearch() {
                   <button
                     type="submit"
                     disabled={results.length === 0}
-                    className="bg-green-600 text-white px-6 py-3 rounded-r-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="bg-green-700 text-white px-6 py-3 rounded-r-lg hover:bg-green-800 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     {isLoading ? (
                       <div className="animate-spin w-5 h-5 border-2 border-white border-t-transparent rounded-full "></div>
@@ -241,7 +241,7 @@ export default function GlobalSearch() {
                               {highlightText(result.description, searchTerm)}
                             </p>
                             <div className="flex items-center gap-2 text-xs">
-                              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                              <span className="bg-green-100 text-green-800 px-2 py-1 rounded">
                                 {result.category}
                               </span>
                               {result.tags.slice(0, 3).map((tag) => (
@@ -278,9 +278,9 @@ export default function GlobalSearch() {
                   </div>
                 ) : searchTerm.trim().length >= 2 && !isLoading ? (
                   <div className="p-6 text-center">
-                    <div className="bg-blue-50 dark:bg-blue-900/20 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
+                    <div className="bg-green-50 dark:bg-green-900/20 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center">
                       <svg
-                        className="w-10 h-10 text-blue-600 dark:text-blue-400"
+                        className="w-10 h-10 text-green-700 dark:text-green-400"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
@@ -329,7 +329,7 @@ export default function GlobalSearch() {
                     </div>
                     <Link
                       href="/contacto"
-                      className="mt-4 inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 text-sm font-medium"
+                      className="mt-4 inline-flex items-center gap-2 text-green-700 dark:text-green-400 hover:text-green-800 dark:hover:text-green-300 text-sm font-medium"
                       onClick={() => setIsOpen(false)}
                     >
                       <svg
@@ -378,7 +378,7 @@ export default function GlobalSearch() {
               </div>
               <Link
                 href="/busqueda"
-                className="inline-flex items-center gap-2 text-black dark:text-white hover:text-green-700 font-medium text-sm"
+                className="inline-flex items-center gap-2 text-black dark:text-white hover:text-green-800 font-medium text-sm"
               >
                 <svg
                   className="w-4 h-4"

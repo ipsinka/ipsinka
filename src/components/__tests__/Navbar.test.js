@@ -58,3 +58,19 @@ describe("logo del navbar", () => {
     expect(window.scrollTo).not.toHaveBeenCalled();
   });
 });
+
+describe("menú hamburguesa", () => {
+  it("tiene un solo botón de cierre: la X del navbar", () => {
+    render(<Navbar />);
+    const boton = screen.getByRole("button", { name: "Abrir menú" });
+    expect(boton).toHaveAttribute("aria-expanded", "false");
+
+    fireEvent.click(boton);
+    const cerrar = screen.getAllByRole("button", { name: "Cerrar menú" });
+    expect(cerrar).toHaveLength(1);
+    expect(cerrar[0]).toHaveAttribute("aria-expanded", "true");
+
+    fireEvent.click(cerrar[0]);
+    expect(screen.getByRole("button", { name: "Abrir menú" })).toBeInTheDocument();
+  });
+});

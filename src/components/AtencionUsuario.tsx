@@ -96,11 +96,11 @@ Fecha: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" })}
     alertaDiv.innerHTML = `
       <div class="fixed inset-0 backdrop-blur-md bg-white/20 z-40 flex items-center justify-center p-4">
         <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6 text-center">
-          <div class="text-blue-600 text-4xl mb-4">📧</div>
+          <div class="text-green-700 text-4xl mb-4">📧</div>
           <h3 class="text-xl font-bold text-gray-800 mb-2">¡PQRSF Registrada!</h3>
           <p class="text-gray-700 mb-6">Su solicitud ha sido registrada. Nos pondremos en contacto con usted lo más pronto posible.</p>
           <button onclick="this.parentElement.parentElement.remove()"
-                  class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors font-semibold">
+                  class="bg-green-700 text-white px-6 py-2 rounded-lg hover:bg-green-800 transition-colors font-semibold">
             Entendido
           </button>
         </div>
@@ -130,7 +130,7 @@ Fecha: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" })}
               <div className="space-y-4">
                 <div className="flex items-center">
                   <svg
-                    className="w-6 h-6 text-green-600 mr-3"
+                    className="w-6 h-6 text-green-700 mr-3"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -148,7 +148,7 @@ Fecha: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" })}
                     </p>
                     <Link
                       href="mailto:contacto@ipsinka.com"
-                      className="text-green-600 hover:underline dark:text-white"
+                      className="text-green-700 hover:underline dark:text-white"
                     >
                       contacto@ipsinka.com
                     </Link>
@@ -158,7 +158,7 @@ Fecha: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" })}
                 {/* Linea principal */}
                 {/* <div className="flex items-center">
                   <svg
-                    className="w-6 h-6 text-green-600 mr-3"
+                    className="w-6 h-6 text-green-700 mr-3"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -176,7 +176,7 @@ Fecha: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" })}
                     </p>
                     <Link
                       href="tel:3132863398"
-                      className="text-green-600 hover:underline dark:text-whicte"
+                      className="text-green-700 hover:underline dark:text-whicte"
                     >
                       3132863398
                     </Link>
@@ -201,7 +201,7 @@ Fecha: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" })}
                 <div className="text-center">
                   <button
                     onClick={() => setShowForm(true)}
-                    className="bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700  font-semibold border dark:border-white hover:scale-90 duration-300 transition-all"
+                    className="bg-green-700 text-white px-8 py-4 rounded-lg hover:bg-green-800  font-semibold border dark:border-white hover:scale-90 duration-300 transition-all"
                   >
                     Enviar PQRSF
                   </button>
@@ -356,7 +356,7 @@ Fecha: ${new Date().toLocaleString("es-CO", { timeZone: "America/Bogota" })}
                   <div className="flex flex-col sm:flex-row gap-4">
                     <button
                       type="submit"
-                      className="flex-1 bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                      className="flex-1 bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 transition-colors font-semibold"
                     >
                       Enviar PQRSF
                     </button>

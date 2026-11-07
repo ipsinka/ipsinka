@@ -72,7 +72,7 @@ export default function ServicesSection() {
                 {/* CTA */}
                 <Link
                   href="/contacto"
-                  className="inline-flex items-center text-green-600 font-semibold hover:text-green-700 transition-colors"
+                  className="inline-flex items-center text-green-700 font-semibold hover:text-green-800 transition-colors"
                 >
                   Solicitar cita
                   <svg className="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +85,7 @@ export default function ServicesSection() {
         </div>
 
         {/* CTA Section */}
-        <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-2xl p-8 text-center text-white">
+        <div className="bg-gradient-to-r from-green-700 to-green-800 rounded-2xl p-8 text-center text-white">
           <div className="max-w-3xl mx-auto">
             <h3 className="text-2xl lg:text-3xl font-bold mb-4">
               ¿Necesitas atención médica?
@@ -103,7 +103,7 @@ export default function ServicesSection() {
               </Link>
               <Link
                 href="/sedes"
-                className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-700 transition-colors duration-200"
+                className="inline-flex items-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-green-800 transition-colors duration-200"
               >
                 Ver Sedes
               </Link>

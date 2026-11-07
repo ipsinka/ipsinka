@@ -14,7 +14,7 @@ import Image from "next/image";
  *     subtitle: string (opcional),
  *     description: string (opcional),
  *     image: string (opcional) - URL de la imagen de fondo,
- *     bgColor: string (opcional) - Clase de gradiente de Tailwind (ej: "from-green-600 to-blue-700"),
+ *     bgColor: string (opcional) - Clase de gradiente de Tailwind (ej: "from-green-700 to-green-800"),
  *     icon: string (opcional) - Emoji o texto del icono,
  *     iconLabel: string (opcional) - Texto descriptivo del icono,
  *     cta: object (opcional) - Botones de llamado a la acción:
@@ -45,16 +45,30 @@ import Image from "next/image";
  *   {
  *     id: 1,
  *     image: "/images/slide1.jpg",
- *     bgColor: "from-purple-600 to-pink-700",
+ *     bgColor: "from-green-700 to-green-800",
  *   },
  *   {
  *     id: 2,
  *     image: "/images/slide2.jpg",
- *     bgColor: "from-blue-600 to-cyan-700",
+ *     bgColor: "from-green-700 to-green-800",
  *   }
  * ];
  * <PresentacionCarousel slides={customSlides} showContent={false} />
  */
+
+// Degradados permitidos (todos en el verde institucional #15803d). Los slides
+// guardados con degradados anteriores (azul, púrpura, etc.) se llevan al verde
+// principal porque esas clases ya no se generan en el build.
+const GRADIENTES_VALIDOS = [
+  "from-green-700 to-green-800",
+  "from-green-600 to-green-800",
+  "from-green-800 to-green-950",
+];
+
+const normalizarGradiente = (valor) => {
+  if (!valor) return undefined;
+  return GRADIENTES_VALIDOS.includes(valor) ? valor : GRADIENTES_VALIDOS[0];
+};
 
 const defaultSlides = [
   {
@@ -69,7 +83,7 @@ const defaultSlides = [
       primary: { text: "Conocer Servicios", href: "/servicios" },
       secondary: { text: "Nuestras Sedes", href: "/sedes" },
     },
-    bgColor: "from-green-600 to-blue-700",
+    bgColor: "from-green-700 to-green-800",
     icon: "🏥",
     iconLabel: "Medicina Integral",
   },
@@ -85,7 +99,7 @@ const defaultSlides = [
       primary: { text: "Agendar Cita", href: "tel:+57842041199" },
       secondary: { text: "Ver Sedes", href: "/sedes" },
     },
-    bgColor: "from-blue-600 to-indigo-700",
+    bgColor: "from-green-700 to-green-800",
     icon: "👨‍⚕️",
     iconLabel: "Médicos y Odontólogos",
   },
@@ -101,7 +115,7 @@ const defaultSlides = [
       primary: { text: "Conocer Más", href: "/servicios" },
       secondary: { text: "Agendar Cita", href: "/contacto" },
     },
-    bgColor: "from-green-700 to-emerald-800",
+    bgColor: "from-green-700 to-green-800",
     icon: "💊",
     iconLabel: "Medicina Preventiva",
   },
@@ -124,7 +138,7 @@ function mapearSlideDesdeApi(row) {
     subtitle: row.subtitulo ?? undefined,
     description: row.descripcion ?? undefined,
     image: row.imagen_url ?? undefined,
-    bgColor: row.bg_color ?? undefined,
+    bgColor: normalizarGradiente(row.bg_color),
     icon: row.icono ?? undefined,
     iconLabel: row.icono_label ?? undefined,
     // Array de botones: { text, href, estilo }

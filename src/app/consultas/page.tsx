@@ -103,7 +103,7 @@ export default function ConsultasPage() {
               <select
                 value={sedeSeleccionada}
                 onChange={(e) => setSedeSeleccionada(e.target.value)}
-                className="w-full lg:w-64 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
+                className="w-full lg:w-64 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
               >
                 {sedes.map((sede) => (
                   <option key={sede.id} value={sede.id}>
@@ -117,13 +117,13 @@ export default function ConsultasPage() {
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={handleAgregarEjemplos}
-                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg transition-colors text-sm font-medium"
+                className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors text-sm font-medium"
               >
                 ➕ Agregar Ejemplos
               </button>
               <button
                 onClick={handleCargarEjemplos}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors text-sm font-medium"
+                className="px-4 py-2 bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors text-sm font-medium"
               >
                 📥 Cargar Ejemplos
               </button>
@@ -139,7 +139,7 @@ export default function ConsultasPage() {
           {/* Estadísticas */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
             <div className="text-center">
-              <div className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+              <div className="text-2xl font-bold text-green-700 dark:text-green-400">
                 {consultasFiltradas.length}
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -147,7 +147,7 @@ export default function ConsultasPage() {
               </div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600 dark:text-green-400">
+              <div className="text-2xl font-bold text-green-700 dark:text-green-400">
                 {
                   consultasFiltradas.filter((c) => c.estado === 'confirmada')
                     .length
@@ -209,7 +209,7 @@ export default function ConsultasPage() {
             </p>
             <button
               onClick={handleCargarEjemplos}
-              className="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+              className="px-6 py-3 bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors font-medium"
             >
               📥 Cargar Citas de Ejemplo
             </button>
@@ -257,7 +257,7 @@ export default function ConsultasPage() {
             </div>
 
             <div className="space-y-4">
-              <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+              <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
                 <div className="text-3xl">📅</div>
                 <div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">
@@ -274,7 +274,7 @@ export default function ConsultasPage() {
                       }
                     )}
                   </div>
-                  <div className="text-lg font-bold text-blue-600 dark:text-blue-400">
+                  <div className="text-lg font-bold text-green-700 dark:text-green-400">
                     {citaSeleccionada.hora}
                   </div>
                 </div>
@@ -327,7 +327,7 @@ export default function ConsultasPage() {
                     citaSeleccionada.estado === 'confirmada'
                       ? 'bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200'
                       : citaSeleccionada.estado === 'agendada'
-                      ? 'bg-blue-100 dark:bg-blue-800 text-blue-700 dark:text-blue-200'
+                      ? 'bg-green-100 dark:bg-green-800 text-green-700 dark:text-green-200'
                       : 'bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200'
                   }`}
                 >
@@ -338,7 +338,7 @@ export default function ConsultasPage() {
 
             <button
               onClick={() => setMostrarModal(false)}
-              className="w-full mt-6 px-4 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors font-medium"
+              className="w-full mt-6 px-4 py-3 bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors font-medium"
             >
               Cerrar
             </button>

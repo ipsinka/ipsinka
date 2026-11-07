@@ -363,7 +363,7 @@ export default function RotatingCarousel({
               onClick={() => setIsAutoPlaying(!isAutoPlaying)}
               className={`px-3 py-1 rounded-full text-sm transition-colors ${
                 isAutoPlaying
-                  ? "bg-green-500 text-white hover:bg-green-600"
+                  ? "bg-green-500 text-white hover:bg-green-700"
                   : "bg-gray-500 text-white hover:bg-gray-400"
               }`}
               aria-label={

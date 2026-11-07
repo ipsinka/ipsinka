@@ -19,7 +19,7 @@ export default function ModalVerCitas({ isOpen, onClose, citas, fecha, sedeName 
   const getEstadoColor = (estado: string) => {
     switch (estado) {
       case 'agendada':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-green-100 text-green-800';
       case 'confirmada':
         return 'bg-green-100 text-green-800';
       case 'cancelada':
@@ -62,8 +62,8 @@ export default function ModalVerCitas({ isOpen, onClose, citas, fecha, sedeName 
             </button>
           </div>
           
-          <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-            <div className="text-sm text-blue-800">
+          <div className="mt-4 p-4 bg-green-50 rounded-lg">
+            <div className="text-sm text-green-800">
               <p><strong>Sede:</strong> {sedeName}</p>
               <p><strong>Fecha:</strong> {formatearFechaLegible(fecha)}</p>
               <p><strong>Total de citas:</strong> {citas.length}</p>

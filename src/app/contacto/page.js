@@ -12,7 +12,7 @@ export default function ContactoPage() {
   return (
     <div className="min-h-screen bg-white/55 dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-800 dark:to-blue-900 text-white py-16">
+      <section className="bg-gradient-to-r from-green-700 to-green-800 dark:from-green-800 dark:to-green-900 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">Contacto</h1>
@@ -49,7 +49,7 @@ export default function ContactoPage() {
                 href="https://wa.me/573132863398"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700  inline-block dark:bg-gray-800 border dark:border-white transition-all duration-300 hover:scale-90"
+                className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800  inline-block dark:bg-gray-800 border dark:border-white transition-all duration-300 hover:scale-90"
               >
                 Escribir por WhatsApp
               </Link>
@@ -65,7 +65,7 @@ export default function ContactoPage() {
               </p>
               <Link
                 href="mailto:contacto@ipsinka.com"
-                className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700  inline-block dark:bg-gray-800 border dark:border-white transition-all duration-300 hover:scale-90"
+                className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800  inline-block dark:bg-gray-800 border dark:border-white transition-all duration-300 hover:scale-90"
               >
                 Enviar Email
               </Link>
@@ -90,7 +90,7 @@ export default function ContactoPage() {
                   }
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700  dark:bg-gray-800 border dark:border-white hover:scale-90 transition-all duration-300"
+                  className="bg-green-700 text-white p-3 rounded-lg hover:bg-green-800  dark:bg-gray-800 border dark:border-white hover:scale-90 transition-all duration-300"
                 >
                   Facebook
                 </Link>
@@ -131,18 +131,18 @@ export default function ContactoPage() {
               </div>
             </div>
 
-            <div className="mt-8 bg-blue-50 dark:bg-gray-800 rounded-lg p-8 border border-blue-200 dark:border-white text-center">
-              <h3 className="text-xl font-bold text-blue-800 dark:text-white mb-4">
+            <div className="mt-8 bg-green-50 dark:bg-gray-800 rounded-lg p-8 border border-green-200 dark:border-white text-center">
+              <h3 className="text-xl font-bold text-green-800 dark:text-white mb-4">
                 💡 Recomendaciones para su Visita
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-                <ul className="space-y-2 text-blue-700 dark:text-white">
+                <ul className="space-y-2 text-green-700 dark:text-white">
                   <li>• Llegue 15 minutos antes de su cita</li>
                   <li>• Traiga documento de identidad</li>
                   <li>• Porte su carné de afiliación a salud</li>
                   <li>• Traiga exámenes médicos previos</li>
                 </ul>
-                <ul className="space-y-2 text-blue-700 dark:text-white">
+                <ul className="space-y-2 text-green-700 dark:text-white">
                   <li>• Use tapabocas en todas las áreas</li>
                   <li>• Mantenga distanciamiento social</li>
                   <li>• Informe síntomas respiratorios</li>

@@ -101,7 +101,7 @@ export default function SedePage() {
   if (cargando) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="w-10 h-10 border-4 border-green-600 border-t-transparent rounded-full animate-spin" />
+        <div className="w-10 h-10 border-4 border-green-700 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -120,7 +120,7 @@ export default function SedePage() {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="bg-gradient-to-r from-green-600 to-blue-600 text-white pt-24 pb-16">
+      <section className="bg-gradient-to-r from-green-700 to-green-800 text-white pt-24 pb-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <Link
@@ -143,7 +143,7 @@ export default function SedePage() {
               {sede.telefono && (
                 <a
                   href={`tel:${sede.telefono}`}
-                  className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors inline-flex items-center justify-center gap-2"
+                  className="bg-green-700 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-800 transition-colors inline-flex items-center justify-center gap-2"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
@@ -153,7 +153,7 @@ export default function SedePage() {
               )}
               <Link
                 href="/contacto"
-                className="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-green-600 transition-colors inline-block text-center"
+                className="border-2 border-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition-colors inline-block text-center"
               >
                 Más Información
               </Link>
@@ -174,7 +174,7 @@ export default function SedePage() {
               <div className="space-y-4">
                 {sede.direccion && (
                   <div className="flex items-start gap-3">
-                    <svg className="w-6 h-6 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-green-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
@@ -186,12 +186,12 @@ export default function SedePage() {
                 )}
                 {sede.telefono && (
                   <div className="flex items-start gap-3">
-                    <svg className="w-6 h-6 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-green-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                     </svg>
                     <div>
                       <h3 className="font-semibold text-gray-800 dark:text-white">Teléfono</h3>
-                      <a href={`tel:${sede.telefono}`} className="text-green-600 hover:text-green-700 dark:text-green-400">
+                      <a href={`tel:${sede.telefono}`} className="text-green-700 hover:text-green-800 dark:text-green-400">
                         {sede.telefono}
                       </a>
                     </div>
@@ -199,12 +199,12 @@ export default function SedePage() {
                 )}
                 {sede.email && (
                   <div className="flex items-start gap-3">
-                    <svg className="w-6 h-6 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-green-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
                     <div>
                       <h3 className="font-semibold text-gray-800 dark:text-white">Correo</h3>
-                      <a href={`mailto:${sede.email}`} className="text-green-600 hover:text-green-700 dark:text-green-400">
+                      <a href={`mailto:${sede.email}`} className="text-green-700 hover:text-green-800 dark:text-green-400">
                         {sede.email}
                       </a>
                     </div>
@@ -212,7 +212,7 @@ export default function SedePage() {
                 )}
                 {sede.horario && (
                   <div className="flex items-start gap-3">
-                    <svg className="w-6 h-6 text-green-600 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-green-700 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <div>
@@ -263,7 +263,7 @@ export default function SedePage() {
               </h2>
               <Link
                 href="/eventos"
-                className="text-sm text-green-600 dark:text-green-400 hover:underline font-medium"
+                className="text-sm text-green-700 dark:text-green-400 hover:underline font-medium"
               >
                 Ver todos →
               </Link>
@@ -287,7 +287,7 @@ export default function SedePage() {
               </h2>
               <Link
                 href="/noticias"
-                className="text-sm text-green-600 dark:text-green-400 hover:underline font-medium"
+                className="text-sm text-green-700 dark:text-green-400 hover:underline font-medium"
               >
                 Ver todas →
               </Link>
@@ -305,8 +305,8 @@ export default function SedePage() {
       {noticias.length === 0 && eventos.length === 0 && (
         <section className="py-10 bg-white dark:bg-gray-900">
           <div className="container mx-auto px-4 max-w-2xl text-center">
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
-              <p className="text-blue-700 dark:text-blue-300 text-sm">
+            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl p-6">
+              <p className="text-green-700 dark:text-green-300 text-sm">
                 Aún no hay publicaciones ni eventos asignados a esta sede. Puedes crear contenido específico para{" "}
                 <strong>{sede.nombre}</strong> desde el panel administrativo.
               </p>
@@ -344,7 +344,7 @@ export default function SedePage() {
                         {otraSede.horario}
                       </p>
                     )}
-                    <span className="text-green-600 dark:text-green-400 text-sm font-medium">
+                    <span className="text-green-700 dark:text-green-400 text-sm font-medium">
                       Ver información →
                     </span>
                   </Link>

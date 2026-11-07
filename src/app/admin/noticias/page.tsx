@@ -168,7 +168,7 @@ export default function AdminNoticias() {
         {esAdmin && (
           <button
             onClick={openCreate}
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
+            className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-4 py-2 rounded-lg transition-colors"
           >
             <Plus className="h-4 w-4" />
             Agregar
@@ -219,7 +219,7 @@ export default function AdminNoticias() {
                       <div className="flex items-center gap-2 justify-end">
                         <button
                           onClick={() => openEdit(item)}
-                          className="text-slate-400 hover:text-blue-600 transition-colors p-2 rounded-lg hover:bg-blue-50"
+                          className="text-slate-400 hover:text-green-700 transition-colors p-2 rounded-lg hover:bg-green-50"
                           title="Editar"
                         >
                           <Pencil className="h-5 w-5" />
@@ -271,7 +271,7 @@ export default function AdminNoticias() {
                   value={form.titulo}
                   onChange={handleChange}
                   required
-                  className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 [color-scheme:light] dark:[color-scheme:dark]"
+                  className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 [color-scheme:light] dark:[color-scheme:dark]"
                 />
               </div>
 
@@ -284,7 +284,7 @@ export default function AdminNoticias() {
                   name="descripcion"
                   value={form.descripcion}
                   onChange={handleChange}
-                  className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 [color-scheme:light] dark:[color-scheme:dark]"
+                  className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 [color-scheme:light] dark:[color-scheme:dark]"
                 />
               </div>
 
@@ -297,7 +297,7 @@ export default function AdminNoticias() {
                   value={form.contenido}
                   onChange={handleChange}
                   rows={5}
-                  className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 resize-y"
+                  className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 resize-y"
                 />
               </div>
 
@@ -332,7 +332,7 @@ export default function AdminNoticias() {
                   value={form.imagen_url}
                   onChange={handleChange}
                   placeholder="o pega una URL de imagen aquí"
-                  className="mt-2 w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 [color-scheme:light] dark:[color-scheme:dark]"
+                  className="mt-2 w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 [color-scheme:light] dark:[color-scheme:dark]"
                 />
               </div>
 
@@ -345,7 +345,7 @@ export default function AdminNoticias() {
                     name="tipo"
                     value={form.tipo}
                     onChange={handleChange}
-                    className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 [color-scheme:light] dark:[color-scheme:dark]"
+                    className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 [color-scheme:light] dark:[color-scheme:dark]"
                   >
                     <option value="noticia">Noticia</option>
                     <option value="evento">Evento</option>
@@ -361,7 +361,7 @@ export default function AdminNoticias() {
                     name="fecha_evento"
                     value={form.fecha_evento}
                     onChange={handleChange}
-                    className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 [color-scheme:light] dark:[color-scheme:dark]"
+                    className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 dark:placeholder-slate-500 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 [color-scheme:light] dark:[color-scheme:dark]"
                   />
                 </div>
               </div>
@@ -374,7 +374,7 @@ export default function AdminNoticias() {
                   name="sede_id"
                   value={form.sede_id}
                   onChange={handleChange}
-                  className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 [color-scheme:light] dark:[color-scheme:dark]"
+                  className="w-full bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 border border-slate-300 dark:border-slate-700 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 [color-scheme:light] dark:[color-scheme:dark]"
                 >
                   <option value="">Todas las sedes (global)</option>
                   {sedes.map((s) => (
@@ -399,7 +399,7 @@ export default function AdminNoticias() {
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg transition-colors disabled:opacity-60"
+                  className="inline-flex items-center gap-2 px-4 py-2 text-sm bg-green-700 hover:bg-green-800 text-white rounded-lg transition-colors disabled:opacity-60"
                 >
                   {saving && <Loader2 className="h-4 w-4 animate-spin" />}
                   {editing ? "Guardar cambios" : "Crear noticia"}

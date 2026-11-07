@@ -12,7 +12,7 @@ export default function InstitucionalPage() {
   return (
     <div className="min-h-screen  dark:bg-gray-900">
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-800 dark:to-blue-900 text-white py-16">
+      <section className="bg-gradient-to-r from-green-700 to-green-800 dark:from-green-800 dark:to-green-900 text-white py-16">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-3xl mx-auto">
             <h1
@@ -58,7 +58,7 @@ export default function InstitucionalPage() {
       <InformacionInstitucional />
 
       {/* Valores Institucionales */}
-      <section className="py-16 bg-gradient-to-r from-green-50/35 to-blue-50 dark:from-gray-800 dark:to-gray-800">
+      <section className="py-16 bg-gradient-to-r from-green-50/35 to-green-150 dark:from-gray-800 dark:to-gray-800">
         <div className="container mx-auto px-4">
           <h2 className="text-4xl font-bold text-center mb-16 text-gray-800 dark:text-white">
             Nuestros Valores
@@ -132,7 +132,7 @@ export default function InstitucionalPage() {
                 </p>
               </div>
 
-              <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-8 border-l-4 border-green-400 dark:border-green-600">
+              <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-8 border-l-4 border-green-400 dark:border-green-700">
                 <h3 className="text-xl font-bold text-green-800 dark:text-green-300 mb-3">
                   🏥 Acreditación en Servicios Médicos (2015)
                 </h3>
@@ -142,21 +142,21 @@ export default function InstitucionalPage() {
                 </p>
               </div>
 
-              <div className="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-8 border-l-4 border-blue-400 dark:border-blue-600">
-                <h3 className="text-xl font-bold text-blue-800 dark:text-blue-300 mb-3">
+              <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-8 border-l-4 border-green-400 dark:border-green-700">
+                <h3 className="text-xl font-bold text-green-800 dark:text-green-300 mb-3">
                   📚 Programa de Formación Médica (2018)
                 </h3>
-                <p className="text-blue-700 dark:text-blue-200">
+                <p className="text-green-700 dark:text-green-200">
                   Creación del primer programa de formación continua en medicina
                   del suroccidente colombiano.
                 </p>
               </div>
 
-              <div className="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-8 border-l-4 border-purple-400 dark:border-purple-600">
-                <h3 className="text-xl font-bold text-purple-800 dark:text-purple-300 mb-3">
+              <div className="bg-green-50 dark:bg-green-900/20 rounded-lg p-8 border-l-4 border-green-400 dark:border-green-700">
+                <h3 className="text-xl font-bold text-green-800 dark:text-green-300 mb-3">
                   🤝 Alianza Estratégica (2020)
                 </h3>
-                <p className="text-purple-700 dark:text-purple-200">
+                <p className="text-green-700 dark:text-green-200">
                   Alianza con universidades nacionales e internacionales para la
                   investigación médica y formación profesional.
                 </p>
@@ -180,7 +180,7 @@ export default function InstitucionalPage() {
                 <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
                   Nohelly Puerchambud
                 </h3>
-                <p className="text-green-600 dark:text-green-400 font-semibold mb-3">
+                <p className="text-green-700 dark:text-green-400 font-semibold mb-3">
                   Gerente
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
@@ -196,7 +196,7 @@ export default function InstitucionalPage() {
                 <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
                   Angela Mojomboy
                 </h3>
-                <p className="text-green-600 dark:text-green-400 font-semibold mb-3">
+                <p className="text-green-700 dark:text-green-400 font-semibold mb-3">
                   Tesorera
                 </p>
                 <p className="text-gray-600 dark:text-gray-300 text-sm">
@@ -213,7 +213,7 @@ export default function InstitucionalPage() {
                 <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
                   María Angélica
                 </h3>
-                <p className="text-green-600 dark:text-green-400 font-semibold mb-3">
+                <p className="text-green-700 dark:text-green-400 font-semibold mb-3">
                   Secretaria
                 </p>
 
@@ -238,7 +238,7 @@ export default function InstitucionalPage() {
               Asociación de Usuarios
             </h2>
 
-            <div className="bg-blue-50 rounded-lg p-8 dark:bg-gray-800 border dark:border-white">
+            <div className="bg-green-50 rounded-lg p-8 dark:bg-gray-800 border dark:border-white">
               <p className="text-gray-600 mb-8 text-center dark:text-white">
                 La Asociación de Usuarios de la IPS INGA KAMËNTSÁ representa los
                 intereses y derechos de nuestros usuarios, velando por la
@@ -246,7 +246,7 @@ export default function InstitucionalPage() {
               </p>
 
               <div className="space-y-6">
-                <div className="border-l-4 border-blue-400 pl-6 py-4 bg-white dark:bg-gray-700 rounded-r-lg">
+                <div className="border-l-4 border-green-400 pl-6 py-4 bg-white dark:bg-gray-700 rounded-r-lg">
                   <h4 className="font-semibold text-lg text-gray-800 dark:text-white">
                     Marcos Camilo Castro Caicedo
                   </h4>
@@ -255,7 +255,7 @@ export default function InstitucionalPage() {
                   </p>
                 </div>
 
-                <div className="border-l-4 border-blue-400 pl-6 py-4 bg-white dark:bg-gray-700 rounded-r-lg">
+                <div className="border-l-4 border-green-400 pl-6 py-4 bg-white dark:bg-gray-700 rounded-r-lg">
                   <h4 className="font-semibold text-lg text-gray-800 dark:text-white">
                     Jose Victor Perez
                   </h4>
@@ -264,7 +264,7 @@ export default function InstitucionalPage() {
                   </p>
                 </div>
 
-                <div className="border-l-4 border-blue-400 pl-6 py-4 bg-white dark:bg-gray-700 rounded-r-lg">
+                <div className="border-l-4 border-green-400 pl-6 py-4 bg-white dark:bg-gray-700 rounded-r-lg">
                   <h4 className="font-semibold text-lg text-gray-800 dark:text-white">
                     María Camila Ruales Ceballos
                   </h4>
@@ -273,7 +273,7 @@ export default function InstitucionalPage() {
                   </p>
                 </div>
 
-                <div className="border-l-4 border-blue-400 pl-6 py-4 bg-white dark:bg-gray-700 rounded-r-lg">
+                <div className="border-l-4 border-green-400 pl-6 py-4 bg-white dark:bg-gray-700 rounded-r-lg">
                   <h4 className="font-semibold text-lg text-gray-800 dark:text-white">
                     María Fernanda Moreno Guerra
                   </h4>
@@ -297,9 +297,9 @@ export default function InstitucionalPage() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
               {/* Misión */}
-              <div className="bg-gradient-to-br   dark:from-gray-800 dark:to-gray-700 rounded-xl shadow-lg p-8 border-t-4 border-green-600 dark:border-green-500 ">
+              <div className="bg-gradient-to-br   dark:from-gray-800 dark:to-gray-700 rounded-xl shadow-lg p-8 border-t-4 border-green-700 dark:border-green-500 ">
                 <div className="flex items-center mb-6">
-                  <div className="bg-green-600 dark:bg-gray-800 rounded-full p-3 mr-4">
+                  <div className="bg-green-700 dark:bg-gray-800 rounded-full p-3 mr-4">
                     <svg
                       className="w-8 h-8 text-white"
                       fill="none"
@@ -334,9 +334,9 @@ export default function InstitucionalPage() {
               </div>
 
               {/* Visión */}
-              <div className="bg-gradient-to-br   rounded-xl shadow-lg p-8 border-t-4 border-blue-600 dark:border-blue-600 dark:from-gray-800 dark:to-gray-800 ">
+              <div className="bg-gradient-to-br   rounded-xl shadow-lg p-8 border-t-4 border-green-700 dark:border-green-700 dark:from-gray-800 dark:to-gray-800 ">
                 <div className="flex items-center mb-6 ">
-                  <div className="bg-blue-600 dark:bg-gray-800 rounded-full p-3 mr-4">
+                  <div className="bg-green-700 dark:bg-gray-800 rounded-full p-3 mr-4">
                     <svg
                       className="w-8 h-8 text-white"
                       fill="none"
@@ -402,7 +402,7 @@ export default function InstitucionalPage() {
         </div>
       </section>
 
-      <section className="py-16 bg-gradient-to-r from-green-600 to-blue-600 dark:from-green-800 dark:to-blue-900 text-white">
+      <section className="py-16 bg-gradient-to-r from-green-700 to-green-800 dark:from-green-800 dark:to-green-900 text-white">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-8">

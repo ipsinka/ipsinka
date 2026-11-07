@@ -138,8 +138,8 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
               onClick={() => setVistaActiva("eventos")}
               className={`px-6 py-3 rounded-lg transition-colors ${
                 vistaActiva === "eventos"
-                  ? "bg-green-600 text-white"
-                  : "text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400"
+                  ? "bg-green-700 text-white"
+                  : "text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400"
               }`}
             >
               📅 Eventos Programados
@@ -148,8 +148,8 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
               onClick={() => setVistaActiva("anuncios")}
               className={`px-6 py-3 rounded-lg transition-colors ${
                 vistaActiva === "anuncios"
-                  ? "bg-green-600 text-white"
-                  : "text-gray-600 dark:text-gray-300 hover:text-green-600 dark:hover:text-green-400"
+                  ? "bg-green-700 text-white"
+                  : "text-gray-600 dark:text-gray-300 hover:text-green-700 dark:hover:text-green-400"
               }`}
             >
               📢 Anuncios
@@ -264,7 +264,7 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
                         <div className="mb-4">
                           <span className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium ${
                             evento.sede_id
-                              ? "bg-emerald-100 dark:bg-emerald-900/40 text-emerald-700 dark:text-emerald-300"
+                              ? "bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300"
                               : "bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400"
                           }`}>
                             📍 {evento.sede_id ? (sedes[evento.sede_id] ?? `Sede #${evento.sede_id}`) : "Todas las sedes"}
@@ -368,7 +368,7 @@ Fecha de suscripción: ${new Date().toLocaleString("es-CO", {
                 />
                 <button
                   type="submit"
-                  className="bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors font-semibold"
+                  className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-colors font-semibold"
                 >
                   Suscribirse
                 </button>

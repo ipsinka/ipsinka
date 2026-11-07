@@ -22,8 +22,8 @@
     bottom: 8px;
     left: 5px;
     z-index: 1000;
-    background-color: #16a34a;
-    background: linear-gradient(to bottom, #22c55e, #16a34a);
+    background-color: #15803d;
+    background: linear-gradient(to bottom, #16a34a, #15803d);
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
@@ -37,15 +37,15 @@
 
     /* Efecto hover */
     &:hover {
-      background: linear-gradient(to bottom, #4ade80, #22c55e);
-      box-shadow: 0 6px 0 #15803d, 0 10px 15px rgba(0, 0, 0, 0.4);
+      background: linear-gradient(to bottom, #22c55e, #16a34a);
+      box-shadow: 0 6px 0 #166534, 0 10px 15px rgba(0, 0, 0, 0.4);
       transform: scale(1.05);
     }
 
     /* Efecto activo (presionado) */
     &:active {
       transform: translateY(6px);
-      box-shadow: 0 0px 0 #15803d, 0 2px 5px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0px 0 #166534, 0 2px 5px rgba(0, 0, 0, 0.3);
     }
 
     img {

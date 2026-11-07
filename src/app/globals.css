@@ -183,7 +183,7 @@ body {
   }
 
   /* Fondos de colores con transparencia */
-  :not(.dark) .bg-blue-50 {
+  :not(.dark) .bg-green-50 {
     /* background-color: rgba(239, 246, 255, 0.7) !important; */
   }
 
@@ -195,7 +195,7 @@ body {
     /* background-color: rgba(254, 252, 232, 0.7) !important; */
   }
 
-  :not(.dark) .bg-purple-50 {
+  :not(.dark) .bg-green-50 {
     /* background-color: rgba(250, 245, 255, 0.7) !important; */
   }
 
@@ -204,7 +204,7 @@ body {
   }
 
   /* Fondos de colores 100 */
-  :not(.dark) .bg-blue-100 {
+  :not(.dark) .bg-green-100 {
     /* background-color: rgba(219, 234, 254, 0.7) !important; */
   }
 
@@ -212,16 +212,16 @@ body {
     /* background-color: rgba(220, 252, 231, 0.7) !important; */
   }
 
-  :not(.dark) .bg-purple-100 {
+  :not(.dark) .bg-green-100 {
     /* background-color: rgba(243, 232, 255, 0.7) !important; */
   }
 
   /* Fondos específicos de gradientes de colores */
-  :not(.dark) .from-blue-50 {
+  :not(.dark) .from-green-50 {
     --tw-gradient-from: rgba(239, 246, 255, 0.7) !important;
   }
 
-  :not(.dark) .to-blue-100 {
+  :not(.dark) .to-green-100 {
     --tw-gradient-to: rgba(219, 234, 254, 0.7) !important;
   }
 
@@ -233,11 +233,11 @@ body {
     --tw-gradient-to: rgba(220, 252, 231, 0.7) !important;
   }
 
-  :not(.dark) .from-purple-50 {
+  :not(.dark) .from-green-50 {
     --tw-gradient-from: rgba(250, 245, 255, 0.7) !important;
   }
 
-  :not(.dark) .to-purple-100 {
+  :not(.dark) .to-green-100 {
     --tw-gradient-to: rgba(243, 232, 255, 0.7) !important;
   }
 
@@ -271,13 +271,13 @@ body {
 /* Estilos de accesibilidad */
 /* Mejorar el focus visible para navegación por teclado */
 *:focus-visible {
-  outline: 2px solid #4a90e2;
+  outline: 2px solid #15803d;
   outline-offset: 2px;
 }
 
 /* Asegurar que los links tengan buen contraste */
 a:focus-visible {
-  outline: 2px solid #4a90e2;
+  outline: 2px solid #15803d;
   outline-offset: 2px;
 }
 
@@ -286,7 +286,7 @@ button:focus-visible,
 input:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid #4a90e2;
+  outline: 2px solid #15803d;
   outline-offset: 2px;
 }
 
@@ -393,19 +393,19 @@ textarea:focus-visible {
    principal con animación de pulsaciones
    ============================================ */
 .dia-con-eventos {
-  border-color: #2f8132 !important;
+  border-color: #15803d !important;
   animation: pulso-eventos 1.6s ease-in-out infinite;
 }
 
 @keyframes pulso-eventos {
   0% {
-    box-shadow: 0 0 0 0 rgba(47, 129, 50, 0.7);
+    box-shadow: 0 0 0 0 rgba(21, 128, 61, 0.7);
   }
   70% {
-    box-shadow: 0 0 0 12px rgba(47, 129, 50, 0);
+    box-shadow: 0 0 0 12px rgba(21, 128, 61, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(47, 129, 50, 0);
+    box-shadow: 0 0 0 0 rgba(21, 128, 61, 0);
   }
 }
 
@@ -459,28 +459,28 @@ textarea:focus-visible {
 @keyframes pulso-ver-sitio {
   /* Pulso activo durante el primer ~20% del ciclo (~2s) */
   0% {
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
     transform: scale(1);
   }
   7% {
-    box-shadow: 0 0 0 8px rgba(52, 211, 153, 0);
+    box-shadow: 0 0 0 8px rgba(74, 222, 128, 0);
     transform: scale(1.08);
   }
   14% {
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7);
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7);
     transform: scale(1);
   }
   21% {
-    box-shadow: 0 0 0 8px rgba(52, 211, 153, 0);
+    box-shadow: 0 0 0 8px rgba(74, 222, 128, 0);
     transform: scale(1.08);
   }
   28% {
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
     transform: scale(1);
   }
   /* Reposo el resto del ciclo */
   100% {
-    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0);
+    box-shadow: 0 0 0 0 rgba(74, 222, 128, 0);
     transform: scale(1);
   }
 }

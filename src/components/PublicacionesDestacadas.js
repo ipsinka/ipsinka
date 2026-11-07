@@ -115,7 +115,7 @@ export default function PublicacionesDestacadas() {
         <div className="text-center mt-10">
           <Link
             href="/publicaciones"
-            className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200"
+            className="inline-flex items-center gap-2 bg-green-700 hover:bg-green-800 text-white font-semibold px-6 py-3 rounded-lg transition-colors duration-200"
           >
             Ver todas las publicaciones
             <ArrowRight className="h-5 w-5" />

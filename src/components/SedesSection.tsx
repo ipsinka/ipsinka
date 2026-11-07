@@ -166,7 +166,7 @@ export default function SedesSection() {
                     onClick={() => setSelectedSede(sede.id)}
                     className={`w-full text-left p-3 rounded-lg transition-colors cursor-pointer ${
                       selectedSede === sede.id
-                        ? "bg-green-600 text-white"
+                        ? "bg-green-700 text-white"
                         : "bg-gray-100 hover:bg-gray-200 text-gray-700"
                     }`}
                   >
@@ -233,7 +233,7 @@ export default function SedesSection() {
 
                       {/* <button
                         onClick={() => handleAgendarCita(sede)}
-                        className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors whitespace-nowrap flex items-center gap-2 cursor-pointer border dark:border-white"
+                        className="bg-green-700 text-white px-6 py-3 rounded-lg hover:bg-green-800 transition-colors whitespace-nowrap flex items-center gap-2 cursor-pointer border dark:border-white"
                       >
                         <svg
                           className="w-5 h-5"
@@ -298,7 +298,7 @@ export default function SedesSection() {
                             className="flex items-center p-3 bg-green-50 rounded-lg"
                           >
                             <svg
-                              className="w-4 h-4 text-green-600 mr-2"
+                              className="w-4 h-4 text-green-700 mr-2"
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -320,9 +320,9 @@ export default function SedesSection() {
         </div>
 
         {/* Información sobre citas telefónicas */}
-        <div className="mt-12 bg-blue-50 rounded-lg p-8 border border-blue-200 dark:bg-gray-800 dark:border-white">
+        <div className="mt-12 bg-green-50 rounded-lg p-8 border border-green-200 dark:bg-gray-800 dark:border-white">
           <div className="max-w-4xl mx-auto">
-            <h3 className="text-xl font-bold text-blue-800 mb-4 text-center flex items-center justify-center gap-2 dark:text-white">
+            <h3 className="text-xl font-bold text-green-800 mb-4 text-center flex items-center justify-center gap-2 dark:text-white">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
@@ -331,12 +331,12 @@ export default function SedesSection() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
               <div className="bg-white rounded-lg p-6 shadow-sm dark:bg-gray-800 border dark:border-white">
-                <h4 className="font-semibold text-blue-800 mb-3 dark:text-white">
+                <h4 className="font-semibold text-green-800 mb-3 dark:text-white">
                   📞 ¿Cómo funciona?
                 </h4>
-                <ol className="space-y-2 text-blue-700 text-sm">
+                <ol className="space-y-2 text-green-700 text-sm">
                   <li className="flex items-start gap-2">
-                    <span className="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+                    <span className="bg-green-700 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
                       1
                     </span>
                     <span className="dark:text-white">
@@ -345,7 +345,7 @@ export default function SedesSection() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+                    <span className="bg-green-700 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
                       2
                     </span>
                     <span className="dark:text-white">
@@ -353,7 +353,7 @@ export default function SedesSection() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+                    <span className="bg-green-700 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
                       3
                     </span>
                     <span className="dark:text-white">
@@ -362,7 +362,7 @@ export default function SedesSection() {
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="bg-blue-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
+                    <span className="bg-green-700 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-bold">
                       4
                     </span>
                     <span className="dark:text-white">
@@ -373,36 +373,36 @@ export default function SedesSection() {
               </div>
 
               <div className="bg-white rounded-lg p-6 shadow-sm dark:bg-gray-800 border dark:border-white">
-                <h4 className="font-semibold text-blue-800 mb-3 dark:text-white">
+                <h4 className="font-semibold text-green-800 mb-3 dark:text-white">
                   ✅ Ventajas del servicio
                 </h4>
-                <ul className="space-y-2 text-blue-700 text-sm">
+                <ul className="space-y-2 text-green-700 text-sm">
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-600">•</span>
+                    <span className="text-green-700">•</span>
                     <span className="dark:text-white">
                       Atención personalizada y directa
                     </span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-600">•</span>
+                    <span className="text-green-700">•</span>
                     <span className="dark:text-white">
                       Horario disponible de lunes a viernes de 8:00 a 5:00 p.m
                     </span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-600">•</span>
+                    <span className="text-green-700">•</span>
                     <span className="dark:text-white">
                       Información en tiempo real sobre disponibilidad
                     </span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-600">•</span>
+                    <span className="text-green-700">•</span>
                     <span className="dark:text-white">
                       Posibilidad de hacer preguntas adicionales
                     </span>
                   </li>
                   <li className="flex items-center gap-2">
-                    <span className="text-blue-600">•</span>
+                    <span className="text-green-700">•</span>
                     <span className="dark:text-white">
                       Atención inmediata por teléfono
                     </span>

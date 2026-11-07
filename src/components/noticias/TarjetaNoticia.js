@@ -41,7 +41,7 @@ export default function TarjetaNoticia({ noticia }) {
             className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-green-600 to-blue-700" />
+          <div className="absolute inset-0 bg-gradient-to-br from-green-700 to-green-800" />
         )}
 
         {/* Capa oscura para legibilidad del texto */}
@@ -50,7 +50,7 @@ export default function TarjetaNoticia({ noticia }) {
         {/* Contenido superpuesto */}
         <div className="relative z-10 p-5 text-white">
           {noticia.tipo === "evento" && (
-            <span className="inline-block mb-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/90">
+            <span className="inline-block mb-2 px-3 py-1 rounded-full text-xs font-semibold bg-green-500/90">
               Evento
             </span>
           )}
@@ -68,7 +68,7 @@ export default function TarjetaNoticia({ noticia }) {
             </span>
             <button
               onClick={() => setAbierto(true)}
-              className="bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-4 py-1.5 rounded-lg transition-colors"
+              className="bg-green-700 hover:bg-green-800 text-white text-sm font-semibold px-4 py-1.5 rounded-lg transition-colors"
             >
               Leer
             </button>

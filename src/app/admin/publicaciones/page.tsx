@@ -23,7 +23,7 @@ interface Publicacion {
 
 const estadoBadge = (estado: string) => {
   const map: Record<string, string> = {
-    publicado: "bg-emerald-100 text-emerald-700",
+    publicado: "bg-green-100 text-green-700",
     borrador: "bg-yellow-100 text-yellow-700",
     archivado: "bg-slate-100 text-slate-600 dark:text-slate-300",
   };
@@ -83,14 +83,14 @@ export default function PublicacionesPage() {
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold text-slate-800 dark:text-white">Publicaciones</h1>
         {esAdmin && (
-          <button onClick={openNew} className="flex items-center gap-2 bg-emerald-600 text-white px-4 py-2 rounded-lg hover:bg-emerald-700 transition-colors text-sm font-medium">
+          <button onClick={openNew} className="flex items-center gap-2 bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-800 transition-colors text-sm font-medium">
             <Plus className="h-4 w-4" /> Agregar
           </button>
         )}
       </div>
 
       {loading ? (
-        <div className="flex justify-center py-16"><Loader2 className="h-8 w-8 animate-spin text-emerald-600" /></div>
+        <div className="flex justify-center py-16"><Loader2 className="h-8 w-8 animate-spin text-green-700" /></div>
       ) : items.length === 0 ? (
         <div className="text-center py-16 text-slate-500 dark:text-slate-400"><FileText className="h-12 w-12 mx-auto mb-3 opacity-30" /><p>No hay publicaciones aún</p></div>
       ) : (
@@ -116,10 +116,10 @@ export default function PublicacionesPage() {
                   <td className="px-4 py-3 text-slate-500 dark:text-slate-400 hidden md:table-cell">{new Date(p.creado_en).toLocaleDateString("es-CO")}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center justify-end gap-2">
-                      <button onClick={() => toggleEstado(p)} className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-emerald-600 hover:bg-emerald-50 rounded-lg transition-colors" title={p.estado === "publicado" ? "Despublicar" : "Publicar"}>
+                      <button onClick={() => toggleEstado(p)} className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors" title={p.estado === "publicado" ? "Despublicar" : "Publicar"}>
                         {p.estado === "publicado" ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                       </button>
-                      <button onClick={() => openEdit(p)} className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                      <button onClick={() => openEdit(p)} className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-green-700 hover:bg-green-50 rounded-lg transition-colors">
                         <Pencil className="h-5 w-5" />
                       </button>
                       <button onClick={() => handleDelete(p.id)} className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors">
@@ -145,11 +145,11 @@ export default function PublicacionesPage() {
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Título *</label>
-                <input type="text" required value={form.titulo} onChange={e => setForm({ ...form, titulo: e.target.value })} className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                <input type="text" required value={form.titulo} onChange={e => setForm({ ...form, titulo: e.target.value })} className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Resumen</label>
-                <textarea rows={2} value={form.resumen} onChange={e => setForm({ ...form, resumen: e.target.value })} className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" placeholder="Descripción corta para vista previa..." />
+                <textarea rows={2} value={form.resumen} onChange={e => setForm({ ...form, resumen: e.target.value })} className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Descripción corta para vista previa..." />
               </div>
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Imagen de portada</label>
@@ -180,11 +180,11 @@ export default function PublicacionesPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Autor</label>
-                  <input type="text" value={form.autor} onChange={e => setForm({ ...form, autor: e.target.value })} className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500" />
+                  <input type="text" value={form.autor} onChange={e => setForm({ ...form, autor: e.target.value })} className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500" />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 dark:text-slate-200 mb-1">Estado</label>
-                  <select value={form.estado} onChange={e => setForm({ ...form, estado: e.target.value as "borrador" | "publicado" })} className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                  <select value={form.estado} onChange={e => setForm({ ...form, estado: e.target.value as "borrador" | "publicado" })} className="w-full border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500">
                     <option value="borrador">Borrador</option>
                     <option value="publicado">Publicado</option>
                   </select>
@@ -192,7 +192,7 @@ export default function PublicacionesPage() {
               </div>
               <div className="flex justify-end gap-3 pt-2">
                 <button type="button" onClick={() => setModalOpen(false)} className="px-4 py-2 text-sm text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:text-white border border-slate-300 dark:border-slate-600 rounded-lg">Cancelar</button>
-                <button type="submit" disabled={saving} className="flex items-center gap-2 px-4 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 disabled:opacity-60">
+                <button type="submit" disabled={saving} className="flex items-center gap-2 px-4 py-2 text-sm bg-green-700 text-white rounded-lg hover:bg-green-800 disabled:opacity-60">
                   {saving && <Loader2 className="h-4 w-4 animate-spin" />}
                   {editing ? "Guardar cambios" : "Crear publicación"}
                 </button>

@@ -26,7 +26,7 @@ export default function RichTextEditor({ content, onChange }: RichTextEditorProp
     extensions: [
       StarterKit,
       Image.configure({ inline: false, allowBase64: true }),
-      Link.configure({ openOnClick: false, HTMLAttributes: { class: "text-emerald-600 underline" } }),
+      Link.configure({ openOnClick: false, HTMLAttributes: { class: "text-green-700 underline" } }),
       Youtube.configure({ width: 640, height: 360 }),
     ],
     content,
